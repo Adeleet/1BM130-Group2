@@ -1,0 +1,1092 @@
+auction_id;auction_name;auction_country;country_isocode;startdate;closedate;onlinedate;is_private;is_active;is_homedelivery;is_public;open_for_bidding;is_closed;sourcing_company
+37596;Luxe horloges w.o. Seiko Breitling & Omega;Netherlands;nl;2019-12-26;2020-01-02;;0;0;1;0;0;1;art
+37597;Luxe horloges w.o. Seiko Breitling & Franck Muller;Netherlands;nl;2020-01-03;2020-01-09;;0;0;1;0;0;1;art
+37598;BU5 - SNS;Netherlands;nl;2020-01-09;2020-01-16;;0;0;1;1;0;1;art
+37599;Luxe horloges w.o. Calvin Klein Swiss Alpine Military & Hublot;Netherlands;nl;2020-01-17;2020-01-23;;0;0;1;0;0;1;art
+38138;Luxury jewels and watches;Netherlands;nl;2019-12-31;2020-01-05;;0;0;1;0;0;1;art
+38218;Vintage & antique jewellery;Netherlands;nl;2020-01-02;2020-01-07;;0;0;1;1;0;1;art
+38219;Vintage & Antique Jewellery;Netherlands;nl;2020-01-07;2020-01-14;;0;1;1;0;0;1;art
+39647;Postzegel en munten collecties;Netherlands;nl;2019-12-20;2020-01-02;;0;0;1;0;0;1;bva
+40620;Keukens en apparatuur op diverse locaties;Netherlands;nl;2019-12-20;2020-01-02;;0;0;0;0;0;1;bva
+41098;GEANNULEERD - Emmen Dillingecamp  22;Netherlands;nl;2020-01-21;2020-01-21;;0;1;0;1;0;1;nvv
+41567;Groothandelsvoorraad met o.a. Makita DeWalt & Milwaukee;Netherlands;nl;2019-12-29;2020-01-04;;0;0;1;0;0;1;bva
+41752;Alles voor de doe-het-zelver;Netherlands;nl;2019-12-24;2020-01-01;;0;0;1;0;0;1;bva
+42504;Foodtrucks podiumwagens audio-apparatuur en horeca te Kerkrade;Netherlands;nl;2019-12-20;2020-01-09;;0;0;0;0;0;1;bva
+42654;Eikenhouten vloeren en visgraat te Den Dungen;Netherlands;nl;2019-12-28;2020-01-20;;0;0;0;0;0;1;bva
+42860;Casco rondvaartboot Meppelerdiep;Netherlands;nl;2020-01-24;2020-01-24;;0;1;0;0;0;1;bog
+42863;Tuin(hout) plaatmateriaal bouwmaterialen en varia te Vroomshoop;Netherlands;nl;2019-12-20;2020-01-03;;0;0;0;0;0;1;bva
+43083;GEANNULEERD - Rotterdam Van Langendonckstraat  35;Netherlands;nl;2020-01-24;2020-01-24;;0;0;0;1;0;1;nvv
+43173;First diamonds of the year 2020;Netherlands;nl;2019-12-18;2020-01-04;;0;0;1;0;0;1;art
+43221;Alles voor de slaapkamer;Netherlands;nl;2019-12-28;2020-01-05;;0;0;1;0;0;1;bva
+43222;Alles voor de slaapkamer;Netherlands;nl;2020-01-11;2020-01-19;;0;0;1;0;0;1;bva
+43238;(Bezorgveiling) Alles voor het kind veiling (Combi inbreng);Netherlands;nl;2019-12-28;2020-01-05;;0;0;1;0;0;1;bva
+43239;Alles voor het kind;Netherlands;nl;2020-01-11;2020-01-19;;0;0;1;0;0;1;bva
+43250;GEGUND Bolsward Nyckle Haismastraat  15;Netherlands;nl;2020-01-24;2020-01-24;;0;0;0;1;0;1;nvv
+43255;Alles voor dieren veiling;Netherlands;nl;2020-01-04;2020-01-12;;0;0;1;0;0;1;bva
+43266;Alles voor de tuin;Netherlands;nl;2019-12-28;2020-01-05;;0;0;1;0;0;1;bva
+43274;Alles voor onderweg/hobbyist;Netherlands;nl;2019-12-28;2020-01-05;;0;0;1;0;0;1;bva
+43275;Alles voor onderweg/hobbyist;Netherlands;nl;2020-01-11;2020-01-19;;0;0;1;0;0;1;bva
+43287;GEANNULEERD - Nieuwegein Arresleedrift  8;Netherlands;nl;2020-02-11;2020-02-11;;0;0;0;0;0;1;nvv
+43289;GEANNULEERD - Sint Philipsland Plataanstraat 43;Netherlands;nl;2020-01-24;2020-01-24;;0;1;0;1;0;1;nvv
+43290;Nootdorp Zonnehof 5;Netherlands;nl;2020-01-24;2020-01-24;;0;1;0;na;0;1;nvv
+43291;Nootdorp Zonnehof 5;Netherlands;nl;2020-01-24;2020-01-24;;0;1;0;na;0;1;nvv
+43319;-;Netherlands;nl;2020-02-20;2020-02-20;;0;1;0;1;0;1;nvv
+43385;Sanitair;Netherlands;nl;2020-01-06;2020-01-13;;0;0;1;0;0;1;bva
+43386;Sanitair;Netherlands;nl;2020-01-20;2020-01-27;;0;0;1;0;0;1;bva
+43437;Giesbeek Hoefjes  5;Netherlands;nl;2020-01-21;2020-01-21;;0;1;0;0;0;1;nvv
+43438;GEANNULEERD - Dordrecht De Vereniging  6;Netherlands;nl;2020-01-21;2020-01-21;;0;1;0;na;0;1;nvv
+43497;GEANNULEERD - St. Willebrord Kaaistraat 20;Netherlands;nl;2020-02-11;2020-02-11;;0;0;0;0;0;1;nvv
+43498;GEGUND Dordrecht Boris Pasternak-erf  48;Netherlands;nl;2020-01-24;2020-01-24;;0;0;0;0;0;1;nvv
+43501;GEGUND Lelystad Oostrandpark 83;Netherlands;nl;2020-02-11;2020-02-11;;0;1;0;1;0;1;nvv
+43502;GEANNULEERD - Almelo De Merel 30;Netherlands;nl;2020-02-11;2020-02-11;;0;1;0;na;0;1;nvv
+43503;Den Haag Kattestaartveld 35;Netherlands;nl;2020-01-21;2020-01-21;;0;1;0;0;0;1;nvv
+43504;GEGUND Dordrecht Zuilenburg 159;Netherlands;nl;2020-02-11;2020-02-11;;0;0;0;1;0;1;nvv
+43517;GEANNULEERD - Huizen Simone de Beauvoirlaan  28;Netherlands;nl;2020-01-21;2020-01-21;;0;1;0;na;0;1;nvv
+43575;GEGUND Steenwijk De Rikking  26;Netherlands;nl;2020-01-24;2020-01-24;;0;0;0;1;0;1;nvv
+43577;UITGESTELD - Rijswijk Volmerlaan  3 en 5;Netherlands;nl;2020-01-30;2020-01-30;;0;1;0;1;0;1;bog
+43613;GEANNULEERD - Wagenberg Zuidveren 9;Netherlands;nl;2020-01-28;2020-01-28;;0;1;0;0;0;1;nvv
+43708;Heerlen Prinses Irenestraat  8;Netherlands;nl;2020-01-28;2020-01-28;;0;1;0;1;0;1;nvv
+43772;GEANNULEERD - Groningen Jakob Israel de Haanstraat 31;Netherlands;nl;2020-01-28;2020-01-28;;0;1;0;1;0;1;nvv
+43793;ONDERHANDS VERKOCHT - Abcoude Amsterdamsestraatweg 106 en 30 (G1);Netherlands;nl;2020-01-24;2020-01-24;;0;0;0;1;0;1;bog
+43794;Rotterdam Binnenrotte 129;Netherlands;nl;2020-01-24;2020-01-24;;0;0;0;1;0;1;bog
+43832;(T) Bouwmachines en aannemersmateriaal te Staphorst (Geta Handelsonderneming);Netherlands;nl;2019-12-20;2020-01-08;;0;0;0;1;0;1;bva
+43843;A-merk E-bikes en partijen van o.a. Stella Amslod & Sparta te Leiden;Netherlands;nl;2019-12-28;2020-01-03;;0;0;0;0;0;1;bva
+43852;Bavaria 1060 te Sneek;Netherlands;nl;2020-01-24;2020-01-30;;0;0;0;0;0;1;bva
+43855;Chris Craft 34 Double Cabin Replica te Kerkdriel;Netherlands;nl;2020-01-02;2020-01-09;;0;0;0;na;0;1;bva
+43857;Diva 890 te Kerkdriel;Netherlands;nl;2020-01-01;2020-01-08;;0;0;0;na;0;1;bva
+43858;BARKAS 1100 OK (Schipveiling.nl);Netherlands;nl;2020-01-09;2020-01-16;;0;0;0;1;0;1;bva
+43859;Silver Classic MY 43 te Loosdrecht;Netherlands;nl;2020-01-21;2020-01-28;;0;0;0;0;0;1;bva
+43946;GEANNULEERD - s-Hertogenbosch Rompert park  27;Netherlands;nl;2020-02-11;2020-02-11;;0;0;0;1;0;1;nvv
+43947;GEANNULEERD - s-Gravenhage Hart Nibbrigkade  128;Netherlands;nl;2020-02-11;2020-02-11;;0;0;0;1;0;1;nvv
+43948;Design keukens apparatuur & sanitair van o.a. Ballerina & Thebalux te Eindhoven;Netherlands;nl;2020-01-24;2020-02-06;;0;0;0;0;0;1;bva
+43949;GEGUND t Harde Travertin 17;Netherlands;nl;2020-02-11;2020-02-11;;0;1;0;1;0;1;nvv
+43951;GEGUND - Den Haag Escamplaan 100;Netherlands;nl;2020-01-24;2020-01-24;;0;1;0;1;0;1;nvv
+44023;Kantoormeubilair en ICT;Netherlands;nl;2019-12-25;2020-01-02;;0;0;1;0;0;1;bva
+44032;Alles voor wonen;Netherlands;nl;2019-12-25;2020-01-01;;0;0;1;0;0;1;bva
+44033;Alles voor wonen;Netherlands;nl;2020-01-01;2020-01-08;;0;0;1;0;0;1;bva
+44034;Woninginrichting;Netherlands;nl;2020-01-08;2020-01-15;;0;0;1;0;0;1;bva
+44035;Woninginrichting;Netherlands;nl;2020-01-15;2020-01-22;;0;0;1;0;0;1;bva
+44045;UITGESTELD - Eindhoven Keldermansstraat  3;Netherlands;nl;2020-02-04;2020-02-04;;0;1;0;1;0;1;nvv
+44046;GEANNULEERD - Nieuwleusen Burgemeester Mulderlaan 8;Netherlands;nl;2020-01-30;2020-01-30;;0;1;0;1;0;1;bog
+44059;GEANNULEERD - Eindhoven Bachlaan 54;Netherlands;nl;2020-02-04;2020-02-04;;0;0;0;1;0;1;nvv
+44060;UITGESTELD - Limmen Jan Valkeringlaan 5;Netherlands;nl;2020-02-11;2020-02-11;;0;1;0;1;0;1;nvv
+44093;ONDERHANDS VERKOCHT - Zwaag Wierdijk 76;Netherlands;nl;2020-02-18;2020-02-18;;0;1;0;1;0;1;nvv
+44110;GEANNULEERD - Rijssen Graaf Ottostraat 60 en 60a;Netherlands;nl;2020-01-23;2020-01-23;;0;0;0;1;0;1;bog
+44111;ONDERHANDS VERKOCHT - Tholen Koningin Julianastraat 50;Netherlands;nl;2020-02-06;2020-02-06;;0;0;0;1;0;1;bog
+44152;Sportkleding en accessoires met o.a. Nike Adidas en Asics;Netherlands;nl;2019-12-31;2020-01-05;;0;0;1;0;0;1;bva
+44153;Sportkleding en accessoires met o.a. Nike Adidas en Asics;Netherlands;nl;2020-01-07;2020-01-12;;0;0;1;0;0;1;bva
+44165;Kleding en schoenen voor dames van o.a. Calvin Klein. Micheal Kors & Timberland;Netherlands;nl;2019-12-31;2020-01-05;;0;0;1;0;0;1;bva
+44166;Kleding horloges en schoenen voor dames van o.a. Michael Kors Dr. Martens en Guess;Netherlands;nl;2020-01-07;2020-01-12;;0;0;1;0;0;1;bva
+44175;Kleding en schoenen voor heren van o.a.  Hugo Boss Savoy & PME Legend;Netherlands;nl;2019-12-31;2020-01-04;;0;0;1;0;0;1;bva
+44176;Kleding horloges en schoenen voor heren van o.a. PME Legens Timberland & Hugo Boss;Netherlands;nl;2020-01-07;2020-01-11;;0;0;1;0;0;1;bva
+44183;Winterkleding en schoenen van o.a. Sinner Ugg & O'Neill;Netherlands;nl;2019-12-31;2020-01-04;;0;0;1;0;0;1;bva
+44184;Winterkleding en schoenen;Netherlands;nl;2020-01-07;2020-01-11;;0;0;1;0;0;1;bva
+44190;(Bezorgveiling) Conumentenelektronica (Combi Elektronica en gadgets);Netherlands;nl;2019-12-31;2020-01-07;;0;0;1;0;0;1;bva
+44191;Elektronica en gadgets;Netherlands;nl;2020-01-07;2020-01-14;;0;0;1;0;0;1;bva
+44192;Elektronica en gadgets;Netherlands;nl;2020-01-14;2020-01-21;;0;0;1;0;0;1;bva
+44208;GEANNULEERD - Neeritter Diamantstraat 41;Netherlands;nl;2020-01-28;2020-01-28;;0;1;0;1;0;1;nvv
+44210;GEGUND Meijel Schoolstraat 6;Netherlands;nl;2020-01-24;2020-01-24;;0;0;0;1;0;1;nvv
+44214;Almere Stijn Streuvelshof 10;Netherlands;nl;2020-02-11;2020-02-11;;0;1;0;1;0;1;nvv
+44215;Foutieve veiling;Netherlands;nl;2020-02-11;2020-02-11;;0;1;0;1;0;1;nvv
+44230;GEANNULEERD - Harderwijk Landbouwlaan 3;Netherlands;nl;2020-01-30;2020-01-30;;0;1;0;1;0;1;bog
+44255;GEANNULEERD - Harderwijk Smeepoortstraat 42;Netherlands;nl;2020-01-23;2020-01-23;;0;0;0;1;0;1;bog
+44313;BVA Top Lots - Retourgoederen van o.a. MSI Asus Whirlpool & Acer;Netherlands;nl;2019-12-28;2020-01-01;;0;0;1;0;0;1;bva
+44314;BVA Top Lots - Retourgoederen van o.a. MSI Microsoft Sony & Apple;Netherlands;nl;2019-12-28;2020-01-02;;0;0;1;0;0;1;bva
+44315;BVA Top Lots - Retourgoederen van o.a. Samsung Brother HP & Asus;Netherlands;nl;2020-01-01;2020-01-05;;0;0;1;0;0;1;bva
+44316;ONDERHANDS VERKOCHT - Nieuwe-Tonge Kerkring 22 en 22A;Netherlands;nl;2020-02-20;2020-02-20;;0;1;0;1;0;1;bog
+44324;ONDERHANDS VERKOCHT - Farmsum Industriepark  2;Netherlands;nl;2020-02-13;2020-02-13;;0;0;0;1;0;1;bog
+44325;K SESSA C 52 (Schipveiling.nl);Netherlands;nl;2020-01-01;2020-01-15;;0;1;0;na;0;1;bva
+44352;ONDERHANDS VERKOCHT - Winterswijk Bargerstegge 70;Netherlands;nl;2020-02-18;2020-02-18;;0;1;0;1;0;1;nvv
+44367;Sanitair & Installatietechniek te Ede (Romarco B.V));Netherlands;nl;2019-12-24;2020-01-02;;0;0;0;0;0;1;bva
+44379;GEANNULEERD - Dordrecht Javastraat 55 en 57;Netherlands;nl;2020-02-18;2020-02-18;;0;1;0;1;0;1;nvv
+44380;Ede Zonneoordlaan  47A (Kavel 24);Netherlands;nl;2020-02-18;2020-02-18;;0;0;0;1;0;1;nvv
+44388;UITGESTELD - Hillegom Klein Elsbroek 2;Netherlands;nl;2020-02-04;2020-02-04;;0;1;0;1;0;1;nvv
+44395;K Chris Craft 34 Double Cabin Replica (Schipveiling.nl);Netherlands;nl;2020-01-02;2020-01-09;;0;1;0;na;0;1;bva
+44406;Personenauto’s te Geesteren;Netherlands;nl;2020-01-03;2020-01-14;;0;0;0;0;0;1;bva
+44416;Boxsprings;Netherlands;nl;2020-01-02;2020-01-09;;0;0;1;0;0;1;bva
+44417;Boxsprings;Netherlands;nl;2020-01-16;2020-01-23;;0;0;1;0;0;1;bva
+44418;UITGESTELD - Recreatiewoning te Herkingen;Netherlands;nl;2020-02-20;2020-02-20;;0;1;0;1;0;1;nvv
+44433;Middelburg De Ruyterstraat 91;Netherlands;nl;2020-01-24;2020-01-24;;0;1;0;1;0;1;nvv
+44434;ADVERTENTIEKOSTEN - Veilingnotaris;Netherlands;nl;2020-01-24;2020-01-24;;0;1;0;1;0;1;nvv
+44439;Bedrijfsbeëindiging Kijk Partyverhuur te Den Haag;Netherlands;nl;2020-01-07;2020-01-21;;0;0;0;0;0;1;bva
+44468;Goede doelen veiling - ‘Paulien van Deutekom Foundation’;Netherlands;nl;2020-01-10;2020-01-19;;0;0;1;0;0;1;bva
+44481;ONDERHANDS VERKOCHT - Haarlem Hendrik Figeeweg 13 A-C;Netherlands;nl;2020-02-13;2020-02-13;;0;1;0;1;0;1;bog
+44482;GEANNULEERD - Julianadorp Residence Juliana 12;Netherlands;nl;2020-01-30;2020-01-30;;0;1;0;1;0;1;nvv
+44483;UITGESTELD - Rotterdam Rietdekkerweg 122;Netherlands;nl;2020-01-16;2020-01-16;;0;1;0;1;0;1;nvv
+44495;ONDERHANDS VERKOCHT - Een perceel grasland gelegen aan de Kromelle te Drogeham;Netherlands;nl;2020-02-13;2020-02-13;;0;0;0;1;0;1;bog
+44496;ONDERHANDS VERKOCHT - Leeuwarden Kalverdijkje 77c;Netherlands;nl;2020-02-20;2020-02-20;;0;0;0;1;0;1;bog
+44500;Retourgoederen van o.a. Philips LG Samsung & Acer;Netherlands;nl;2019-12-27;2020-01-01;;0;0;1;0;0;1;bva
+44502;GEGUND Haaksbergen Lansinkstraat 134;Netherlands;nl;2020-02-11;2020-02-11;;0;0;0;1;0;1;nvv
+44513;GEANNULEERD - s-Gravenhage Van Alkemadelaan  350 218-219;Netherlands;nl;2020-02-11;2020-02-11;;0;0;0;1;0;1;nvv
+44514;Eetcafe inventaris - horeca apparatuur en meubilair te Tilburg;Netherlands;nl;2019-12-20;2020-01-13;;0;0;0;0;0;1;bva
+44515;ONDERHANDS VERKOCHT - Haarlem Beijnesweg 13;Netherlands;nl;2020-02-13;2020-02-13;;0;1;0;1;0;1;bog
+44533;Meppel Loberingemaat 5 F;Netherlands;nl;2020-01-28;2020-01-28;;0;1;0;1;0;1;bog
+44535;GEANNULEERD - Meppel Loberingemaat 5 F;Netherlands;nl;2020-01-28;2020-01-28;;0;1;0;1;0;1;bog
+44536;Bijoux lederen jassen & winkelinrichting te Oisterwijk;Netherlands;nl;2019-12-23;2020-01-07;;0;0;0;0;0;1;bva
+44541;TESTVEILING Amersfoort Kryptonweg 8;Netherlands;nl;2020-01-25;2020-01-25;;0;1;0;1;0;1;nvv
+44544;Retourgoederen van o.a. Bosch Canon & Rev'it;Netherlands;nl;2019-12-24;2020-01-02;;0;0;1;0;0;1;bva
+44557;ONDERHANDS VERKOCHT - Lelystad Zuiveringweg 64 66 en 68;Netherlands;nl;2020-02-20;2020-02-20;;0;1;0;1;0;1;bog
+44561;Kantoorinrichting en ICT;Netherlands;nl;2020-01-01;2020-01-09;;0;0;1;0;0;1;bva
+44562;Kantoor meubilair en ICT;Netherlands;nl;2020-01-08;2020-01-16;;0;0;1;0;0;1;bva
+44563;Kantoor meubilair en ICT;Netherlands;nl;2020-01-15;2020-01-23;;0;0;1;0;0;1;bva
+44575;Professionele ICT te Bleiswijk;Netherlands;nl;2020-01-07;2020-01-14;;0;0;0;0;0;1;bva
+44576;Youngtimers & specials te Uithoorn;Netherlands;nl;2019-12-12;2020-01-07;;0;0;0;0;0;1;bva
+44577;Classic & sports cars te Uithoorn;Netherlands;nl;2019-12-12;2020-01-08;;0;0;0;0;0;1;bva
+44581;Faillissement van Thermen Houten BV te Houten (1/2);Netherlands;nl;2020-01-17;2020-01-27;;0;0;0;1;0;1;bva
+44586;Executieveiling tandartspraktijk te Amersfoort;Netherlands;nl;2019-12-09;2020-01-06;;0;0;0;1;0;1;bva
+44596;(Automotive) Classic & Sports Cars te Amsterdam (CCA);Netherlands;nl;2019-12-12;2020-01-06;;0;0;0;1;0;1;bva
+44634;ONDERHANDS VERKOCHT - Amsterdam Lou Jansenplein  50 H;Netherlands;nl;2020-02-13;2020-02-13;;0;0;0;1;0;1;nvv
+44638;Perceel bouwgrond te Lottum;Netherlands;nl;2020-01-10;2020-01-10;;0;0;0;0;0;1;bog
+44641;Tuin en terras;Netherlands;nl;2020-01-04;2020-01-12;;0;0;1;0;0;1;bva
+44642;Alles voor de tuin en terras;Netherlands;nl;2020-01-11;2020-01-19;;0;0;1;0;0;1;bva
+44643;Tuin en terras;Netherlands;nl;2020-01-18;2020-01-26;;0;0;1;0;0;1;bva
+44644;Tuin en terras;Netherlands;nl;2020-01-25;2020-02-02;;0;0;1;0;0;1;bva
+44645;Alles voor tuin en terras;Netherlands;nl;2020-02-01;2020-02-09;;0;0;1;0;0;1;bva
+44646;Tuin en terras;Netherlands;nl;2020-02-08;2020-02-16;;0;0;1;0;0;1;bva
+44648;Professionele ICT goederen;Netherlands;nl;2020-01-20;2020-01-28;;0;0;1;0;0;1;bva
+44650;Dier- en tuinbenodigdheden (werk)kleding & installatiematerialen te Julianadorp;Netherlands;nl;2019-12-24;2020-01-13;;0;0;0;0;0;1;bva
+44651;Tafels voor binnen en buiten en partij hout te Soest (AP van Doorn Holding BV);Netherlands;nl;2019-12-18;2020-01-06;;0;0;0;1;0;1;bva
+44655;Rinker 300 Express Cruiser te Jirsum;Netherlands;nl;2020-02-06;2020-02-13;;0;0;0;0;0;1;bva
+44656;Van De Stadt Tulla III te Katwoude;Netherlands;nl;2020-01-07;2020-01-21;;0;0;0;0;0;1;bva
+44657;Bruce Roberts 45 Center Cockpit Ketch;Netherlands;nl;2020-02-11;2020-02-25;;0;1;0;0;0;1;bva
+44682;Classic & Sports Cars te Brummen;Netherlands;nl;2020-01-09;2020-01-29;;0;0;0;0;0;1;bva
+44684;Legervoertuigen van Defensie (i.o.v. Domeinen Roerende zaken) te Almelo;Netherlands;nl;2019-12-13;2020-01-13;;0;0;0;1;0;1;bva
+44686;GEANNULEERD - Pesse Oostering 30;Netherlands;nl;2020-02-06;2020-02-06;;0;1;0;1;0;1;bog
+44687;Scooterveiling te Leiden;Netherlands;nl;2020-01-02;2020-01-08;;0;0;0;0;0;1;bva
+44689;Eindejaars opruiming Lifestyle meubelen te s’Heerenberg;Netherlands;nl;2019-12-24;2020-01-02;;0;0;0;0;0;1;bva
+44699;Consumentengoederen w.o. decoratie tapijten & installatiematerialen te Tilburg;Netherlands;nl;2019-12-19;2020-01-03;;0;0;0;0;0;1;bva
+44700;Inventaris woningdecoratie dierbenodigdheden en tuinbenodigdheden te Cuijk;Netherlands;nl;2019-12-18;2020-01-06;;0;0;0;0;0;1;bva
+44703;Café-Restaurant Fort H te Muiden;Netherlands;nl;2019-12-23;2020-01-06;;0;0;0;0;0;1;bva
+44704;Restaurant inventaris te De Bilt;Netherlands;nl;2019-12-23;2020-01-02;;0;0;0;0;0;1;bva
+44705;Kantoorinventaris en schilderijen te De Bilt;Netherlands;nl;2019-12-23;2020-01-06;;0;0;0;0;0;1;bva
+44727;Bouwmateriaal en -materieel rollend materiaal &  gereedschap te Geesteren;Netherlands;nl;2019-12-25;2020-01-06;;0;0;0;0;0;1;bva
+44729;Houtbewerkingsmachines te Amersfoort en Boxmeer;Netherlands;nl;2019-12-09;2020-01-06;;0;0;0;0;0;1;bva
+44731;GEANNULEERD K Bedrijfsbeeindiging Hubo Zeewolde (Hubo Zeewolde);Netherlands;nl;2019-12-12;2020-01-12;;0;1;0;0;0;1;bva
+44733;Stellingen foto apparatuurprinters- en vouwmachines te Beek;Netherlands;nl;2019-12-23;2020-01-13;;0;0;0;0;0;1;bva
+44734;A-merken elektrisch gereedschap machines en toebehoren;Netherlands;nl;2020-01-12;2020-01-18;;0;0;1;0;0;1;bva
+44735;Stockveiling gereedschap met o.a. Makita DeWalt Festool & Metabo;Netherlands;nl;2020-01-26;2020-02-01;;0;0;1;1;0;1;bva
+44736;Gereedschap machines en toebehoren met o.a. Makita DeWalt Milwaukee & Metabo;Netherlands;nl;2020-02-16;2020-02-22;;0;0;1;0;0;1;bva
+44737;Gereedschap Machines en toebehoren met o.a. Makita DeWalt Milwaukee & Metabo;Netherlands;nl;2020-02-23;2020-02-29;;0;0;1;0;0;1;bva
+44753;Horeca apparatuur en inventaris te Diever;Netherlands;nl;2019-12-20;2020-01-07;;0;0;0;0;0;1;bva
+44763;Antiques collectibles jewellery watches & silver;Netherlands;nl;2019-12-25;2020-01-01;;0;0;1;0;0;1;art
+44764;K BU5 - VCC;Netherlands;nl;2019-12-26;2020-01-02;;0;1;1;1;0;1;art
+44766;K BU5 - VCC;Netherlands;nl;2019-12-27;2020-01-03;;0;1;1;1;0;1;art
+44767;K BU5 - VCC;Netherlands;nl;2019-12-28;2020-01-04;;0;1;1;1;0;1;art
+44768;K BU5 - VCC;Netherlands;nl;2019-12-29;2020-01-05;;0;1;1;1;0;1;art
+44769;K BU5 - VCC;Netherlands;nl;2019-12-30;2020-01-06;;0;1;1;1;0;1;art
+44770;K BU5 - VCC;Netherlands;nl;2019-12-31;2020-01-07;;0;1;1;1;0;1;art
+44771;K BU5 - VCC;Netherlands;nl;2020-01-01;2020-01-08;;0;1;1;1;0;1;art
+44772;K BU5 - VCC;Netherlands;nl;2020-01-02;2020-01-09;;0;1;1;1;0;1;art
+44773;K BU5 - VCC;Netherlands;nl;2020-01-03;2020-01-10;;0;1;1;1;0;1;art
+44774;Vintage collectibles watches toys & jewellery.;Netherlands;nl;2020-01-04;2020-01-11;;0;0;1;0;0;1;art
+44777;Woningdecoratie en inrichting & magazijnstellingen te Ulft;Netherlands;nl;2019-12-25;2020-01-08;;0;0;0;0;0;1;bva
+44778;Tuindecoratie terrashaarden meubels en spiegels te Ulft;Netherlands;nl;2020-01-20;2020-02-03;;0;0;0;0;0;1;bva
+44784;Dealeroccasions te Veenendaal;Netherlands;nl;2019-12-31;2020-01-06;;0;0;0;0;0;1;bva
+44785;Dealeroccasions te Veenendaal;Netherlands;nl;2020-01-08;2020-01-13;;0;0;0;0;0;1;bva
+44786;Dealeroccasions te Veenendaal;Netherlands;nl;2020-01-15;2020-01-20;;0;0;0;0;0;1;bva
+44794;Gereedschap voor de vakman en doe-het-zelver van o.a. Makita DeWalt & Bosch;Netherlands;nl;2020-01-05;2020-01-11;;0;0;1;0;0;1;bva
+44795;Machines en gereedschap met o.a. Makita DeWalt & Festool;Netherlands;nl;2020-01-19;2020-01-25;;0;0;1;0;0;1;bva
+44796;Machines en gereedschap van o.a. Makita DeWalt & Festool;Netherlands;nl;2020-02-02;2020-02-08;;0;0;1;0;0;1;bva
+44797;Voor de vakman en doe-het-zelvers;Netherlands;nl;2020-02-09;2020-02-15;;0;0;1;0;0;1;bva
+44808;30m Mooring in Marina de Sotogrande te San Roque (Spain);Netherlands;nl;2020-01-17;2020-02-18;;0;0;0;0;0;1;bva
+44809;35m Mooring in Marina de Sotogrande te San Roque (Spain);Netherlands;nl;2020-01-24;2020-02-25;;0;0;0;0;0;1;bva
+44818;UITGESTELD - Rotterdam Hongkongstraat  74;Netherlands;nl;2020-01-21;2020-01-21;;0;0;0;0;0;1;bog
+44820;Faillissement NL Onsite B.V. te Amsterdam;Netherlands;nl;2019-12-23;2020-01-06;;0;0;0;0;0;1;bva
+44822;Tuin- en Douglashout;Netherlands;nl;2019-12-23;2020-01-02;;0;0;1;0;0;1;bva
+44823;(F) Faillissement Plons Water- En Hengelsport B.V. te Oldemarkt;Netherlands;nl;2020-01-17;2020-02-03;;0;0;0;0;0;1;bva
+44824;Faillissement Plons Water- En Hengelsport B.V. te Oldemarkt (3/3);Netherlands;nl;2020-01-21;2020-02-05;;0;0;0;0;0;1;bva
+44825;Tuin- en Douglashout te Hardenberg;Netherlands;nl;2019-12-31;2020-01-09;;0;0;0;0;0;1;bva
+44826;Faillissement Plons Water- En Hengelsport B.V. te Oldemarkt (2/3);Netherlands;nl;2020-01-17;2020-02-04;;0;0;0;0;0;1;bva
+44827;Kantoormeubilair te Haelen;Netherlands;nl;2019-12-25;2020-01-07;;0;0;0;0;0;1;bva
+44828;(F) Executieveiling Abanoglu Holding te Amersfoort (Belastingdienst);Netherlands;nl;2019-12-16;2020-01-06;;0;0;0;0;0;1;bva
+44831;Bouwmaterialen elektrisch gereedschap en toebehoren te Rijssen;Netherlands;nl;2019-12-23;2020-01-07;;0;0;0;0;0;1;bva
+44833;Witgoed en huishoudelijk te Boxmeer;Netherlands;nl;2019-12-25;2020-01-08;;0;0;0;0;0;1;bva
+44834;Boten buitenboordmotoren & watersport artikelen te Zevenaar;Netherlands;nl;2019-12-13;2020-01-09;;0;0;0;0;0;1;bva
+44839;Bouwmaterialen vrachtauto's fitness en consumentgoederen te Nieuw Bergen;Netherlands;nl;2019-12-25;2020-01-07;;0;0;0;0;0;1;bva
+44841;Faillissement Pure Food and Drinks (restaurantinventaris) te Purmerend;Netherlands;nl;2019-12-23;2020-01-08;;0;0;0;0;0;1;bva
+44843;B'art eiken houten tafels te Amsterdam;Netherlands;nl;2019-12-18;2020-01-02;;0;0;0;0;0;1;bva
+44848;Rustic land Las talegas y La Chullera in San Roque Cádiz (Spain);Netherlands;nl;2020-01-24;2020-02-25;;0;0;0;0;0;1;bva
+44849;Residencial plot Colinas de Nagüeles in Marbella Málaga (Spain);Netherlands;nl;2020-01-24;2020-02-25;;0;1;0;0;0;1;bog
+44850;Rustic land Haza del Tabaco Rápalo San Roque Cádiz (Spain);Netherlands;nl;2020-01-24;2020-02-25;;0;0;0;0;0;1;bva
+44851;Rustic land Haza del Tabaco Rápalo (plot 16) San Roque Cádiz (Spain);Netherlands;nl;2020-01-24;2020-02-25;;0;0;0;0;0;1;bva
+44852;Residencial plot Mar de la Maestranza in Marbella Málaga (Spain);Netherlands;nl;2020-01-24;2020-02-25;;0;0;0;0;0;1;bva
+44853;Rustic land Paraje Parchite in Ronda Málaga (Spain);Netherlands;nl;2020-01-24;2020-02-25;;0;0;0;0;0;1;bva
+44854;Residencial plot El Rosal in Benamocarra Málaga (Spain);Netherlands;nl;2020-01-24;2020-02-25;;0;0;0;0;0;1;bva
+44855;"Rustic land &quot;Cortijo de Los Alamos&quot; in San Roque Cádiz (Spain)";Netherlands;nl;2020-01-24;2020-02-25;;0;1;0;;0
+44856;FOUTIEVE VEILING;Netherlands;nl;2020-01-24;2020-02-25;;0;1;0;0;0;1;bog
+44857;Rustic land Los Tulipanes in Sotogrande Cádiz (Spain);Netherlands;nl;2020-01-24;2020-02-25;;0;0;0;0;0;1;bva
+44858;Rustic land Cortijo de Los Alamos in San Roque Cádiz (Spain);Netherlands;nl;2020-01-24;2020-02-25;;0;0;0;0;0;1;bva
+44859;UITGESTELD - Den Haag Seinpostduin 66;Netherlands;nl;2020-01-15;2020-01-15;;0;1;0;na;0;1;nvv
+44860;Perceel grond met afgebrande opstallen te Emst;Netherlands;nl;2020-01-15;2020-01-15;;0;0;0;0;0;1;nvv
+44862;Amersfoort Meridiaan 58;Netherlands;nl;2020-01-15;2020-01-15;;0;1;0;0;0;1;nvv
+44863;GEANNULEERD - Herwen Polderdijk 73b;Netherlands;nl;2020-01-15;2020-01-15;;0;1;0;0;0;1;nvv
+44864;GEANNULEERD - Waalre Lissevenlaan 25;Netherlands;nl;2020-01-15;2020-01-15;;0;1;0;na;0;1;nvv
+44865;UITGESTELD - Zaandam Ooievaarstraat 25;Netherlands;nl;2020-01-15;2020-01-15;;0;1;0;na;0;1;nvv
+44866;Tinte Konneweg 15 a;Netherlands;nl;2020-01-15;2020-01-15;;0;0;0;0;0;1;nvv
+44867;Termunterzijl Mello Coendersbuurt 41;Netherlands;nl;2020-01-15;2020-01-15;;0;0;0;0;0;1;nvv
+44868;Horeca en inventaris te Etten-Leur;Netherlands;nl;2020-01-20;2020-02-11;;0;0;0;0;0;1;bva
+44871;Dagaanbiedingen woensdagavond;Netherlands;nl;2019-12-31;2020-01-01;;0;0;1;0;0;1;3rdpartydailyspecials
+44872;Dagaanbiedingen donderdagavond;Netherlands;nl;2020-01-01;2020-01-02;;0;0;1;0;0;1;3rdpartydailyspecials
+44873;Dagaanbiedingen vrijdagavond;Netherlands;nl;2020-01-02;2020-01-03;;0;0;1;0;0;1;3rdpartydailyspecials
+44876;Dagaanbiedingen woensdagmiddag;Netherlands;nl;2019-12-31;2020-01-01;;0;0;1;0;0;1;3rdpartydailyspecials
+44877;Dagaanbiedingen donderdagmiddag;Netherlands;nl;2020-01-01;2020-01-02;;0;0;1;0;0;1;3rdpartydailyspecials
+44878;Dagaanbiedingen vrijdagmiddag;Netherlands;nl;2020-01-02;2020-01-03;;0;0;1;0;0;1;3rdpartydailyspecials
+44879;Dagaanbiedingen zaterdagmiddag;Netherlands;nl;2020-01-03;2020-01-04;;0;0;1;0;0;1;3rdpartydailyspecials
+44880;Dagaanbiedingen zaterdagavond;Netherlands;nl;2020-01-03;2020-01-04;;0;0;1;0;0;1;3rdpartydailyspecials
+44881;Dagaanbiedingen zondagmiddag;Netherlands;nl;2020-01-04;2020-01-05;;0;0;1;0;0;1;3rdpartydailyspecials
+44882;Dagaanbiedingen zondagavond;Netherlands;nl;2020-01-04;2020-01-05;;0;0;1;0;0;1;3rdpartydailyspecials
+44883;Keukens te Zoeterwoude Rijndijk;Netherlands;nl;2020-01-17;2020-01-29;;0;0;0;0;0;1;bva
+44884;Consumentengoederen gereedschap intern transport & ICT te Ede;Netherlands;nl;2020-01-10;2020-01-21;;0;0;0;0;0;1;bva
+44885;Bestratingsmaterialen;Netherlands;nl;2020-01-04;2020-01-13;;0;0;1;0;0;1;bva
+44886;Bestratingsmaterialen;Netherlands;nl;2020-01-18;2020-01-27;;0;0;1;0;0;1;bva
+44887;Bestratingsmaterialen;Netherlands;nl;2020-02-01;2020-02-10;;0;0;1;0;0;1;bva
+44888;Bestratingsmaterialen;Netherlands;nl;2020-02-15;2020-02-24;;0;0;1;0;0;1;bva
+44891;Partijen hout & ijzer en aggregaten te Zaandam;Netherlands;nl;2020-02-10;2020-02-24;;0;0;0;0;0;1;bva
+44892;Exclusieve eiken parketvloeren te Utrecht;Netherlands;nl;2019-12-25;2020-01-02;;0;0;0;0;0;1;bva
+44893;PVC en laminaatvloeren te Utrecht;Netherlands;nl;2019-12-25;2020-01-02;;0;0;0;0;0;1;bva
+44894;Exclusieve eiken parketvloeren te Utrecht;Netherlands;nl;2020-01-09;2020-01-16;;0;0;0;0;0;1;bva
+44895;PVC en laminaatvloeren te Utrecht;Netherlands;nl;2020-01-09;2020-01-16;;0;0;0;0;0;1;bva
+44896;Moderne banken en stoelen te Beusichem;Netherlands;nl;2019-12-23;2020-01-09;;0;0;0;0;0;1;bva
+44898;Campers en caravans te Amersfoort;Netherlands;nl;2019-12-25;2020-01-08;;0;0;0;0;0;1;bva
+44899;Bouwbedrijven Scottish Crown en Van Bemmel te Someren;Netherlands;nl;2019-12-20;2020-01-06;;0;0;0;0;0;1;bva
+44900;Winkel en magazijninventaris D5 Avenue.com te Naarden;Netherlands;nl;2019-12-20;2020-01-08;;0;0;0;0;0;1;bva
+44901;Bedrijfsverhuizing schildersbedrijf te Venlo;Netherlands;nl;2019-12-22;2020-01-06;;0;0;0;0;0;1;bva
+44903;Faillissementsveiling IT goederen te Amersfoort;Netherlands;nl;2019-12-23;2020-01-06;;0;0;0;0;0;1;bva
+44904;Faillissementsgoederen te Amersfoort;Netherlands;nl;2020-01-06;2020-01-13;;0;0;0;0;0;1;bva
+44905;Faillissementsdossiers te Amersfoort;Netherlands;nl;2020-01-20;2020-01-27;;0;0;0;0;0;1;bva
+44906;Faillissementsgoederen te Amersfoort;Netherlands;nl;2020-02-03;2020-02-10;;0;0;0;0;0;1;bva
+44915;Sanitair en tegels (1/2) te Schiedam;Netherlands;nl;2020-01-03;2020-01-11;;0;0;0;0;0;1;bva
+44916;Sanitair en tegels (2/2) te Schiedam;Netherlands;nl;2020-01-03;2020-01-12;;0;0;0;0;0;1;bva
+44917;Sanitair en tegels te Schiedam deel 1 (Spectrum);Netherlands;nl;2020-02-07;2020-02-15;;0;0;0;0;0;1;bva
+44918;Sanitair en tegels te Schiedam (2/2);Netherlands;nl;2020-02-07;2020-02-16;;0;0;0;0;0;1;bva
+44920;Klassiekers en boot te Oud Gastel;Netherlands;nl;2019-12-20;2020-01-15;;0;0;0;0;0;1;bva
+44923;Teakhouten meubels boomstamtafels & woonaccessoires te Zwolle;Netherlands;nl;2019-12-25;2020-01-06;;0;0;0;0;0;1;bva
+44924;Winkelinventaris kledingrekken kantoormeubilair te Papendrecht;Netherlands;nl;2020-01-17;2020-01-30;;0;0;0;0;0;1;bva
+44925;Horeca- en cateringbenodigdheden te Breugel;Netherlands;nl;2020-01-16;2020-01-30;;0;0;0;0;0;1;bva
+44926;Parket- laminaat en kurkvloeren te Amersfoort;Netherlands;nl;2020-01-03;2020-01-09;;0;0;0;0;0;1;bva
+44929;Meubilair te Utrecht;Netherlands;nl;2020-01-06;2020-01-14;;0;0;0;0;0;1;bva
+44930;Meubilair en sanitair te Utrecht;Netherlands;nl;2020-02-03;2020-02-11;;0;0;0;0;0;1;bva
+44933;Faillissement van C-Powercars B.V. te Amersfoort;Netherlands;nl;2019-12-23;2020-01-06;;0;0;0;0;0;1;bva
+44935;Harley Davidson te Amersfoort (US style);Netherlands;nl;2019-12-25;2020-01-13;;0;0;0;0;0;1;bva
+44939;Socata TBM-850 Turboprop vliegtuig (Domeinen Roerende Zaken);Netherlands;nl;2019-12-23;2020-02-10;;0;0;0;0;0;1;bva
+44941;Zonnepanelen en omvormers t.b.v. zonnepanelen & aluminium steigers te Overloon;Netherlands;nl;2020-01-03;2020-01-14;;0;0;0;0;0;1;bva
+44943;Woonmeubilair en Riverdale woonaccessoires te Overloon;Netherlands;nl;2019-12-25;2020-01-07;;0;0;0;0;0;1;bva
+44944;Aluminium steigers zonnepanelen en omvormers t.b.v. zonnepanelen te Overloon (Nexttrade);Netherlands;nl;2020-01-17;2020-01-28;;0;0;0;0;0;1;bva
+44945;Zonnepanelen omvormers t.b.v. zonnepanelen en aluminium steigermateriaal te Overloon;Netherlands;nl;2020-01-31;2020-02-11;;0;0;0;0;0;1;bva
+44946;Consumentenartikelen steigermateriaal zonnepanelen en omvormers t.b.v. zonnepanelen te Boxmeer (Nexttrade);Netherlands;nl;2019-12-20;2020-01-02;;0;0;0;0;0;1;bva
+44947;Zonnepanelen omvormers en aluminium steigermateriaal te Overloon;Netherlands;nl;2020-02-14;2020-02-25;;0;0;0;0;0;1;bva
+44949;K RINKER 300 EXPRESS CRUISER (Schipveiling.nl);Netherlands;nl;2020-02-06;2020-02-13;;0;1;0;na;0;1;bva
+44951;Fitness en sportkleding;Netherlands;nl;2020-01-01;2020-01-09;;0;0;1;0;0;1;bva
+44953;Fitness en sportkleding;Netherlands;nl;2020-01-09;2020-01-16;;0;0;1;0;0;1;bva
+44954;Fitness en sportkleding;Netherlands;nl;2020-01-16;2020-01-23;;0;0;1;0;0;1;bva
+44955;Fitness en sportkleding;Netherlands;nl;2020-01-23;2020-01-30;;0;0;1;0;0;1;bva
+44956;Fitness en sportkleding;Netherlands;nl;2020-01-30;2020-02-06;;0;0;1;0;0;1;bva
+44958;GEGUND - Heerlen Passartweg voorheen 35a;Netherlands;nl;2020-02-06;2020-02-06;;0;0;0;0;0;1;bog
+44959;Horeca apparatuur & restaurantinventaris te Gorinchem;Netherlands;nl;2019-12-23;2020-01-13;;0;0;0;0;0;1;bva
+44961;Executieveiling installatiematerialen sanitair en bouwmaterialen (1/2) te Uden;Netherlands;nl;2019-12-27;2020-01-06;;0;0;0;0;0;1;bva
+44962;Executieveiling gereedschap pneumatisch gereedschap en verlichting te Uden;Netherlands;nl;2019-12-27;2020-01-06;;0;0;0;0;0;1;bva
+44963;Executieveiling drukkerijmachines tapijtstikrobot en overige machines te Uden;Netherlands;nl;2019-12-27;2020-01-06;;0;0;0;0;0;1;bva
+44973;Exclusieve auto’s & oldtimers te Boxmeer;Netherlands;nl;2019-12-23;2020-01-06;;0;0;0;0;0;1;bva
+44975;Dagaanbiedingen maandagavond;Netherlands;nl;2020-01-05;2020-01-06;;0;0;1;0;0;1;3rdpartydailyspecials
+44976;Dagaanbiedingen dinsdagavond;Netherlands;nl;2020-01-06;2020-01-07;;0;0;1;0;0;1;3rdpartydailyspecials
+44977;Dagaanbiedingen woensdagavond;Netherlands;nl;2020-01-07;2020-01-08;;0;0;1;0;0;1;3rdpartydailyspecials
+44978;Dagaanbiedingen donderdagavond;Netherlands;nl;2020-01-08;2020-01-09;;0;0;1;0;0;1;3rdpartydailyspecials
+44979;Dagaanbiedingen vrijdagavond;Netherlands;nl;2020-01-09;2020-01-10;;0;0;1;0;0;1;3rdpartydailyspecials
+44980;Dagaanbiedingen maandagmiddag;Netherlands;nl;2020-01-05;2020-01-06;;0;0;1;0;0;1;bva
+44981;Dagaanbiedingen dinsdagmiddag;Netherlands;nl;2020-01-06;2020-01-07;;0;0;1;0;0;1;3rdpartydailyspecials
+44982;Dagaanbiedingen woensdagmiddag;Netherlands;nl;2020-01-07;2020-01-08;;0;0;1;0;0;1;3rdpartydailyspecials
+44983;Dagaanbiedingen donderdagmiddag;Netherlands;nl;2020-01-08;2020-01-09;;0;0;1;0;0;1;3rdpartydailyspecials
+44984;(Bezorgveiling) Dagaanbiedingen vrijdagmiddag (wk02) (Daily Specials);Netherlands;nl;2020-01-09;2020-01-10;;0;0;1;0;0;1;3rdpartydailyspecials
+44985;Dagaanbiedingen zaterdagmiddag;Netherlands;nl;2020-01-10;2020-01-11;;0;0;1;0;0;1;3rdpartydailyspecials
+44986;Dagaanbiedingen zaterdagavond;Netherlands;nl;2020-01-10;2020-01-11;;0;0;1;0;0;1;3rdpartydailyspecials
+44987;Dagaanbiedingen zondagmiddag;Netherlands;nl;2020-01-11;2020-01-12;;0;0;1;0;0;1;3rdpartydailyspecials
+44988;Dagaanbiedingen zondagavond;Netherlands;nl;2020-01-11;2020-01-12;;0;0;1;0;0;1;3rdpartydailyspecials
+44989;Keramische tegels natuursteen en sanitair;Netherlands;nl;2020-01-07;2020-01-16;;0;0;1;0;0;1;bva
+44990;Keramische tegels natuursteen & sanitair;Netherlands;nl;2020-02-04;2020-02-13;;0;0;1;0;0;1;bva
+44993;Motoren en Scooters te Leiden;Netherlands;nl;2020-01-16;2020-01-22;;0;0;0;0;0;1;bva
+44994;Motoren en scooters te Leiden;Netherlands;nl;2020-01-30;2020-02-05;;0;0;0;0;0;1;bva
+44995;Motoren en Scooters te Leiden;Netherlands;nl;2020-02-13;2020-02-19;;0;0;0;0;0;1;bva
+44999;Motoren en Scooters te Amersfoort;Netherlands;nl;2020-01-09;2020-01-15;;0;0;0;0;0;1;bva
+45000;Motoren en Scooters te Amersfoort;Netherlands;nl;2020-01-23;2020-01-29;;0;0;0;0;0;1;bva
+45001;Motoren en scooters te Amersfoort;Netherlands;nl;2020-02-06;2020-02-12;;0;0;0;0;0;1;bva
+45002;Motoren en scooters te Amersfoort;Netherlands;nl;2020-02-20;2020-02-26;;0;0;0;0;0;1;bva
+45005;Intern transport te Ede;Netherlands;nl;2019-12-23;2020-01-03;;0;0;0;0;0;1;bva
+45007;Partijen LED verlichting;Netherlands;nl;2020-01-08;2020-01-12;;0;0;1;0;0;1;bva
+45008;Partijen led verlichting;Netherlands;nl;2020-01-15;2020-01-19;;0;0;1;0;0;1;bva
+45009;Partijen led verlichting;Netherlands;nl;2020-01-22;2020-01-26;;0;0;1;0;0;1;bva
+45010;Partijen led verlichting en beveiligingscamera’s;Netherlands;nl;2020-01-30;2020-02-02;;0;0;1;0;0;1;bva
+45011;Partijen led verlichting en beveiligingscamera’s;Netherlands;nl;2020-02-05;2020-02-09;;0;0;1;0;0;1;bva
+45012;Partijen led verlichting en beveiligingscamera’s;Netherlands;nl;2020-02-12;2020-02-16;;0;0;1;0;0;1;bva
+45013;Partijen led verlichting en beveiligingscamera’s;Netherlands;nl;2020-02-19;2020-02-23;;0;0;1;0;0;1;bva
+45014;(Bezorgveiling) Keramische vloer en wandtegels (Jabostone);Netherlands;nl;2020-01-14;2020-01-21;;0;0;1;0;0;1;bva
+45015;Keramische vloer- en wandtegels;Netherlands;nl;2020-02-04;2020-02-11;;0;0;1;0;0;1;bva
+45022;Premium horloges w.o. Seiko Franck Muller & TW Steel;Netherlands;nl;2019-12-30;2020-01-05;;0;0;1;0;0;1;art
+45023;Premium horloges w.o. Seiko Franck Muller & Roberto Cavalli;Netherlands;nl;2020-01-06;2020-01-12;;0;0;1;0;0;1;art
+45024;BU5 - SNS;Netherlands;nl;2020-01-13;2020-01-19;;0;0;1;1;0;1;art
+45025;Premium horloges w.o. Tommy Hilfiger Seiko & Nautic;Netherlands;nl;2020-01-20;2020-01-26;;0;0;1;0;0;1;art
+45026;Premium horloges w.o. Seiko Maurice Lacroix & Cartier;Netherlands;nl;2020-01-24;2020-01-30;;0;0;1;0;0;1;art
+45027;Opslagcontainer (Domeinen Roerende Zaken) Hengelo;Netherlands;nl;2019-12-19;2020-01-07;;0;0;0;0;0;1;bva
+45029;Zeegaande Loodstender te Hoek van Holland;Netherlands;nl;2020-01-27;2020-02-12;;0;0;0;0;0;1;bva
+45031;Partij roldeurkasten (Aspa) (Domeinen Roerende Zaken) Zwolle;Netherlands;nl;2019-12-24;2020-01-09;;0;0;0;0;0;1;bva
+45033;(F) Faillissement Stichting Zahet - Locatie Nijmegen;Netherlands;nl;2019-12-27;2020-01-06;;0;0;0;0;0;1;bva
+45034;Hekwerk en carports te Budel;Netherlands;nl;2019-12-31;2020-01-07;;0;0;0;0;0;1;bva
+45035;Hekwerken carports & partijen fietsonderdelen te Budel;Netherlands;nl;2020-01-28;2020-02-04;;0;0;0;0;0;1;bva
+45036;Gereedschap en consumentengoederen te Budel;Netherlands;nl;2019-12-31;2020-01-08;;0;0;0;0;0;1;bva
+45037;Gereedschap en consumentengoederen te Budel;Netherlands;nl;2020-01-28;2020-02-05;;0;0;0;0;0;1;bva
+45038;E-bikes en partijen van o.a. Giant Sparta & Union te Budel;Netherlands;nl;2019-12-31;2020-01-07;;0;0;0;0;0;1;bva
+45039;E-bikes en fietsen te Budel;Netherlands;nl;2020-01-28;2020-02-04;;0;0;0;0;0;1;bva
+45044;Retourgoederen van o.a. Asus LG en Samsung;Netherlands;nl;2020-01-02;2020-01-09;;0;0;1;0;0;1;bva
+45045;Auto's scooter en restpartij te Dokkum;Netherlands;nl;2020-01-09;2020-01-16;;0;0;0;0;0;1;bva
+45046;Retourgoederen van o.a. Kitchenaid Dirtdevil & Philips;Netherlands;nl;2020-01-23;2020-01-30;;0;0;1;0;0;1;bva
+45047;Alles voor de doe-het-zelver;Netherlands;nl;2020-01-07;2020-01-15;;0;0;1;0;0;1;bva
+45048;Alles voor de doe-het-zelver;Netherlands;nl;2020-01-21;2020-01-29;;0;0;1;0;0;1;bva
+45049;Alles voor de Doe-het-zelver;Netherlands;nl;2020-02-04;2020-02-12;;0;0;1;0;0;1;bva
+45050;Alles voor de doe-het-zelver;Netherlands;nl;2020-02-18;2020-02-26;;0;0;1;0;0;1;bva
+45051;Personen- en bedrijfsauto’s te Amersfoort;Netherlands;nl;2019-12-25;2020-01-01;;0;0;0;0;0;1;bva
+45052;Bouwmaterialen & doe het zelf artikelen te Leiden;Netherlands;nl;2020-01-18;2020-01-23;;0;0;0;0;0;1;bva
+45053;Bouwmaterialen & doe het zelf artikelen te Leiden;Netherlands;nl;2020-02-15;2020-02-20;;0;0;0;0;0;1;bva
+45055;Fietsen te leiden;Netherlands;nl;2020-01-18;2020-01-24;;0;0;0;0;0;1;bva
+45056;A-merk e-bikes en partijen van o.a. Sparta Batavus & Union te Leiden;Netherlands;nl;2020-02-01;2020-02-07;;0;0;0;0;0;1;bva
+45057;Bouwmaterialen en doe het zelf te Amersfoort;Netherlands;nl;2020-01-25;2020-01-31;;0;0;0;0;0;1;bva
+45058;Bouwmaterialen en doe het zelf te Amersfoort;Netherlands;nl;2020-02-22;2020-02-28;;0;0;0;0;0;1;bva
+45059;Fietsen te Amersfoort;Netherlands;nl;2020-01-11;2020-01-17;;0;0;0;0;0;1;bva
+45060;Faillissement De onderdelenwinkel Europa B.V. te Son;Netherlands;nl;2019-12-23;2020-01-07;;0;0;0;0;0;1;bva
+45061;(F) Faillissement De onderdelenwinkel Europa BV locatie Eindhoven (Kantoor);Netherlands;nl;2019-12-23;2020-01-06;;0;0;1;0;0;1;bva
+45062;A-merk e-bikes en partijen van o.a. Stella Sparta & Amslod te Amersfoort;Netherlands;nl;2020-01-25;2020-01-31;;0;0;0;0;0;1;bva
+45063;Wellness & lounge meubilair;Netherlands;nl;2020-01-02;2020-01-08;;0;0;1;0;0;1;bva
+45064;Wellness & lounge meubilair;Netherlands;nl;2020-01-09;2020-01-15;;0;0;1;0;0;1;bva
+45065;Wellness & lounge meubilair;Netherlands;nl;2020-01-16;2020-01-22;;0;0;1;0;0;1;bva
+45066;Wellness & lounge meubilair;Netherlands;nl;2020-01-30;2020-02-05;;0;0;1;0;0;1;bva
+45067;Wellness & lounge meubilair;Netherlands;nl;2020-02-06;2020-02-12;;0;0;1;0;0;1;bva
+45068;Wellness & lounge meubilair;Netherlands;nl;2020-02-13;2020-02-19;;0;0;1;0;0;1;bva
+45069;Faillissement Asbest Problemen BV te Apeldoorn;Netherlands;nl;2020-01-20;2020-01-27;;0;0;0;0;0;1;bva
+45071;Executieveiling installatiematerialen sanitair en bouwmaterialen (2/2) te Uden;Netherlands;nl;2019-12-30;2020-01-08;;0;0;0;0;0;1;bva
+45072;Executieveiling design meubilair en kantoorinventaris met fitness studio te Uden;Netherlands;nl;2019-12-30;2020-01-08;;0;0;0;0;0;1;bva
+45073;Executieveiling bouwmaterialen gereedschap hang- en sluitwerk te Uden;Netherlands;nl;2019-12-30;2020-01-09;;0;0;0;0;0;1;bva
+45075;Blokhutten hekwerk en Carports te Nederweert;Netherlands;nl;2019-12-30;2020-01-09;;0;0;0;0;0;1;bva
+45076;Sanitair te Nederweert;Netherlands;nl;2019-12-30;2020-01-09;;0;0;0;0;0;1;bva
+45077;Budget en festival campers en caravans te Brummen;Netherlands;nl;2020-01-13;2020-01-20;;0;0;0;0;0;1;bva
+45078;UITGESTELD - Gennep Steendalerstraat 77;Netherlands;nl;2020-01-29;2020-01-29;;0;1;0;0;0;1;nvv
+45079;Rotterdam Bergweg 215A;Netherlands;nl;2020-01-29;2020-01-29;;0;0;0;0;0;1;nvv
+45080;UITGESTELD -;Netherlands;nl;2020-01-29;2020-01-29;;0;1;0;0;0;1;nvv
+45081;Sparrenlaan 2 Doorn;Netherlands;nl;2020-01-30;2020-01-30;;0;1;0;0;0;1;bog
+45082;UITGESTELD - Roermond Olieberg 6;Netherlands;nl;2020-01-29;2020-01-29;;0;1;0;na;0;1;nvv
+45083;Rotterdam Terschellingsestraat 31B;Netherlands;nl;2020-01-29;2020-01-29;;0;0;0;0;0;1;nvv
+45084;Mariahout Heieindseweg  2;Netherlands;nl;2020-01-29;2020-01-29;;0;0;0;0;0;1;nvv
+45085;Heerhugowaard Lagedijk 5;Netherlands;nl;2020-01-29;2020-01-29;;0;0;0;0;0;1;nvv
+45087;Gereedschap w.o. Makita Hikoki & Bosch;Netherlands;nl;2020-01-16;2020-01-23;;0;0;1;0;0;1;bva
+45088;Boxsprings matrassen en bedden;Netherlands;nl;2019-12-25;2020-01-02;;0;0;1;0;0;1;bva
+45089;Boxsprings matrassen en bedden;Netherlands;nl;2020-01-09;2020-01-16;;0;0;1;0;0;1;bva
+45090;Boxsprings matrassen en bedden;Netherlands;nl;2020-01-23;2020-01-30;;0;0;1;0;0;1;bva
+45091;Horecagoederen cafetaria te Wijk en Aalburg;Netherlands;nl;2020-01-08;2020-01-20;;0;0;0;0;0;1;bva
+45092;Motoren kleding- & accessoires (Winteractie) te Oss;Netherlands;nl;2020-01-14;2020-01-27;;0;0;0;0;0;1;bva
+45093;Watersport huishoudelijke apparatuur en sanitair;Netherlands;nl;2020-02-01;2020-02-07;;0;0;1;0;0;1;bva
+45094;Designhotel Blooming Bergen te Alkmaar;Netherlands;nl;2020-01-18;2020-01-28;;0;0;0;0;0;1;bva
+45095;Executieveiling horloges en sieraden van o.a. Rolex IWC & Chopard;Netherlands;nl;2020-01-07;2020-01-13;;0;0;1;0;0;1;art
+45096;Apple producten laptops en ICT;Netherlands;nl;2019-12-31;2020-01-05;;0;0;1;0;0;1;bva
+45097;Apple producten laptops en ICT;Netherlands;nl;2020-01-07;2020-01-12;;0;0;1;0;0;1;bva
+45098;Apple producten laptops en ICT;Netherlands;nl;2020-01-14;2020-01-19;;0;0;1;0;0;1;bva
+45099;Apple producten laptops en ICT;Netherlands;nl;2020-01-21;2020-01-26;;0;0;1;0;0;1;bva
+45101;Professionele catering- en koelapparatuur te Amersfoort;Netherlands;nl;2020-01-08;2020-01-27;;0;0;0;0;0;1;bva
+45102;Woonmeubilair te s-Heerenberg;Netherlands;nl;2020-01-03;2020-01-12;;0;0;0;0;0;1;bva
+45103;BVAG5652 EK 20400039973 OCP Partij Rohde en Grahl bureaus te Eindhoven (Domeinen Roerende Zaken);Netherlands;nl;2019-12-24;2020-01-06;;0;0;0;1;0;1;bva
+45104;Design meubilair en verlichting te Amstelveen;Netherlands;nl;2019-12-24;2020-01-02;;0;0;0;0;0;1;bva
+45106;Kunst- Antiek- en Inboedelveiling Notarishuis Arnhem;Netherlands;nl;2020-01-24;2020-02-03;;0;0;0;0;0;1;art
+45107;GEGUND Middelburg De Ruyterstraat 91;Netherlands;nl;2020-01-24;2020-01-24;;0;0;0;0;0;1;nvv
+45108;Apple producten nieuw & refurbished;Netherlands;nl;2020-01-22;2020-01-30;;0;0;1;0;0;1;bva
+45109;BVA Top Lots - Retourgoederen van o.a. HP Samsung Acer & Microsoft;Netherlands;nl;2020-01-03;2020-01-06;;0;0;1;0;0;1;bva
+45110;BVA Top Lots - Retourgoederen van o.a. Siemens Samsung HP & Whirlpool;Netherlands;nl;2020-01-03;2020-01-07;;0;0;1;0;0;1;bva
+45111;BVA Top Lots - Retourgoederen van o.a. HP Asus Lenco & Philips;Netherlands;nl;2020-01-03;2020-01-08;;0;0;1;0;0;1;bva
+45112;BVA Top lots - Retourgoederen van o.a HP GoPro Bosch & Harman Kardon;Netherlands;nl;2020-01-04;2020-01-09;;0;0;1;0;0;1;bva
+45113;BVA Top lots - Retourgoederen van o.a Domyos Acer Bosch & Harman Kardon;Netherlands;nl;2020-01-08;2020-01-12;;0;0;1;0;0;1;bva
+45114;BVA Top lots - Retourgoederen van o.a HP AEG Samsung & Bosch;Netherlands;nl;2020-01-09;2020-01-13;;0;0;1;0;0;1;bva
+45115;BVA Top Lots - Retourgoederen van o.a. Asus Apple Nokia & Wiko;Netherlands;nl;2020-01-10;2020-01-14;;0;0;1;0;0;1;bva
+45116;BVA Top Lots - Retourgoederen van o.a. MSI Siemens SMEG & AEG;Netherlands;nl;2020-01-10;2020-01-15;;0;0;1;0;0;1;bva
+45117;BVA Top Lots - Retourgoederen van o.a. Motorola Microsoft en HP;Netherlands;nl;2020-01-11;2020-01-16;;0;0;1;0;0;1;bva
+45118;BVA Top Lots - Retourgoederen van o.a. SMEG Samsung HP & Lenco;Netherlands;nl;2020-01-15;2020-01-19;;0;0;1;0;0;1;bva
+45119;BVA Top Lots - Retourgoederen van o.a. Samsung HP SMEG & AEG;Netherlands;nl;2020-01-16;2020-01-20;;0;0;1;0;0;1;bva
+45120;BVA Top Lots - Retourgoederen van o.a. SMEG Siemens Sony & AEG;Netherlands;nl;2020-01-17;2020-01-21;;0;0;1;0;0;1;bva
+45121;(Bezorgveiling) Buybay Consumentengoederen (Toplots);Netherlands;nl;2020-01-17;2020-01-22;;0;0;1;0;0;1;bva
+45122;Bedrijfsbeëindiging Hubo Zeewolde;Netherlands;nl;2019-12-28;2020-01-09;;0;0;1;1;0;1;bva
+45123;Bedrijfsbeeindiging Hubo Zeewolde;Netherlands;nl;2020-01-11;2020-01-23;;0;0;1;0;0;1;bva
+45124;BVA Top Lots - Retourgoederen van o.a. HP Braun & Brabantia;Netherlands;nl;2020-01-18;2020-01-23;;0;0;1;0;0;1;bva
+45125;BVA Top Lots - Retourgoederen van o.a. Apple HP Brother & Bosch;Netherlands;nl;2020-01-22;2020-01-26;;0;0;1;0;0;1;bva
+45126;Bedrijfsbeeindiging Hubo Zeewolde te Zeewolde;Netherlands;nl;2020-01-20;2020-02-04;;0;0;0;0;0;1;bva
+45127;BVA Top Lots - Retourgoederen van o.a. HP Microsoft Roomba & Sony;Netherlands;nl;2020-01-23;2020-01-27;;0;0;1;0;0;1;bva
+45128;BVA Top Lots - Retourgoederen van o.a. SMEG Brother Samsung & Apple;Netherlands;nl;2020-01-24;2020-01-28;;0;0;1;0;0;1;bva
+45129;BVA Top Lots - Retourgoederen van o.a. Asus HP Sony & Nokia;Netherlands;nl;2020-01-24;2020-01-29;;0;0;1;0;0;1;bva
+45130;BVA Top Lots - Retourgoederen van o.a. HP Lenovo Nokia & Google;Netherlands;nl;2020-01-25;2020-01-30;;0;0;1;0;0;1;bva
+45131;BVA Top Lots - Retourgoederen van o.a. Microsoft HP Sony & Dell;Netherlands;nl;2020-01-29;2020-02-02;;0;0;1;0;0;1;bva
+45132;Vintage & pre-owned jewels and watches;Netherlands;nl;2020-01-08;2020-01-15;;0;0;1;0;0;1;art
+45133;Vintage & pre-owned jewels and watches;Netherlands;nl;2020-01-16;2020-01-23;;0;0;1;0;0;1;art
+45134;Vintage & pre-owned jewels and watches;Netherlands;nl;2020-01-24;2020-01-31;;0;0;1;0;0;1;art
+45135;BU5 - Auction NL;Netherlands;nl;2020-02-01;2020-02-08;;0;0;1;1;0;1;art
+45137;BVA Top Lots - Retourgoederen van o.a. SMEG AEG Bosch & Miele;Netherlands;nl;2020-01-31;2020-02-04;;0;0;1;0;0;1;bva
+45138;BVA Top Lots - Retourgoederen van o.a. Sony HP Nespresso & Nokia;Netherlands;nl;2020-01-31;2020-02-05;;0;0;1;0;0;1;bva
+45139;Boels Verhuur B.V. gereedschap en klein materiaal;Netherlands;nl;2020-01-06;2020-01-14;;0;0;1;0;0;1;bva
+45140;Sanitair spa's en attracties te Huissen;Netherlands;nl;2020-01-10;2020-01-17;;0;0;1;0;0;1;bva
+45141;Sanitair met o.a. douchewanden en badkamermeubels;Netherlands;nl;2020-01-24;2020-02-03;;0;0;1;0;0;1;bva
+45143;Partij bureaus o.a. Aspa Rohde en Grahl (Domeinen Roerende Zaken)  Eindhoven;Netherlands;nl;2019-12-24;2020-01-06;;0;0;0;0;0;1;bva
+45144;Kozijnen overkappingen deuren en toebehoren te Spijkenisse;Netherlands;nl;2020-01-24;2020-02-10;;0;0;0;0;0;1;bva
+45145;K BU5 - SNS;Netherlands;nl;2020-01-06;2020-01-12;;0;1;1;na;0;1;bva
+45146;K BU5 - SNS;Netherlands;nl;2020-01-13;2020-01-19;;0;1;1;na;0;1;bva
+45147;K BU5 - SNS;Netherlands;nl;2020-01-20;2020-01-26;;0;1;1;na;0;1;bva
+45148;K BU5 - SNS;Netherlands;nl;2020-01-24;2020-01-30;;0;1;1;na;0;1;bva
+45149;Altrex ladders en trappen te Veghel;Netherlands;nl;2019-12-31;2020-01-14;;0;0;0;0;0;1;bva
+45150;Sieraden (Domeinen Roerende Zaken) Amersfoort;Netherlands;nl;2020-01-12;2020-01-21;;0;0;1;0;0;1;bva
+45151;K BU5 - DRZ;Netherlands;nl;2020-01-20;2020-01-27;;0;1;1;1;0;1;bva
+45152;Horloges (Domeinen Roerende Zaken);Netherlands;nl;2020-01-04;2020-01-14;;0;0;1;1;0;1;bva
+45153;Horloges (Domeinen Roerende Zaken);Netherlands;nl;2020-02-01;2020-02-11;;0;0;1;0;0;1;bva
+45154;Postzegels biljetten gouden en zilveren munten;Netherlands;nl;2020-01-06;2020-01-16;;0;0;1;0;0;1;art
+45156;Watches jewellery toys & collectibles;Netherlands;nl;2020-01-05;2020-01-12;;0;0;1;0;0;1;art
+45157;Vintage Camera's Jewellery toys and collectibles;Netherlands;nl;2020-01-06;2020-01-13;;0;0;1;0;0;1;art
+45158;Bentley Mulsanne Mulliner (1 v/d 22 wereldwijd) te Boxmeer (Hermans & Hermans);Netherlands;nl;2019-12-23;2020-01-06;;0;0;0;1;0;1;bva
+45159;Jewellery toys and collectibles;Netherlands;nl;2020-01-07;2020-01-14;;0;0;1;0;0;1;art
+45160;Collectibles watches and jewelry;Netherlands;nl;2020-01-08;2020-01-15;;0;0;1;0;0;1;art
+45161;Original collectibles - watches filmobjects photo cameras and more;Netherlands;nl;2020-01-09;2020-01-16;;0;0;1;0;0;1;art
+45162;Classic jewelry and decorative goods;Netherlands;nl;2020-01-10;2020-01-17;;0;0;1;0;0;1;art
+45163;Nostalgic camera's militry goods and various;Netherlands;nl;2020-01-11;2020-01-18;;0;0;1;0;0;1;art
+45164;Vintage - Religues collectibles;Netherlands;nl;2020-01-12;2020-01-19;;0;0;1;0;0;1;art
+45165;Vintage market goods;Netherlands;nl;2020-01-13;2020-01-20;;0;0;1;0;0;1;art
+45166;Collectibles and jewelry;Netherlands;nl;2020-01-14;2020-01-21;;0;0;1;0;0;1;art
+45167;The daily vintage market;Netherlands;nl;2020-01-15;2020-01-22;;0;1;1;1;0;1;art
+45168;The daily vintage market;Netherlands;nl;2020-01-16;2020-01-23;;0;0;1;0;0;1;art
+45169;The daily vintage market (fri);Netherlands;nl;2020-01-17;2020-01-24;;0;0;1;0;0;1;art
+45170;The daily vintage market (sat);Netherlands;nl;2020-01-18;2020-01-25;;0;0;1;0;0;1;art
+45171;The daily vintage market (sun);Netherlands;nl;2020-01-19;2020-01-26;;0;0;1;0;0;1;art
+45172;The daily vintage market (mon);Netherlands;nl;2020-01-20;2020-01-27;;0;0;1;0;0;1;art
+45173;The daily vintage market (tue);Netherlands;nl;2020-01-21;2020-01-28;;0;0;1;0;0;1;art
+45174;The daily vintage market (wed);Netherlands;nl;2020-01-22;2020-01-29;;0;0;1;0;0;1;art
+45176;The daily vintage market (fri);Netherlands;nl;2020-01-24;2020-01-31;;0;0;1;0;0;1;art
+45177;Infra beschoeiing grond en opslag (Domeinen Roerende Zaken) te Hellevoetsluis;Netherlands;nl;2019-12-24;2020-01-09;;0;0;0;0;0;1;bva
+45178;Dagaanbiedingen maandagavond;Netherlands;nl;2020-01-12;2020-01-13;;0;0;1;0;0;1;3rdpartydailyspecials
+45179;Dagaanbiedingen dinsdagavond;Netherlands;nl;2020-01-13;2020-01-14;;0;0;1;0;0;1;3rdpartydailyspecials
+45180;Dagaanbiedingen woensdagavond;Netherlands;nl;2020-01-14;2020-01-15;;0;0;1;0;0;1;3rdpartydailyspecials
+45181;Dagaanbiedingen donderdagavond;Netherlands;nl;2020-01-15;2020-01-16;;0;0;1;0;0;1;3rdpartydailyspecials
+45182;Dagaanbiedingen vrijdagavond;Netherlands;nl;2020-01-16;2020-01-17;;0;0;1;0;0;1;3rdpartydailyspecials
+45183;Dagaanbiedingen maandagmiddag;Netherlands;nl;2020-01-12;2020-01-13;;0;0;1;0;0;1;3rdpartydailyspecials
+45184;Dagaanbiedingen dinsdagmiddag;Netherlands;nl;2020-01-13;2020-01-14;;0;0;1;0;0;1;3rdpartydailyspecials
+45185;Dagaanbiedingen woensdagmiddag;Netherlands;nl;2020-01-14;2020-01-15;;0;0;1;0;0;1;3rdpartydailyspecials
+45186;Dagaanbiedingen donderdagmiddag;Netherlands;nl;2020-01-15;2020-01-16;;0;0;1;0;0;1;3rdpartydailyspecials
+45187;Dagaanbiedingen vrijdagmiddag;Netherlands;nl;2020-01-16;2020-01-17;;0;0;1;0;0;1;3rdpartydailyspecials
+45188;Dagaanbiedingen zaterdagmiddag;Netherlands;nl;2020-01-17;2020-01-18;;0;0;1;0;0;1;3rdpartydailyspecials
+45189;Dagaanbiedingen zaterdagavond;Netherlands;nl;2020-01-17;2020-01-18;;0;0;1;0;0;1;3rdpartydailyspecials
+45190;Dagaanbiedingen zondagmiddag;Netherlands;nl;2020-01-18;2020-01-19;;0;0;1;0;0;1;3rdpartydailyspecials
+45191;Dagaanbiedingen zondagavond;Netherlands;nl;2020-01-18;2020-01-19;;0;0;1;0;0;1;3rdpartydailyspecials
+45192;K Horeca apparatuur en gereedschappen te Dwingeloo (Horeca Shop Nederland);Netherlands;nl;2020-01-21;2020-02-03;;0;1;0;na;0;1;bva
+45193;Alles voor Sanitair;Netherlands;nl;2020-02-03;2020-02-10;;0;0;1;0;0;1;bva
+45194;Alles voor Sanitair;Netherlands;nl;2020-02-17;2020-02-24;;0;0;1;0;0;1;bva
+45195;Elektronica en gadgets;Netherlands;nl;2020-01-21;2020-01-28;;0;0;1;0;0;1;bva
+45196;Elektronica en gadgets;Netherlands;nl;2020-01-28;2020-02-04;;0;0;1;0;0;1;bva
+45198;Kantoormeubilair en ICT;Netherlands;nl;2020-01-25;2020-01-31;;0;0;1;0;0;1;bva
+45199;Alles voor Kantoor;Netherlands;nl;2020-02-01;2020-02-07;;0;0;1;0;0;1;bva
+45200;Woonmeubilair te s-Heerenberg;Netherlands;nl;2020-01-10;2020-01-19;;0;0;0;0;0;1;bva
+45201;Lifestyle meubelen te s’Heerenberg;Netherlands;nl;2020-01-24;2020-02-02;;0;0;0;0;0;1;bva
+45202;Faillissement Robot Care Systems B.V. te Delft;Netherlands;nl;2019-12-30;2020-01-08;;0;0;0;0;0;1;bva
+45203;Magazijnverkoop Havezathe meubelen te Oldenzaal;Netherlands;nl;2020-01-10;2020-01-20;;0;0;0;0;0;1;bva
+45205;Horeca apparatuur en gereedschap te Dwingeloo;Netherlands;nl;2020-01-21;2020-02-03;;0;0;0;0;0;1;bva
+45206;Faillissement Make My Home te Barneveld;Netherlands;nl;2019-12-30;2020-01-07;;0;0;0;0;0;1;bva
+45208;Leiden (wk05) Dropshipment Tuinmaterialen (Stock and Trade);Netherlands;nl;2020-01-09;2020-01-17;;0;0;0;0;0;1;bva
+45209;Hekwerk carports en tuimaterialen te Leiden;Netherlands;nl;2020-02-06;2020-02-14;;0;0;0;0;0;1;bva
+45210;Keukens te diverse locaties;Netherlands;nl;2020-01-13;2020-01-22;;0;0;0;0;0;1;bva
+45213;Lifestyle tuininrichting en woondecoratie;Netherlands;nl;2020-01-31;2020-02-08;;0;0;1;0;0;1;bva
+45214;Hekwerk en carports te Nederweert;Netherlands;nl;2020-01-13;2020-01-23;;0;0;0;0;0;1;bva
+45215;Moderne schilderijen en zeefdrukken te Amersfoort;Netherlands;nl;2019-12-30;2020-01-07;;0;0;0;0;0;1;art
+45216;Zeefdrukken en Posters;Netherlands;nl;2020-01-02;2020-01-10;;0;0;1;0;0;1;art
+45217;Buitenverblijven carports tuinafscheidingen en gereedschap te Nederweert;Netherlands;nl;2020-01-27;2020-02-06;;0;0;0;0;0;1;bva
+45218;Zeefdrukken en moderne schilderijen te Amersfoort;Netherlands;nl;2020-01-07;2020-01-14;;0;0;0;0;0;1;art
+45219;Posters en zeefdrukken;Netherlands;nl;2020-01-11;2020-01-18;;0;0;1;0;0;1;art
+45221;Retourgoederen van o.a. Hartman Nespresso & Kärcher te Hillegom;Netherlands;nl;2020-02-08;2020-02-14;;0;0;0;0;0;1;bva
+45222;Retourgoederen van o.a. KitchenAid Kave Home & Brantia te Hillegom;Netherlands;nl;2020-01-18;2020-01-24;;0;0;0;0;0;1;bva
+45223;Retourgoederen te Hillegom;Netherlands;nl;2020-01-25;2020-01-31;;0;0;0;0;0;1;bva
+45224;Retourgoederen van o.a. KitchenAid HKliving en Wusthof te Hillegom;Netherlands;nl;2020-02-22;2020-02-28;;0;0;0;0;0;1;bva
+45225;Nederlandse florijnen / gulden bankbiljetten;Netherlands;nl;2019-12-26;2020-01-05;;0;0;1;0;0;1;bva
+45226;Kantoormeubilair & Xerox printers (Domeinen Roerende Zaken) te Amersfoort;Netherlands;nl;2020-01-10;2020-01-13;;0;0;0;0;0;1;bva
+45227;Defensiegoederen (Domeinen Roerende Zaken) te Amersfoort;Netherlands;nl;2020-01-13;2020-01-20;;0;0;0;0;0;1;bva
+45228;Consumentengoederen (Domeinen Roerende Zaken) te Amersfoort;Netherlands;nl;2020-01-13;2020-01-19;;0;0;0;0;0;1;bva
+45229;Bedrijfswagens aanhangers horeca en gereedschap te Leidschendam;Netherlands;nl;2020-02-03;2020-02-17;;0;0;0;0;0;1;bva
+45230;Inventaris kookstudio te Beverwijk;Netherlands;nl;2020-01-04;2020-01-15;;0;0;0;0;0;1;bva
+45231;Horeca inventaris te Leende;Netherlands;nl;2020-01-29;2020-02-13;;0;0;0;0;0;1;bva
+45232;Hekwerk carports en bomen veiling;Netherlands;nl;2020-01-18;2020-01-27;;0;0;0;0;0;1;bva
+45233;Parketvloeren te Utrecht;Netherlands;nl;2020-01-23;2020-01-30;;0;0;0;0;0;1;bva
+45234;PVC en laminaatvloeren te Utrecht;Netherlands;nl;2020-01-23;2020-01-30;;0;0;0;0;0;1;bva
+45235;Exclusieve eiken parketvloeren te Utrecht;Netherlands;nl;2020-02-06;2020-02-13;;0;0;0;0;0;1;bva
+45236;PVC en laminaatvloeren te Utrecht;Netherlands;nl;2020-02-06;2020-02-13;;0;0;0;0;0;1;bva
+45238;Kunstmatige inseminatie afkomstig van diverse hengsten te Sterksel;Netherlands;nl;2020-01-17;2020-02-03;;0;0;0;0;0;1;bva
+45239;Wellness & lounge meubilair;Netherlands;nl;2019-12-28;2020-01-04;;0;0;1;0;0;1;bva
+45244;(Automotive) Ex-lease auto's te Apeldoorn (BVA Automotive);Netherlands;nl;2020-01-06;2020-01-14;;0;0;0;1;0;1;bva
+45245;Personen- en bedrijfsauto’s en scooters te Amersfoort;Netherlands;nl;2020-01-14;2020-01-22;;0;0;0;0;0;1;bva
+45246;UITGESTELD - Leiden Ganzenzijde 2;Netherlands;nl;2020-01-29;2020-01-29;;0;1;0;na;0;1;nvv
+45247;Antieke weegschalen kassa's en toebehoren te Naarden;Netherlands;nl;2020-01-29;2020-02-13;;0;0;0;0;0;1;bva
+45248;Auto's onderdelen & accessoires te Breukelen;Netherlands;nl;2020-01-20;2020-02-04;;0;0;0;0;0;1;bva
+45249;Design & custom made kantoormeubilair te Doorn;Netherlands;nl;2020-01-13;2020-01-27;;0;0;0;0;0;1;bva
+45250;Horeca apparatuur meubilair en overige artikelen te Bleiswijk;Netherlands;nl;2020-01-24;2020-02-05;;0;0;0;0;0;1;bva
+45252;Doe-het-zelf materialen te Valkenswaard;Netherlands;nl;2020-01-21;2020-01-29;;0;0;0;0;0;1;bva
+45253;(Bezorgveiling) Dagaanbiedingen maandagavond (wk04) (Daily Specials);Netherlands;nl;2020-01-19;2020-01-20;;0;0;1;0;0;1;3rdpartydailyspecials
+45254;Dagaanbiedingen dinsdagavond;Netherlands;nl;2020-01-20;2020-01-21;;0;0;1;0;0;1;3rdpartydailyspecials
+45255;Dagaanbiedingen woensdagavond;Netherlands;nl;2020-01-21;2020-01-22;;0;0;1;0;0;1;3rdpartydailyspecials
+45256;(Bezorgveiling) Dagaanbiedingen donderdagavond (wk04) (Daily Specials);Netherlands;nl;2020-01-22;2020-01-23;;0;0;1;0;0;1;3rdpartydailyspecials
+45257;Dagaanbiedingen vrijdagavond;Netherlands;nl;2020-01-23;2020-01-24;;0;0;1;0;0;1;3rdpartydailyspecials
+45258;(Bezorgveiling) Dagaanbiedingen maandagmiddag (wk04) (Daily Specials);Netherlands;nl;2020-01-19;2020-01-20;;0;0;1;0;0;1;3rdpartydailyspecials
+45259;Dagaanbiedingen dinsdagmiddag;Netherlands;nl;2020-01-20;2020-01-21;;0;0;1;0;0;1;3rdpartydailyspecials
+45260;Dagaanbiedingen woensdagmiddag;Netherlands;nl;2020-01-21;2020-01-22;;0;0;1;0;0;1;3rdpartydailyspecials
+45261;Dagaanbiedingen donderdagmiddag;Netherlands;nl;2020-01-22;2020-01-23;;0;0;1;0;0;1;3rdpartydailyspecials
+45262;(Bezorgveiling) Dagaanbiedingen vrijdagmiddag (wk04) (Daily Specials);Netherlands;nl;2020-01-23;2020-01-24;;0;0;1;0;0;1;3rdpartydailyspecials
+45263;Dagaanbiedingen zaterdagmiddag;Netherlands;nl;2020-01-24;2020-01-25;;0;0;1;0;0;1;3rdpartydailyspecials
+45264;Dagaanbiedingen zaterdagavond;Netherlands;nl;2020-01-24;2020-01-25;;0;0;1;0;0;1;3rdpartydailyspecials
+45265;Dagaanbiedingen zondagmiddag;Netherlands;nl;2020-01-25;2020-01-26;;0;0;1;0;0;1;3rdpartydailyspecials
+45266;(Bezorgveiling) Dagaanbiedingen zondagavond (wk04) (Daily Specials);Netherlands;nl;2020-01-25;2020-01-26;;0;0;1;0;0;1;3rdpartydailyspecials
+45267;Doe-het-zelf en tuinaccessoires;Netherlands;nl;2020-01-11;2020-01-19;;0;0;1;0;0;1;bva
+45268;Doe-het-zelf en tuinaccessoires;Netherlands;nl;2020-01-25;2020-02-02;;0;0;1;0;0;1;bva
+45269;Slaapmeubilair te Etten-Leur (JP van der Heijden);Netherlands;nl;2020-01-04;2020-01-14;;0;0;0;0;0;1;bva
+45270;Witgoed elektrische apparatuur en huishoudelijke benodigdheden te Etten-Leur (JP van der Heijden);Netherlands;nl;2020-01-04;2020-01-15;;0;0;0;0;0;1;bva
+45271;Inventaris aannemersbedrijf de Huisklussenier te Etten-Leur;Netherlands;nl;2020-01-04;2020-01-14;;0;0;0;0;0;1;bva
+45272;Retourgoederen van o.a Dutchbone Inventum & vtwonen te Hoofddorp;Netherlands;nl;2020-01-14;2020-01-21;;0;0;0;0;0;1;bva
+45273;Retourgoederen te Hoofddorp (Fonq);Netherlands;nl;2020-01-18;2020-01-25;;0;0;0;0;0;1;bva
+45275;Luxury jewels and watches;Netherlands;nl;2020-01-08;2020-01-16;;0;0;1;0;0;1;art
+45276;Luxury Diamonds;Netherlands;nl;2020-01-10;2020-01-18;;0;0;1;0;0;1;art
+45277;Luxury Diamonds;Netherlands;nl;2020-01-17;2020-01-25;;0;0;1;0;0;1;art
+45278;Luxury jewels;Netherlands;nl;2020-01-19;2020-01-27;;0;0;1;0;0;1;art
+45279;Luxury jewels and watches;Netherlands;nl;2020-01-23;2020-01-31;;0;0;1;0;0;1;art
+45280;Luxury Jewels;Netherlands;nl;2020-01-25;2020-02-02;;0;0;1;0;0;1;art
+45281;Fancy Diamonds;Netherlands;nl;2020-01-30;2020-02-07;;0;0;1;0;0;1;art
+45282;Luxury Jewels and Watches;Netherlands;nl;2020-01-31;2020-02-08;;0;0;1;0;0;1;art
+45283;Bouwhaspels tuinstoelen en hekwerk (Domeinen Roerende Zaken) Hellevoetsluis;Netherlands;nl;2020-01-02;2020-01-27;;0;0;0;0;0;1;bva
+45284;Parket- laminaat en pvc vloeren;Netherlands;nl;2020-01-17;2020-01-23;;0;0;1;0;0;1;bva
+45285;Parket- laminaat en pvc vloeren;Netherlands;nl;2020-02-14;2020-02-20;;0;0;1;0;0;1;bva
+45287;K (F) Faillissementsdossiers te Amersfoort hal 5 (Hof Tweewielers BV);Netherlands;nl;2020-01-02;2020-01-02;;0;1;0;na;0;1;bva
+45290;Partij kantoormeubilair (Domeinen Roerende Zaken) Haulerwijk;Netherlands;nl;2020-01-03;2020-01-09;;0;0;0;0;0;1;bva
+45291;Mercedes-Benz (AMG) ONLY te Boxmeer;Netherlands;nl;2020-01-21;2020-01-29;;0;0;0;0;0;1;bva
+45292;Wellness & Sanitair;Netherlands;nl;2020-01-20;2020-01-26;;0;0;1;0;0;1;bva
+45293;Industrieel meubilair en woonaccessoires;Netherlands;nl;2020-02-17;2020-02-23;;0;0;1;0;0;1;bva
+45294;Electrotechnisch bureau te Veghel;Netherlands;nl;2020-01-08;2020-01-15;;0;0;0;0;0;1;bva
+45295;Vincere Groep BV te Oostrum;Netherlands;nl;2020-01-10;2020-01-21;;0;0;0;0;0;1;bva
+45296;Consumenten en DHZ artikelen te Helmond;Netherlands;nl;2020-01-08;2020-01-15;;0;0;0;0;0;1;bva
+45297;Consumenten en DHZ artikelen te Helmond (Stock and Trade);Netherlands;nl;2020-01-21;2020-01-27;;0;0;0;0;0;1;bva
+45298;Vincere Groep BV te Venlo;Netherlands;nl;2020-01-10;2020-01-22;;0;0;0;0;0;1;bva
+45299;Hubo Bouwmarkt te Kerkrade;Netherlands;nl;2020-01-08;2020-01-22;;0;0;0;0;0;1;bva
+45300;Q-vignes wijnimport te Deurne;Netherlands;nl;2020-01-07;2020-01-15;;0;0;0;0;0;1;bva
+45301;DA drogist de Vette te Deurne;Netherlands;nl;2020-01-07;2020-01-14;;0;0;0;0;0;1;bva
+45302;Fietswinkel het Koetshuis te Deurne;Netherlands;nl;2020-01-08;2020-01-16;;0;0;0;0;0;1;bva
+45303;Dagaanbiedingen maandagavond;Netherlands;nl;2020-01-26;2020-01-27;;0;0;1;0;0;1;3rdpartydailyspecials
+45304;Dagaanbiedingen dinsdagavond;Netherlands;nl;2020-01-27;2020-01-28;;0;0;1;0;0;1;3rdpartydailyspecials
+45305;Dagaanbiedingen woensdagavond;Netherlands;nl;2020-01-28;2020-01-29;;0;0;1;0;0;1;3rdpartydailyspecials
+45306;Dagaanbiedingen donderdagavond;Netherlands;nl;2020-01-29;2020-01-30;;0;0;1;0;0;1;3rdpartydailyspecials
+45307;Dagaanbiedingen vrijdagavond;Netherlands;nl;2020-01-30;2020-01-31;;0;0;1;0;0;1;3rdpartydailyspecials
+45308;Dagaanbiedingen maandagmiddag;Netherlands;nl;2020-01-26;2020-01-27;;0;0;1;0;0;1;3rdpartydailyspecials
+45309;(Bezorgveiling) Dagaanbiedingen dinsdagmiddag (wk05) (Daily Specials);Netherlands;nl;2020-01-27;2020-01-28;;0;0;1;0;0;1;3rdpartydailyspecials
+45310;Dagaanbiedingen woensdagmiddag;Netherlands;nl;2020-01-28;2020-01-29;;0;0;1;0;0;1;3rdpartydailyspecials
+45311;Dagaanbiedingen donderdagmiddag;Netherlands;nl;2020-01-29;2020-01-30;;0;0;1;0;0;1;3rdpartydailyspecials
+45312;Dagaanbiedingen vrijdagmiddag;Netherlands;nl;2020-01-30;2020-01-31;;0;0;1;0;0;1;3rdpartydailyspecials
+45313;Dagaanbiedingen zaterdagmiddag;Netherlands;nl;2020-01-31;2020-02-01;;0;0;1;0;0;1;3rdpartydailyspecials
+45314;Dagaanbiedingen zaterdagavond;Netherlands;nl;2020-01-31;2020-02-01;;0;0;1;0;0;1;3rdpartydailyspecials
+45315;Dagaanbiedingen zondagmiddag;Netherlands;nl;2020-02-01;2020-02-02;;0;0;1;0;0;1;3rdpartydailyspecials
+45316;Dagaanbiedingen zondagavond;Netherlands;nl;2020-02-01;2020-02-02;;0;0;1;0;0;1;3rdpartydailyspecials
+45317;Magazijnopruiming stoelen en tafels te Utrecht;Netherlands;nl;2020-01-09;2020-01-17;;0;0;0;0;0;1;bva
+45318;Magazijn opruiming stoelen te Utrecht;Netherlands;nl;2020-01-30;2020-02-07;;0;0;0;0;0;1;bva
+45319;Retourgoederen van o.a. Dyson Smeg & Whirlpool te Waalre;Netherlands;nl;2020-01-22;2020-01-29;;0;0;0;0;0;1;bva
+45320;Retourgoederen van o.a. Dyson Krups & Kärcher te Waalre;Netherlands;nl;2020-02-19;2020-02-26;;0;0;0;0;0;1;bva
+45321;Partij natuursteen en keramiek voor binnen gebruik;Netherlands;nl;2020-01-10;2020-01-20;;0;0;1;0;0;1;bva
+45322;Woninginrichting;Netherlands;nl;2020-01-22;2020-01-29;;0;0;1;0;0;1;bva
+45323;Alles voor wonen;Netherlands;nl;2020-01-29;2020-02-05;;0;0;1;0;0;1;bva
+45324;Alles voor de Woonkamer;Netherlands;nl;2020-02-05;2020-02-12;;0;0;1;0;0;1;bva
+45325;Alles voor de woonkamer;Netherlands;nl;2020-02-12;2020-02-19;;0;0;1;0;0;1;bva
+45326;Woninginrichting;Netherlands;nl;2020-02-19;2020-02-26;;0;0;1;0;0;1;bva
+45328;Design- en kantoormeubilair te Rotterdam;Netherlands;nl;2020-01-08;2020-01-14;;0;0;0;0;0;1;bva
+45330;Winterkleding en schoenen;Netherlands;nl;2020-01-14;2020-01-18;;0;0;1;0;0;1;bva
+45331;Winterkleding en schoenen;Netherlands;nl;2020-01-21;2020-01-25;;0;0;1;0;0;1;bva
+45332;Winterkleding en schoenen;Netherlands;nl;2020-01-28;2020-02-01;;0;0;1;0;0;1;bva
+45333;Winterkleding en schoenen;Netherlands;nl;2020-02-04;2020-02-08;;0;0;1;0;0;1;bva
+45334;Winterkleding en schoenen met o.a. Under Armour Fila Dare2B en Regatta;Netherlands;nl;2020-02-11;2020-02-15;;0;0;1;0;0;1;bva
+45335;Winterkleding en schoenen;Netherlands;nl;2020-02-18;2020-02-22;;0;0;1;0;0;1;bva
+45336;Kleding horloges en schoenen voor heren van o.a. Calvin Klein Bjorn Borg en Gaastra;Netherlands;nl;2020-01-14;2020-01-18;;0;0;1;0;0;1;bva
+45337;Kleding horloges en schoenen voor heren van o.a. Calvin Klein Bjorn Borg PME en Polo;Netherlands;nl;2020-01-21;2020-01-25;;0;0;1;0;0;1;bva
+45338;Kleding horloges en schoenen voor heren van o.a. Bjorn Borg Calvin Klein PME en Polo;Netherlands;nl;2020-01-28;2020-02-01;;0;0;1;0;0;1;bva
+45339;Kleding horloges en schoenen voor heren van o.a. Bjorn Borg Calvin Klein O'Neill en Polo;Netherlands;nl;2020-02-04;2020-02-08;;0;0;1;0;0;1;bva
+45340;Alles voor de slaapkamer;Netherlands;nl;2020-01-25;2020-02-02;;0;0;1;0;0;1;bva
+45341;Alles voor de slaapkamer;Netherlands;nl;2020-02-08;2020-02-16;;0;0;1;0;0;1;bva
+45342;(Bezorgveiling) Kleding en schoenen (Thema fashion dames);Netherlands;nl;2020-01-14;2020-01-18;;0;0;1;0;0;1;bva
+45343;(Bezorgveiling) Kleding en schoenen (Thema fashion dames);Netherlands;nl;2020-01-21;2020-01-25;;0;0;1;0;0;1;bva
+45344;Kleding horloges en schoenen voor dames van o.a. Bjorn Borg O'Neill Burberry en Tommy Hilfiger;Netherlands;nl;2020-01-28;2020-02-02;;0;0;1;0;0;1;bva
+45345;Kleding horloges en schoenen voor dames van o.a. Bjorn Borg O'Neill Moschino en Tommy Hilfiger;Netherlands;nl;2020-02-04;2020-02-09;;0;0;1;0;0;1;bva
+45346;Sportkleding en accessoires met o.a. Nike Adidas en Asics;Netherlands;nl;2020-01-14;2020-01-19;;0;0;1;0;0;1;bva
+45347;Sportkleding en accessoires met o.a. Under Armour Bjorn Borg Protest en Tommy Hilfiger;Netherlands;nl;2020-01-21;2020-01-26;;0;0;1;0;0;1;bva
+45348;Sportkleding en accessoires met o.a. Under Armour Bjorn Borg Protest en Tommy Hilfiger;Netherlands;nl;2020-01-28;2020-02-02;;0;0;1;0;0;1;bva
+45349;Sportkleding en accessoires met o.a. Under Armour Bjorn Borg Protest en Tommy Hilfiger;Netherlands;nl;2020-02-04;2020-02-09;;0;0;1;0;0;1;bva
+45350;Dieren en toebehoren;Netherlands;nl;2020-01-18;2020-01-26;;0;0;1;0;0;1;bva
+45351;Alles voor Dieren;Netherlands;nl;2020-02-01;2020-02-09;;0;0;1;0;0;1;bva
+45352;Alles voor dieren;Netherlands;nl;2020-02-15;2020-02-23;;0;0;1;0;0;1;bva
+45353;Faillissement Hof Tweewielers Vriezenveen te Amersfoort;Netherlands;nl;2020-01-13;2020-01-29;;0;0;0;0;0;1;bva
+45354;Faillissement Kraamzorg Mijnbaby te Rotterdam;Netherlands;nl;2020-01-13;2020-01-20;;0;0;0;0;0;1;bva
+45356;Faillissement en executoriale voertuigenveiling te Amersfoort;Netherlands;nl;2020-01-20;2020-01-28;;0;0;0;0;0;1;bva
+45357;(F) Faillissement en executoriale (verzamel) voertuigenveiling te Amersfoort (Hal 5);Netherlands;nl;2020-02-17;2020-02-25;;0;0;0;0;0;1;bva
+45361;Posters - klassiek modern film art & city;Netherlands;nl;2020-01-08;2020-01-16;;0;0;1;0;0;1;art
+45362;UITGESTELD - Amsterdam Driehoekstraat 100;Netherlands;nl;2020-02-19;2020-02-19;;0;1;0;na;0;1;nvv
+45363;Den Haag Bragastraat 52;Netherlands;nl;2020-02-19;2020-02-19;;0;0;0;0;0;1;nvv
+45364;Vlaardingen Holysingel 264;Netherlands;nl;2020-02-19;2020-02-19;;0;0;0;0;0;1;nvv
+45365;GEANNULEERD - Eindhoven Pasteurlaan 91;Netherlands;nl;2020-02-19;2020-02-19;;0;1;0;0;0;1;nvv
+45366;Zwanenburg Troelstralaan  17;Netherlands;nl;2020-02-10;2020-02-10;;0;0;0;0;0;1;bog
+45367;GEANNULEERD - Nieuwegein Laarderschans 36;Netherlands;nl;2020-02-19;2020-02-19;;0;1;0;na;0;1;nvv
+45368;UITGESTELD - Hoogmade Pieter van Hemerenplantsoen 46;Netherlands;nl;2020-02-19;2020-02-19;;0;1;0;na;0;1;nvv
+45369;GEANNULEERD - Den Haag  Blauwe Reigersingel 87;Netherlands;nl;2020-02-19;2020-02-19;;0;1;0;na;0;1;nvv
+45370;Rotterdam Doctor Hekmanstraat 88;Netherlands;nl;2020-02-19;2020-02-19;;0;0;0;0;0;1;nvv
+45371;Den Haag Emmastraat 57;Netherlands;nl;2020-02-19;2020-02-19;;0;0;0;0;0;1;nvv
+45374;Posters;Netherlands;nl;2020-01-16;2020-01-23;;0;0;1;0;0;1;art
+45375;Posters old skool and creative;Netherlands;nl;2020-01-18;2020-01-27;;0;0;1;0;0;1;art
+45376;Posters beyond imagination;Netherlands;nl;2020-01-24;2020-01-31;;0;0;1;0;0;1;art
+45377;Posters;Netherlands;nl;2020-01-28;2020-02-04;;0;0;1;0;0;1;art
+45378;Schilderijen en wandversieringen;Netherlands;nl;2020-01-11;2020-01-17;;0;0;0;0;0;1;art
+45379;Schilderijen en wandversieringen;Netherlands;nl;2020-01-16;2020-01-24;;0;0;0;0;0;1;art
+45380;Muurdecoratie en zeefdrukken te Amersfoort;Netherlands;nl;2020-01-19;2020-01-25;;0;0;1;0;0;1;art
+45381;Moderne schilderijen en zeefdrukken te Amersfoort;Netherlands;nl;2020-01-24;2020-01-31;;0;0;0;0;0;1;art
+45382;Wanddecoratie o.a. zeefdrukken;Netherlands;nl;2020-01-26;2020-02-02;;0;0;1;0;0;1;art
+45383;Diamonds;Netherlands;nl;2020-01-21;2020-01-28;;0;0;1;0;0;1;art
+45384;Horloges van o.a Burberry Diesel & Emporio Armani;Netherlands;nl;2020-01-14;2020-01-21;;0;0;1;0;0;1;art
+45385;New Watches i.a. Burberry Diesel & Emporio Armani;Netherlands;nl;2020-01-29;2020-02-04;;0;0;1;0;0;1;art
+45387;Schilderijen tekeningen en grafiek uit diverse bedrijfscollecties;Netherlands;nl;2020-01-11;2020-01-19;;0;0;0;0;0;1;art
+45388;Kunstobjecten en presentatiemateriaal uit diverse bedrijfscollecties te Amersfoort;Netherlands;nl;2020-01-24;2020-02-02;;0;0;0;0;0;1;art
+45389;Exclusieve horloges w.o. Audemars Piguet RolexCartier;Netherlands;nl;2020-01-17;2020-01-26;;0;0;1;0;0;1;art
+45390;Partijhandel Delta Light designverlichting te Amersfoort;Netherlands;nl;2020-01-14;2020-01-25;;0;0;0;0;0;1;bva
+45391;The daily vintage market (mon);Netherlands;nl;2020-01-27;2020-02-03;;0;0;1;0;0;1;art
+45392;The daily vintage market (tue);Netherlands;nl;2020-01-28;2020-02-04;;0;0;1;0;0;1;art
+45393;The daily vintage market (wed);Netherlands;nl;2020-01-29;2020-02-05;;0;0;1;0;0;1;art
+45394;BU5 - VCC UK;Netherlands;nl;2020-01-30;2020-02-06;;0;0;1;1;0;1;art
+45395;The daily vintage market (fri);Netherlands;nl;2020-01-31;2020-02-07;;0;0;1;0;0;1;art
+45396;Wijnen te Amersfoort;Netherlands;nl;2020-01-22;2020-01-29;;0;0;0;0;0;1;art
+45397;Exclusieve wijnen te Amersfoort;Netherlands;nl;2020-01-30;2020-02-06;;0;0;0;1;0;1;art
+45398;Posters vintage - film - cityview - reclame;Netherlands;nl;2020-01-11;2020-01-19;;0;0;1;0;0;1;art
+45399;Woon- en slaapmeubilair;Netherlands;nl;2020-01-20;2020-01-28;;0;0;1;0;0;1;bva
+45400;(Bezorgveiling) Woon- en slaapmeubilair (Karintrad B.V);Netherlands;nl;2020-02-10;2020-02-18;;0;0;1;0;0;1;bva
+45402;Exclusieve auto’s & Oldtimers te Boxmeer;Netherlands;nl;2020-01-21;2020-01-28;;0;0;0;0;0;1;bva
+45403;Ex-lease auto’s te Apeldoorn;Netherlands;nl;2020-01-20;2020-01-28;;0;0;0;0;0;1;bva
+45404;Alles voor onderweg/hobbyist;Netherlands;nl;2020-01-25;2020-02-02;;0;0;1;0;0;1;bva
+45405;Alles voor onderweg/hobbyist;Netherlands;nl;2020-02-08;2020-02-16;;0;0;1;0;0;1;bva
+45406;Alles voor onderweg/hobbyist;Netherlands;nl;2020-02-22;2020-03-01;;0;0;1;0;0;1;bva
+45407;Design badmeubels en douchewanden;Netherlands;nl;2020-01-20;2020-01-30;;0;0;1;0;0;1;bva
+45408;Tuinmaterialen en overkappingen;Netherlands;nl;2020-01-15;2020-01-29;;0;0;1;0;0;1;bva
+45409;(Bezorgveiling) Tuinmaterialen (OverkappingPlaza B.V);Netherlands;nl;2020-02-05;2020-02-19;;0;0;1;0;0;1;bva
+45413;Horeca Outlet te Zevenbergen;Netherlands;nl;2020-01-14;2020-01-22;;0;0;0;0;0;1;bva
+45414;Verlichting te Amersfoort;Netherlands;nl;2020-01-13;2020-01-23;;0;0;0;0;0;1;bva
+45415;GEANNULEERD - Almere Stijn Streuvelshof 10;Netherlands;nl;2020-02-11;2020-02-11;;0;0;0;0;0;1;nvv
+45416;Horeca inventaris te Nijmegen;Netherlands;nl;2020-01-18;2020-01-23;;0;0;0;0;0;1;bva
+45417;Bedrijfsbeëindiging Peter Spijker te Nijmegen;Netherlands;nl;2020-01-29;2020-02-04;;0;0;0;0;0;1;bva
+45418;Bedrijfsbeëindiging Peter Spijker (horeca inventaris) te Nijmegen;Netherlands;nl;2020-02-05;2020-02-10;;0;0;0;0;0;1;bva
+45419;Bedrijfsbeëindiging Peter Spijker (horeca inventaris) te Nijmegen;Netherlands;nl;2020-02-12;2020-02-18;;0;0;0;0;0;1;bva
+45421;Retourgoederen w.o. huishoudelijke artikelen audio & ict apparatuur;Netherlands;nl;2020-02-07;2020-02-13;;0;0;1;0;0;1;bva
+45422;GEANNULEERD - Emmen Hagedoorn 42;Netherlands;nl;2020-02-19;2020-02-19;;0;1;0;na;0;1;nvv
+45423;Apeldoorn Nieuwstraat 287 B;Netherlands;nl;2020-02-19;2020-02-19;;0;0;0;0;0;1;nvv
+45424;Kantoorinventaris (Domeinen Roerende Zaken) Amersfoort;Netherlands;nl;2020-01-17;2020-01-20;;0;0;0;0;0;1;bva
+45425;Defensiegoederen (Domeinen Roerende Zaken) Amersfoort;Netherlands;nl;2020-01-20;2020-01-27;;0;0;0;0;0;1;bva
+45427;Modulaire gebouwen speeltoestellen (Domeinen Roerende Zaken) Goes;Netherlands;nl;2020-02-03;2020-02-19;;0;0;0;0;0;1;bva
+45429;Jong gebruikte auto’s w.o. BMW’s te Utrecht;Netherlands;nl;2020-01-13;2020-01-22;;0;0;0;0;0;1;bva
+45430;Partij Kantoormeubilair (Domeinen Roerende Zaken) Deventer;Netherlands;nl;2020-01-13;2020-01-28;;0;0;0;0;0;1;bva
+45431;Magazijn Horeca- en consumentengoederen (Domeinen Roerende Zaken) Deventer;Netherlands;nl;2020-01-13;2020-01-28;;0;0;0;0;0;1;bva
+45432;Personen- en bedrijfsauto’s te Spijkenisse;Netherlands;nl;2020-01-20;2020-02-03;;0;0;0;0;0;1;bva
+45433;Kantoormeubilair te Zutphen;Netherlands;nl;2020-01-16;2020-01-21;;0;0;0;0;0;1;bva
+45434;Intern transport te Ede;Netherlands;nl;2020-01-22;2020-01-31;;0;0;0;0;0;1;bva
+45437;TEST ATLAS BEZORG 0901 (TEST);Netherlands;nl;2020-02-01;2020-03-01;;0;1;1;1;0;1;bva
+45438;Faillissement Bouwsteen Handelsonderneming te Zwaag;Netherlands;nl;2020-01-24;2020-02-17;;0;0;0;0;0;1;bva
+45439;Horeca-inventaris & apparatuur te Amersfoort;Netherlands;nl;2020-01-31;2020-02-17;;0;0;0;0;0;1;bva
+45441;Campers en Caravans te Apeldoorn (WW Trading);Netherlands;nl;2020-01-13;2020-01-20;;0;0;0;1;0;1;bva
+45442;Faillissement RV Onderhoud B.V. te Nieuwegein;Netherlands;nl;2020-01-10;2020-01-15;;0;0;0;0;0;1;bva
+45443;ATLAS TEST TEST DATE;Netherlands;nl;2020-02-01;2020-03-01;;0;1;0;1;0;1;bva
+45444;Faillissement van Koffiecorner Kaldi te Ede;Netherlands;nl;2020-01-20;2020-02-03;;0;0;0;0;0;1;bva
+45445;Kinderdagverblijf meubilair van o.a. Stokke Rolf en Schilte etc. te Boxmeer;Netherlands;nl;2020-01-14;2020-01-23;;0;0;0;0;0;1;bva
+45446;Banden velgen en garage inventaris te Pesse;Netherlands;nl;2020-02-03;2020-02-18;;0;0;0;0;0;1;bva
+45447;Machines gereedschappen magazijninrichting heftrucks hoogwerkers en consumentenartikelen te Overloon (Nexttrade);Netherlands;nl;2020-01-23;2020-02-04;;0;0;0;0;0;1;bva
+45448;Kantoorgoederen magazijninrichting en  logistiek te Groningen;Netherlands;nl;2020-01-20;2020-02-03;;0;0;0;0;0;1;bva
+45449;Bouwmateriaal en -materieel rollend materiaal gereedschap te Geesteren;Netherlands;nl;2020-01-18;2020-01-27;;0;0;0;0;0;1;bva
+45450;Bouwmateriaal en -materieel rollend materiaal gereedschap te Geesteren (ToLo Trading);Netherlands;nl;2020-02-15;2020-02-26;;0;0;0;0;0;1;bva
+45452;Klassieke brommers motoren en auto's te Limbricht;Netherlands;nl;2020-02-05;2020-02-18;;0;0;0;0;0;1;bva
+45453;Personen- en bedrijfsauto’s luxe sierpoorten en tractor te Uden;Netherlands;nl;2020-01-23;2020-02-04;;0;0;0;0;0;1;bva
+45454;(Automotive) Personen- en bedrijfsauto's te Geldrop (Hait Cars);Netherlands;nl;2020-01-15;2020-01-22;;0;0;0;1;0;1;bva
+45455;Faillissement Bouwbedrijf de Boeck te Halsteren;Netherlands;nl;2020-01-27;2020-02-10;;0;0;0;0;0;1;bva
+45457;Faillissement van Thermen Houten BV te Houten (2/2);Netherlands;nl;2020-01-17;2020-01-27;;0;0;0;1;0;1;bva
+45458;BU5 - T.E.N.G Biljetten;Netherlands;nl;2020-01-17;2020-01-26;;0;0;1;1;0;1;art
+45459;Zilveren munten;Netherlands;nl;2020-01-18;2020-01-26;;0;0;1;0;0;1;art
+45460;Vintage meubilair en woonaccessoires te Nederhorst;Netherlands;nl;2020-02-14;2020-02-26;;0;0;0;0;0;1;bva
+45461;Partij bureaus (Domeinen Roerende Zaken) Eindhoven;Netherlands;nl;2020-01-14;2020-01-21;;0;0;0;0;0;1;bva
+45462;Dagaanbiedingen maandagavond;Netherlands;nl;2020-02-02;2020-02-03;;0;0;1;0;0;1;3rdpartydailyspecials
+45463;Dagaanbiedingen dinsdagavond;Netherlands;nl;2020-02-03;2020-02-04;;0;0;1;0;0;1;3rdpartydailyspecials
+45464;Dagaanbiedingen woensdagavond;Netherlands;nl;2020-02-04;2020-02-05;;0;0;1;0;0;1;3rdpartydailyspecials
+45465;Dagaanbiedingen donderdagavond;Netherlands;nl;2020-02-05;2020-02-06;;0;0;1;0;0;1;3rdpartydailyspecials
+45466;Dagaanbiedingen vrijdagavond;Netherlands;nl;2020-02-06;2020-02-07;;0;0;1;0;0;1;3rdpartydailyspecials
+45467;Dagaanbiedingen maandagmiddag;Netherlands;nl;2020-02-02;2020-02-03;;0;0;1;0;0;1;3rdpartydailyspecials
+45468;Dagaanbiedingen dinsdagmiddag;Netherlands;nl;2020-02-03;2020-02-04;;0;0;1;0;0;1;3rdpartydailyspecials
+45469;(Bezorgveiling) Dagaanbiedingen woensdagmiddag (wk06) (Daily Specials);Netherlands;nl;2020-02-04;2020-02-05;;0;0;1;0;0;1;3rdpartydailyspecials
+45470;Dagaanbiedingen donderdagmiddag;Netherlands;nl;2020-02-05;2020-02-06;;0;0;1;0;0;1;3rdpartydailyspecials
+45471;(Bezorgveiling) Dagaanbiedingen vrijdagmiddag (wk06) (Daily Specials);Netherlands;nl;2020-02-06;2020-02-07;;0;0;1;0;0;1;3rdpartydailyspecials
+45472;Dagaanbiedingen zaterdagmiddag;Netherlands;nl;2020-02-07;2020-02-08;;0;0;1;0;0;1;3rdpartydailyspecials
+45473;Dagaanbiedingen zaterdagavond;Netherlands;nl;2020-02-07;2020-02-08;;0;0;1;0;0;1;3rdpartydailyspecials
+45474;Dagaanbiedingen zondagmiddag;Netherlands;nl;2020-02-08;2020-02-09;;0;0;1;0;0;1;3rdpartydailyspecials
+45475;(Bezorgveiling) Dagaanbiedingen zondagavond (wk06) (Daily Specials);Netherlands;nl;2020-02-08;2020-02-09;;0;0;1;0;0;1;3rdpartydailyspecials
+45476;Horeca inventaris en apparatuur te Veldhoven;Netherlands;nl;2020-01-27;2020-02-10;;0;0;0;0;0;1;bva
+45479;Houten meubelen en woonaccessoires te Zwolle;Netherlands;nl;2020-01-22;2020-01-28;;0;0;0;0;0;1;bva
+45480;Houten (tuin) meubelen en woonaccessoires te Zwolle;Netherlands;nl;2020-02-19;2020-02-25;;0;0;0;0;0;1;bva
+45482;Consumentengoederen met o.a. gereedschap verf & retourgoederen;Netherlands;nl;2020-01-18;2020-01-25;;0;0;1;0;0;1;bva
+45483;Consumentengoederen w.o. gereedschap brandbeveiliging & buitenlak;Netherlands;nl;2020-02-01;2020-02-08;;0;0;1;0;0;1;bva
+45486;Generatoren te Valkenswaard;Netherlands;nl;2020-01-18;2020-01-30;;0;0;0;0;0;1;bva
+45488;Partij volglazen systeemwanden met metalen profielen en gesloten plafondhoge deuren (Domeinen Roerende Zaken) Vinkeveen;Netherlands;nl;2020-01-14;2020-01-20;;0;0;0;0;0;1;bva
+45489;Alles voor het kind;Netherlands;nl;2020-01-25;2020-02-02;;0;0;1;0;0;1;bva
+45490;Alles voor het Kind;Netherlands;nl;2020-02-08;2020-02-16;;0;0;1;0;0;1;bva
+45491;Alles voor het kind;Netherlands;nl;2020-02-22;2020-03-01;;0;0;1;0;0;1;bva
+45494;Bouw- en installatiematerialen te Uden;Netherlands;nl;2020-01-21;2020-01-28;;0;0;0;0;0;1;bva
+45495;Gereedschap bouwmaterialen verlichting te Uden;Netherlands;nl;2020-01-21;2020-01-28;;0;0;0;0;0;1;bva
+45496;(Partijen) sanitair bouwmaterialen elektra etc. te Uden;Netherlands;nl;2020-01-21;2020-01-29;;0;0;0;0;0;1;bva
+45497;Kantoormeubilair te Uden;Netherlands;nl;2020-01-22;2020-01-29;;0;0;0;0;0;1;bva
+45498;Inventaris (stellingen intern transport etc.) te Uden;Netherlands;nl;2020-01-24;2020-02-03;;0;0;0;0;0;1;bva
+45499;BU5 - VCC UK;Netherlands;nl;2020-02-01;2020-02-08;;0;1;1;1;0;1;art
+45501;Tuinartikelen en designverlichting te Venray;Netherlands;nl;2020-02-04;2020-02-10;;0;0;0;0;0;1;bva
+45502;Schil- en schrapmachines groentewas- en snijmachines te Amsterdam;Netherlands;nl;2020-02-03;2020-02-17;;0;0;0;0;0;1;bva
+45503;Faillissement Plons Water- En Hengelsport B.V. te Oldemarkt;Netherlands;nl;2020-01-29;2020-02-13;;0;0;0;0;0;1;bva
+45504;Faillissement Plons Water- En Hengelsport B.V. te Oldemarkt;Netherlands;nl;2020-02-03;2020-02-17;;0;0;0;0;0;1;bva
+45507;Camper Chausson Flash 11 te Amersfoort;Netherlands;nl;2020-01-16;2020-01-27;;0;1;0;0;0;1;bva
+45512;Retourgoederen van o.a. Kave Home Marshall & WOOOD te Hoofddorp;Netherlands;nl;2020-01-29;2020-02-05;;0;0;0;0;0;1;bva
+45513;Porsches te Boxmeer;Netherlands;nl;2020-01-23;2020-02-03;;0;0;0;0;0;1;bva
+45514;Ringen en gouden colliers (Domeinen Roerende Zaken);Netherlands;nl;2020-01-22;2020-02-03;;0;0;1;0;0;1;bva
+45515;BU5 - DRZ;Netherlands;nl;2020-01-22;2020-02-03;;0;0;0;1;0;1;bva
+45517;Luxe horloges w.o. Seiko Alpina & Maurice Lacroix;Netherlands;nl;2020-01-27;2020-02-02;;0;0;1;0;0;1;art
+45518;Luxe horloges w.o. Seiko Breitling & Maurice Lacroix;Netherlands;nl;2020-01-31;2020-02-06;;0;0;1;0;0;1;art
+45519;Luxe horloges w.o. Seiko Gucci & Maurice Lacroix;Netherlands;nl;2020-02-07;2020-02-13;;0;0;1;0;0;1;art
+45520;Luxe horloges w.o. Seiko Rolex & Breitling;Netherlands;nl;2020-02-14;2020-02-20;;0;0;1;0;0;1;art
+45521;Faillissement Neckermann.com te Sint Jansteen;Netherlands;nl;2020-01-20;2020-01-30;;0;0;0;0;0;1;bva
+45522;Luxe horloges w.o. Seiko Cartier Maurice Lacroix & Breitling;Netherlands;nl;2020-02-21;2020-02-27;;0;0;1;0;0;1;art
+45527;Partijen tegels;Netherlands;nl;2020-01-24;2020-02-03;;0;0;1;0;0;1;bva
+45530;A-merk e-bikes mountainbikes en stadsfietsen te Amersfoort;Netherlands;nl;2020-02-08;2020-02-14;;0;0;0;0;0;1;bva
+45531;Elektrische fietsen van o.a. Stella Batavus en Sparta te Amersfoort;Netherlands;nl;2020-02-22;2020-02-28;;0;0;0;0;0;1;bva
+45532;AV apparatuur te Leiden;Netherlands;nl;2020-01-31;2020-02-12;;0;0;0;0;0;1;bva
+45533;A-merk e-bikes en partijen van o.a. Batavus Sparta & Gazelle te Leiden;Netherlands;nl;2020-02-15;2020-02-21;;0;0;0;0;0;1;bva
+45535;Faillissement domeinnamen Thomas Cook - Neckermann;Netherlands;nl;2020-01-20;2020-02-03;;0;0;1;0;0;1;bva
+45536;Apple producten laptops en ICT;Netherlands;nl;2020-01-28;2020-02-02;;0;0;1;0;0;1;bva
+45537;Apple producten laptops en ICT;Netherlands;nl;2020-02-04;2020-02-09;;0;0;1;0;0;1;bva
+45538;Apple producten laptops en ICT;Netherlands;nl;2020-02-11;2020-02-16;;0;0;1;0;0;1;bva
+45539;Apple producten laptops en ICT;Netherlands;nl;2020-02-18;2020-02-23;;0;0;1;0;0;1;bva
+45541;Professioneel licht- en geluidsapparatuur;Netherlands;nl;2020-02-07;2020-02-23;;0;0;1;0;0;1;bva
+45548;Faillissement van Schouten Holding B.V. te Leidschendam;Netherlands;nl;2020-01-20;2020-01-27;;0;0;0;0;0;1;bva
+45550;Kantoorinventaris en Xerox printers (Domeinen Roerende Zaken) Amersfoort;Netherlands;nl;2020-01-24;2020-01-27;;0;0;0;0;0;1;bva
+45551;Amersfoort (wk06) Defensiegoederen Domeinen te Amersfoort hal 1 (OCP);Netherlands;nl;2020-01-27;2020-02-03;;0;0;0;1;0;1;bva
+45552;Verzamelveiling (Domeinen Roerende Zaken) Amersfoort;Netherlands;nl;2020-01-27;2020-02-02;;0;0;0;0;0;1;bva
+45554;Boten te Leiden;Netherlands;nl;2020-02-07;2020-02-19;;0;0;0;0;0;1;bva
+45555;Postzegel verzamelingen;Netherlands;nl;2020-01-23;2020-01-30;;0;0;1;0;0;1;art
+45556;Diamonds and Jewellery o.a. Hermes en Omega;Netherlands;nl;2020-01-23;2020-01-30;;0;0;1;0;0;1;art
+45557;Horeca tuinmeubilair en gereedschap te Zutphen;Netherlands;nl;2020-02-18;2020-02-26;;0;0;0;0;0;1;bva
+45559;Zeefdrukken en moderne schilderijen te Amersfoort;Netherlands;nl;2020-02-01;2020-02-08;;0;0;0;0;0;1;art
+45560;Zeefdrukken en wanddecoratie;Netherlands;nl;2020-02-03;2020-02-10;;0;0;1;0;0;1;art
+45561;Moderne schilderijen en zeefdrukken te Amersfoort;Netherlands;nl;2020-02-09;2020-02-16;;0;0;0;0;0;1;art
+45562;Posters en zeefdrukken;Netherlands;nl;2020-02-11;2020-02-18;;0;0;1;0;0;1;art
+45563;Moderne schilderijen en zeefdrukken te Amersfoort;Netherlands;nl;2020-02-17;2020-02-24;;0;0;0;0;0;1;art
+45564;BU5 - Van Bellen;Netherlands;nl;2020-02-19;2020-02-26;;0;0;1;1;0;1;art
+45570;Boels Verhuur te Amersfoort;Netherlands;nl;2020-01-25;2020-02-06;;0;0;0;0;0;1;bva
+45571;Faillissement Keverparts B.V. te Den Haag;Netherlands;nl;2020-01-30;2020-02-17;;0;0;0;0;0;1;bva
+45572;Faillissement Keverparts B.V. te Barendrecht;Netherlands;nl;2020-01-30;2020-02-13;;0;0;0;0;0;1;bva
+45574;Verlichting;Netherlands;nl;2020-01-22;2020-01-30;;0;0;1;0;0;1;bva
+45575;Gereedschap en consumentengoederen van o.a. Makita Onex en Kingsbridge;Netherlands;nl;2020-02-08;2020-02-15;;0;0;1;0;0;1;bva
+45578;Consumentengoederen te Venlo (Balneae Trading);Netherlands;nl;2020-01-25;2020-02-01;;0;0;0;0;0;1;bva
+45579;Consumentengoederen van o.a. Porsche Seadoo en Kingsbridge te Venlo;Netherlands;nl;2020-02-22;2020-02-29;;0;0;0;0;0;1;bva
+45588;Retourgoederen met televisies en monitoren van o.a. Philips Samsung en LG;Netherlands;nl;2020-02-06;2020-02-12;;0;0;1;0;0;1;bva
+45591;Leiden (wk07) Parket- laminaat en kurkvloeren (Dropshipment Calitex);Netherlands;nl;2020-01-31;2020-02-06;;0;0;0;0;0;1;bva
+45593;Showroom keukenapparatuur te Bemmel;Netherlands;nl;2020-01-27;2020-02-06;;0;0;0;0;0;1;bva
+45594;Harley Davidson motoren te Amersfoort;Netherlands;nl;2020-02-12;2020-02-26;;0;0;0;0;0;1;bva
+45597;Caravan en Recreatie te Amersfoort;Netherlands;nl;2020-02-10;2020-02-25;;0;0;0;0;0;1;bva
+45599;Badkamer toilet sanitair en tegels;Netherlands;nl;2020-02-07;2020-02-14;;0;0;1;0;0;1;bva
+45600;Partijen keramische tegels 10.000m²;Netherlands;nl;2020-01-23;2020-02-01;;0;0;1;0;0;1;bva
+45601;BVA Top Lots - Retourgoederen van o.a. Apple MSR Acer & Nokia;Netherlands;nl;2020-02-01;2020-02-06;;0;0;1;0;0;1;bva
+45602;BVA Top Lots - Retourgoederen van o.a. NVIDIA Nokia HP & Apple;Netherlands;nl;2020-02-05;2020-02-09;;0;0;1;0;0;1;bva
+45603;GEANNULEERD K (Bezorgveiling) Buybay Consumentengoederen (Toplots);Netherlands;nl;2020-02-12;2020-02-12;;0;1;1;0;0;1;bva
+45604;BVA Top Lots - Retourgoederen van o.a. LG Microsoft Miele & SMEG;Netherlands;nl;2020-02-07;2020-02-11;;0;0;1;0;0;1;bva
+45605;BVA Top Lots - Retourgoederen van o.a. MSI HP AEG & Apple;Netherlands;nl;2020-02-07;2020-02-12;;0;0;1;0;0;1;bva
+45606;BVA Top Lots - Retourgoederen van o.a. Asus Sharp Siemens & Apple;Netherlands;nl;2020-02-08;2020-02-13;;0;0;1;0;0;1;bva
+45607;BVA Top Lots - Retourgoederen van o.a. Asus Grohe Acer & Sony;Netherlands;nl;2020-02-12;2020-02-16;;0;0;1;0;0;1;bva
+45608;Goederen afkomstig uit verschillende faillissementen te Someren;Netherlands;nl;2020-01-24;2020-02-04;;0;0;0;0;0;1;bva
+45609;Bouwmarkt & DHZ-Artikelen te Helmond;Netherlands;nl;2020-01-29;2020-02-03;;0;0;0;0;0;1;bva
+45610;Consumenten en DHZ artikelen te Helmond;Netherlands;nl;2020-02-11;2020-02-17;;0;0;0;0;0;1;bva
+45613;Faillissement NL Onsite B.V. te Amsterdam;Netherlands;nl;2020-01-17;2020-01-22;;0;0;0;0;0;1;bva
+45615;Used Jewels and Watches;Netherlands;nl;2020-02-10;2020-02-17;;0;0;1;0;0;1;art
+45616;Used Jewels and Watches;Netherlands;nl;2020-02-18;2020-02-25;;0;0;1;0;0;1;art
+45618;Gereedschap en consumentengoederen van o.a. Schmelzer Kawakenki en Herenthal te Valkenswaard;Netherlands;nl;2020-02-08;2020-02-18;;0;0;0;0;0;1;bva
+45619;Consumentengoederen te Valkenswaard;Netherlands;nl;2020-02-08;2020-02-19;;0;0;0;0;0;1;bva
+45620;Faillissement Nima Installatie Techniek B.V. te Ridderkerk;Netherlands;nl;2020-02-06;2020-02-17;;0;0;0;0;0;1;bva
+45625;Apple producten nieuw & refurbished;Netherlands;nl;2020-02-19;2020-02-27;;0;0;1;0;0;1;bva
+45628;Boten buitenboordmotoren & watersport artikelen te Zevenaar;Netherlands;nl;2020-01-24;2020-02-03;;0;0;0;0;0;1;bva
+45629;Showroomkeukens en keukenapparatuur te diverse locaties;Netherlands;nl;2020-02-10;2020-02-19;;0;0;0;0;0;1;bva
+45635;Douglas en tuinhout te Hardenberg;Netherlands;nl;2020-02-07;2020-02-13;;0;0;0;0;0;1;bva
+45638;Sanitair te Nederweert;Netherlands;nl;2020-02-10;2020-02-20;;0;0;0;0;0;1;bva
+45639;Tuin en Douglashout;Netherlands;nl;2020-02-17;2020-02-27;;0;0;1;0;0;1;bva
+45642;Hekwerk en carports te Nederweert;Netherlands;nl;2020-02-10;2020-02-20;;0;0;0;0;0;1;bva
+45648;Personenauto’s te Apeldoorn;Netherlands;nl;2020-01-21;2020-01-28;;0;0;0;0;0;1;bva
+45649;Used Jewels and Watches;Netherlands;nl;2020-02-11;2020-02-19;;0;0;1;0;0;1;art
+45650;Used Jewels and Watches;Netherlands;nl;2020-02-18;2020-02-27;;0;0;1;0;0;1;art
+45651;Personenauto’s te Sas van Gent;Netherlands;nl;2020-01-22;2020-02-05;;0;0;0;0;0;1;bva
+45652;Personen- en bedrijfsauto’s te Elburg en Kampen;Netherlands;nl;2020-01-29;2020-02-05;;0;0;0;0;0;1;bva
+45654;ATLAS TEST NUMMERO 1;Netherlands;nl;2020-02-25;2020-02-25;;0;1;1;1;0;1;bva
+45655;Medische Defensiegoederen (Domeinen Roerende Zaken) te Amersfoort;Netherlands;nl;2020-01-27;2020-02-03;;0;0;0;0;0;1;bva
+45656;Dealeroccasions te Veenendaal;Netherlands;nl;2020-01-23;2020-01-27;;0;0;0;0;0;1;bva
+45657;Dagaanbiedingen maandagmiddag;Netherlands;nl;2020-02-09;2020-02-10;;0;0;1;0;0;1;3rdpartydailyspecials
+45658;Dagaanbiedingen dinsdagavond;Netherlands;nl;2020-02-10;2020-02-11;;0;0;1;0;0;1;3rdpartydailyspecials
+45659;Dagaanbiedingen woensdagavond;Netherlands;nl;2020-02-11;2020-02-12;;0;0;1;0;0;1;3rdpartydailyspecials
+45660;Dagaanbiedingen dinsdagmiddag;Netherlands;nl;2020-02-10;2020-02-11;;0;0;1;0;0;1;3rdpartydailyspecials
+45661;Dagaanbiedingen maandagavond;Netherlands;nl;2020-02-09;2020-02-10;;0;0;1;0;0;1;3rdpartydailyspecials
+45662;Dagaanbiedingen vrijdagavond;Netherlands;nl;2020-02-13;2020-02-14;;0;0;1;0;0;1;3rdpartydailyspecials
+45663;Dagaanbiedingen woensdagmiddag;Netherlands;nl;2020-02-11;2020-02-12;;0;0;1;0;0;1;3rdpartydailyspecials
+45664;Dagaanbiedingen donderdagmiddag;Netherlands;nl;2020-02-12;2020-02-13;;0;0;1;0;0;1;3rdpartydailyspecials
+45665;Dagaanbiedingen vrijdagmiddag;Netherlands;nl;2020-02-13;2020-02-14;;0;0;1;0;0;1;3rdpartydailyspecials
+45666;Dagaanbiedingen zaterdagmiddag;Netherlands;nl;2020-02-14;2020-02-15;;0;0;1;0;0;1;3rdpartydailyspecials
+45667;Dagaanbiedingen zaterdagavond;Netherlands;nl;2020-02-14;2020-02-15;;0;0;1;0;0;1;3rdpartydailyspecials
+45668;Dagaanbiedingen zondagmiddag;Netherlands;nl;2020-02-15;2020-02-16;;0;0;1;0;0;1;3rdpartydailyspecials
+45669;Dagaanbiedingen zondagavond;Netherlands;nl;2020-02-15;2020-02-16;;0;0;1;0;0;1;3rdpartydailyspecials
+45670;Dagaanbiedingen donderdagavond;Netherlands;nl;2020-02-12;2020-02-13;;0;0;1;0;0;1;3rdpartydailyspecials
+45671;Elektronica en Gadgets;Netherlands;nl;2020-02-04;2020-02-11;;0;0;1;0;0;1;bva
+45672;(Bezorgveiling) Consumenten elektronica (Combi Elektronica en gadgets);Netherlands;nl;2020-02-11;2020-02-18;;0;0;1;0;0;1;bva
+45673;Elektronica en gadgets;Netherlands;nl;2020-02-18;2020-02-25;;0;0;1;0;0;1;bva
+45674;Fitness en sportkleding;Netherlands;nl;2020-02-06;2020-02-13;;0;0;1;0;0;1;bva
+45675;Fitness en sportkleding;Netherlands;nl;2020-02-13;2020-02-20;;0;0;1;0;0;1;bva
+45676;Fitness en sportkleding;Netherlands;nl;2020-02-20;2020-02-27;;0;0;1;0;0;1;bva
+45677;Dealeroccasions te Veenendaal;Netherlands;nl;2020-01-30;2020-02-03;;0;0;0;0;0;1;bva
+45678;Amersfoort Kryptonweg 8;Netherlands;nl;2020-02-18;2020-02-18;;0;1;0;na;0;1;nvv
+45679;Dealeroccasions te Veenendaal;Netherlands;nl;2020-02-06;2020-02-10;;0;0;0;0;0;1;bva
+45680;Dealeroccasions te Veenendaal;Netherlands;nl;2020-02-13;2020-02-17;;0;0;0;0;0;1;bva
+45681;Keukens en apparatuur op diverse locaties;Netherlands;nl;2020-02-08;2020-02-20;;0;0;0;0;0;1;bva
+45686;Dealeroccasions te Veenendaal;Netherlands;nl;2020-02-20;2020-02-24;;0;0;0;0;0;1;bva
+45689;Woninginrichting decoratie magazijnstellingen & design meubilair te Ulft;Netherlands;nl;2020-01-28;2020-02-10;;0;0;0;0;0;1;bva
+45690;BVAG5721 MS 20400040218 RVB 60 metalen bedden met ieder 2 lades per bed te Overberg (Domeinen Roerende Zaken);Netherlands;nl;2020-01-23;2020-01-29;;0;0;0;1;0;1;bva
+45695;RHIB Rigged-Hull Inflatable Boat 8.50 x 3.00 meter (Domeinen Roerende Zaken) Den Haag;Netherlands;nl;2020-01-23;2020-02-10;;0;0;0;0;0;1;bva
+45700;Diversen (Domeinen Roerende Zaken) Numansdorp;Netherlands;nl;2020-01-28;2020-02-11;;0;0;0;0;0;1;bva
+45703;Posters oa Dave Thompson en Keith Haring;Netherlands;nl;2020-02-01;2020-02-08;;0;0;1;0;0;1;art
+45704;K BU5 - Vroom;Netherlands;nl;2020-02-05;2020-02-12;;0;1;1;1;0;1;art
+45705;K BU5 - Vroom;Netherlands;nl;2020-02-09;2020-02-16;;0;1;1;1;0;1;art
+45706;K BU5 - Vroom;Netherlands;nl;2020-02-13;2020-02-20;;0;1;1;1;0;1;art
+45707;BU5 - Vroom;Netherlands;nl;2020-02-17;2020-02-24;;0;1;1;1;0;1;art
+45708;Posters;Netherlands;nl;2020-02-21;2020-02-28;;0;0;1;0;0;1;art
+45711;Faillissement Juwelier Herman Schipper;Netherlands;nl;2020-01-24;2020-01-30;;0;0;1;0;0;1;art
+45712;Horeca goederen te Boxmeer (Jan Broker);Netherlands;nl;2020-01-28;2020-02-06;;0;0;0;1;0;1;bva
+45717;Tuin en Terras;Netherlands;nl;2020-02-15;2020-02-23;;0;0;1;0;0;1;bva
+45718;Alles voor de tuin en terras;Netherlands;nl;2020-02-22;2020-03-01;;0;0;1;0;0;1;bva
+45722;Alles voor de slaapkamer;Netherlands;nl;2020-02-22;2020-03-01;;0;0;1;0;0;1;bva
+45725;Faillissement Domeinnamen;Netherlands;nl;2020-01-27;2020-02-11;;0;0;1;0;0;1;bva
+45727;Faillissement Law Fathers B.V. te Amsterdam;Netherlands;nl;2020-01-30;2020-02-06;;0;0;0;0;0;1;bva
+45729;Kantoorinventaris ICT benodigdheden te Leiden (Viginti BV);Netherlands;nl;2020-01-31;2020-02-11;;0;0;0;1;0;1;bva
+45730;Kantoorinventaris en Xerox printers (Domeinen Roerende Zaken) Amersfoort;Netherlands;nl;2020-01-31;2020-02-03;;0;0;0;0;0;1;bva
+45731;Defensiegoederen (Domeinen Roerende Zaken) Amersfoort;Netherlands;nl;2020-02-03;2020-02-10;;0;0;0;0;0;1;bva
+45732;Partij en fietsen te Harderwijk;Netherlands;nl;2020-02-04;2020-02-10;;0;0;0;0;0;1;bva
+45733;Partij fietsen te Harderwijk;Netherlands;nl;2020-02-18;2020-02-24;;0;0;0;0;0;1;bva
+45735;Designer fashion w.o. Louboutin Chanel en Gucci  (Domeinen Roerende Zaken);Netherlands;nl;2020-02-07;2020-02-18;;0;0;1;0;0;1;bva
+45736;Witgoed en huishoudelijke benodigdheden te Etten-Leur;Netherlands;nl;2020-02-01;2020-02-12;;0;0;0;0;0;1;bva
+45737;Partij bureaus o.a. Aspa Rohde en Grahl (Domeinen Roerende Zaken)  Eindhoven;Netherlands;nl;2020-01-24;2020-01-27;;0;0;0;0;0;1;bva
+45738;Huishoudelijke apparaten audio en ICT;Netherlands;nl;2020-02-20;2020-02-27;;0;0;1;0;0;1;bva
+45741;Personen- en bedrijfsauto’s te Amersfoort;Netherlands;nl;2020-01-29;2020-02-05;;0;0;0;0;0;1;bva
+45742;Ex-lease auto’s te Apeldoorn;Netherlands;nl;2020-02-03;2020-02-11;;0;0;0;0;0;1;bva
+45743;Exclusieve auto’s & Oldtimers te Boxmeer;Netherlands;nl;2020-02-03;2020-02-11;;0;0;0;0;0;1;bva
+45744;Personen- en bedrijfsauto’s te Boxmeer;Netherlands;nl;2020-02-06;2020-02-17;;0;0;0;0;0;1;bva
+45745;Slaapkamer inrichting te Etten-Leur;Netherlands;nl;2020-02-01;2020-02-11;;0;0;0;0;0;1;bva
+45746;Woonmeubilair te s-Heerenberg;Netherlands;nl;2020-02-07;2020-02-16;;0;0;0;0;0;1;bva
+45747;Woonmeubilair te 's-Heerenberg;Netherlands;nl;2020-02-21;2020-03-01;;0;0;0;0;0;1;bva
+45750;Partijen binnenhuis tegels en stenen;Netherlands;nl;2020-02-07;2020-02-17;;0;0;1;0;0;1;bva
+45754;Kantoor meubilair en ICT;Netherlands;nl;2020-02-08;2020-02-14;;0;0;1;0;0;1;bva
+45755;(Bezorgveiling) Kantoor meubilair en ICT (Combi veiling alles voor kantoor);Netherlands;nl;2020-02-15;2020-02-21;;0;0;1;0;0;1;bva
+45756;Kantoor meubilair en ICT;Netherlands;nl;2020-02-22;2020-02-28;;0;0;1;0;0;1;bva
+45759;Boxsprings bedden & matrassen;Netherlands;nl;2020-02-06;2020-02-13;;0;0;1;0;0;1;bva
+45760;Boxsprings matrassen en bedden;Netherlands;nl;2020-02-20;2020-02-27;;0;0;1;0;0;1;bva
+45763;Doe-het-zelf lifestyle en tuinaccessoires;Netherlands;nl;2020-02-08;2020-02-16;;0;0;1;0;0;1;bva
+45764;Alles voor de doe-het-zelver en tuinaccessoires;Netherlands;nl;2020-02-22;2020-03-01;;0;0;1;0;0;1;bva
+45767;Boxsprings;Netherlands;nl;2020-02-13;2020-02-20;;0;0;1;0;0;1;bva
+45772;Woningdecoratie en inrichting & magazijnstellingen te Ulft;Netherlands;nl;2020-02-05;2020-02-17;;0;0;0;0;0;1;bva
+45773;Woningdecoratie en inrichting te Ulft;Netherlands;nl;2020-02-12;2020-02-24;;0;0;0;0;0;1;bva
+45774;Faillissement Harbach Sport B.V. (Winkel uitverkoop) te Zutpen;Netherlands;nl;2020-01-23;2020-02-07;;0;0;0;0;0;1;bva
+45775;Exclusieve eiken parketvloeren te Utrecht;Netherlands;nl;2020-02-20;2020-02-27;;0;0;0;0;0;1;bva
+45776;PVC en laminaatvloeren te Utrecht;Netherlands;nl;2020-02-20;2020-02-27;;0;0;0;0;0;1;bva
+45782;The daily vintage market (mon);Netherlands;nl;2020-02-03;2020-02-10;;0;0;1;0;0;1;art
+45783;The daily vintage market (tue - lunch);Netherlands;nl;2020-02-04;2020-02-11;;0;0;1;0;0;1;art
+45784;The daily vintage market (wed);Netherlands;nl;2020-02-05;2020-02-12;;0;0;1;0;0;1;art
+45785;The daily vintage market (thu);Netherlands;nl;2020-02-06;2020-02-13;;0;0;1;0;0;1;art
+45786;Faillissement Bouwbedrijf H. Tollenaar B.V. te Opheusden;Netherlands;nl;2020-02-11;2020-02-24;;0;0;0;0;0;1;bva
+45787;10.000m² keramische tegel partijen;Netherlands;nl;2020-02-17;2020-02-26;;0;0;1;0;0;1;bva
+45790;Sanitair en attracties;Netherlands;nl;2020-02-06;2020-02-13;;0;0;1;0;0;1;bva
+45794;Executieveiling schoonheidsbehandelingsapparatuur te Amersfoort;Netherlands;nl;2020-01-27;2020-02-20;;0;0;0;0;0;1;bva
+45796;Mercedes-Benz GLE-Klasse AMG en E-Klasse te Eindhoven;Netherlands;nl;2020-01-28;2020-02-04;;0;0;0;0;0;1;bva
+45797;BU5 - | ART | Silverveiling - T.E.N.G.;Netherlands;nl;2020-01-29;2020-02-09;;0;0;1;1;0;1;art
+45798;Exclusieve postzegels;Netherlands;nl;2020-01-30;2020-02-09;;0;0;1;0;0;1;art
+45799;Munten collecties;Netherlands;nl;2020-02-05;2020-02-16;;0;0;1;0;0;1;art
+45800;Postzegel collecties;Netherlands;nl;2020-02-06;2020-02-17;;0;0;1;0;0;1;art
+45801;BVA Top Lots - Retourgoederen van o.a. Omen Bosch LG & Siemens;Netherlands;nl;2020-02-14;2020-02-18;;0;0;1;0;0;1;bva
+45802;BVA Top Lots - Retourgoederen van o.a. HP Asus Acer & Apple;Netherlands;nl;2020-02-14;2020-02-19;;0;0;1;0;0;1;bva
+45803;BVA Top Lots - Retourgoederen van o.a. Miele Lenovo Samsung & Acer;Netherlands;nl;2020-02-15;2020-02-20;;0;0;1;0;0;1;bva
+45804;BVA Top Lots - Retourgoederen van o.a. Microsoft HP Bosch & Apple;Netherlands;nl;2020-02-19;2020-02-23;;0;0;1;0;0;1;bva
+45806;BVA Top Lots - Retourgoederen van o.a. Miele Bosch Domo & Brother;Netherlands;nl;2020-02-21;2020-02-25;;0;0;1;0;0;1;bva
+45807;BVA Top Lots - Retourgoederen van o.a. MSI Acer Nespresso & Microsoft;Netherlands;nl;2020-02-21;2020-02-26;;0;0;1;0;0;1;bva
+45808;BVA Top Lots - Retourgoederen van o.a. Apple Microsoft HP & Nespresso;Netherlands;nl;2020-02-22;2020-02-27;;0;0;1;0;0;1;bva
+45809;BVA Top Lots - Retourgoederen van o.a. Apple Sony & Panasonic;Netherlands;nl;2020-02-26;2020-03-01;;0;0;1;0;0;1;bva
+45815;Professioneel licht camera's consumentenelektronica en kantoorinventaris te Driebergen;Netherlands;nl;2020-02-10;2020-02-24;;0;0;0;0;0;1;bva
+45816;Vintage en design meubilair te IJmuiden (Eemspoort Trade BV);Netherlands;nl;2020-02-18;2020-02-29;;0;0;0;1;0;1;bva
+45819;Kleding horloges en schoenen voor heren van o.a. Bjorn Borg Calvin Klein O'Neill en PME Legend;Netherlands;nl;2020-02-11;2020-02-15;;0;0;1;0;0;1;bva
+45820;Kleding horloges en schoenen voor heren van o.a. Bjorn Borg Calvin Klein O'Neill en PME Legend;Netherlands;nl;2020-02-18;2020-02-22;;0;0;1;0;0;1;bva
+45821;Kleding horloges en schoenen voor heren van o.a. Bjorn Borg Calvin Klein O'Neill en PME Legend;Netherlands;nl;2020-02-25;2020-02-29;;0;0;1;0;0;1;bva
+45825;Woon- en slaapkamermeubilair te Leiden;Netherlands;nl;2020-02-10;2020-02-21;;0;0;0;0;0;1;bva
+45827;Kleding horloges en schoenen voor dames van o.a. Bjorn Borg O'Neill Regatta en Tommy Hilfiger;Netherlands;nl;2020-02-11;2020-02-16;;0;0;1;0;0;1;bva
+45828;Kleding horloges en schoenen voor dames van o.a. Versace Jeans O'Neill Regatta en Tommy Hilfiger;Netherlands;nl;2020-02-18;2020-02-23;;0;0;1;0;0;1;bva
+45829;Kleding horloges en schoenen voor dames van o.a. Versace Jeans O'Neill Regatta en Tommy Hilfiger;Netherlands;nl;2020-02-25;2020-03-01;;0;0;1;0;0;1;bva
+45833;Horeca te Cafe-Zaal Dwars in Geldrop;Netherlands;nl;2020-02-14;2020-02-27;;0;0;0;0;0;1;bva
+45834;Sportkleding en accessoires met o.a. Under Armour Bjorn Borg Protest en Tommy Hilfiger;Netherlands;nl;2020-02-11;2020-02-16;;0;0;1;0;0;1;bva
+45835;Sportkleding en accessoires met o.a. Under Armour Bjorn Borg Ballin en Tommy Hilfiger;Netherlands;nl;2020-02-18;2020-02-23;;0;0;1;0;0;1;bva
+45836;Sportkleding en accessoires met o.a. Under Armour Bjorn Borg Ballin en Tommy Hilfiger;Netherlands;nl;2020-02-25;2020-03-01;;0;0;1;0;0;1;bva
+45840;Restaurant 024 eten & drinken te Beuningen;Netherlands;nl;2020-02-06;2020-02-12;;0;0;0;0;0;1;bva
+45841;Fitness te Leiden;Netherlands;nl;2020-02-08;2020-02-19;;0;0;0;0;0;1;bva
+45842;ATLAS TEST TEST DATE!;Netherlands;nl;2020-02-01;2020-03-01;;0;1;0;1;0;1;bva
+45843;Dagaanbiedingen dinsdagavond;Netherlands;nl;2020-02-17;2020-02-18;;0;0;1;0;0;1;3rdpartydailyspecials
+45844;Luxury watches i.a. Rolex Audemars Piguet & Breitling;Netherlands;nl;2020-02-14;2020-02-23;;0;0;1;0;0;1;art
+45845;Dagaanbiedingen woensdagavond;Netherlands;nl;2020-02-18;2020-02-19;;0;0;1;0;0;1;3rdpartydailyspecials
+45846;Dagaanbiedingen donderdagavond;Netherlands;nl;2020-02-19;2020-02-20;;0;0;1;0;0;1;3rdpartydailyspecials
+45847;Dagaanbiedingen vrijdagavond;Netherlands;nl;2020-02-20;2020-02-21;;0;0;1;0;0;1;3rdpartydailyspecials
+45849;Muziekinstrumenten geluidsapparatuur en meubilair te Heythuysen;Netherlands;nl;2020-02-03;2020-02-20;;0;0;0;0;0;1;bva
+45850;Sanitair en Wellness;Netherlands;nl;2020-02-15;2020-02-25;;0;0;1;0;0;1;bva
+45851;Dagaanbiedingen maandagmiddag;Netherlands;nl;2020-02-16;2020-02-17;;0;0;1;0;0;1;3rdpartydailyspecials
+45852;Dagaanbiedingen dinsdagmiddag;Netherlands;nl;2020-02-17;2020-02-18;;0;0;1;0;0;1;3rdpartydailyspecials
+45853;Dagaanbiedingen woensdagmiddag;Netherlands;nl;2020-02-18;2020-02-19;;0;0;1;0;0;1;3rdpartydailyspecials
+45854;Dagaanbiedingen donderdagmiddag;Netherlands;nl;2020-02-19;2020-02-20;;0;0;1;0;0;1;3rdpartydailyspecials
+45855;Dagaanbiedingen vrijdagmiddag;Netherlands;nl;2020-02-20;2020-02-21;;0;0;1;0;0;1;3rdpartydailyspecials
+45856;Dagaanbiedingen zaterdagmiddag;Netherlands;nl;2020-02-21;2020-02-22;;0;0;1;0;0;1;3rdpartydailyspecials
+45857;Dagaanbiedingen zaterdagavond;Netherlands;nl;2020-02-21;2020-02-22;;0;0;1;0;0;1;3rdpartydailyspecials
+45858;Dagaanbiedingen zondagmiddag;Netherlands;nl;2020-02-22;2020-02-23;;0;0;1;0;0;1;3rdpartydailyspecials
+45859;Dagaanbiedingen zondagavond;Netherlands;nl;2020-02-22;2020-02-23;;0;0;1;0;0;1;3rdpartydailyspecials
+45860;Dagaanbiedingen maandagavond;Netherlands;nl;2020-02-16;2020-02-17;;0;0;1;0;0;1;3rdpartydailyspecials
+45863;Pleziervaartuigen FRISC 1200 open motorboot (Domeinen Roerende Zaken) Almelo;Netherlands;nl;2020-01-30;2020-02-12;;0;0;0;0;0;1;bva
+45868;Sanitair en Wellness;Netherlands;nl;2020-02-21;2020-02-28;;0;0;1;0;0;1;bva
+45874;Gouden sieraden - Faillissement Juwelier Herman Schipper;Netherlands;nl;2020-01-31;2020-02-07;;0;0;1;0;0;1;art
+45875;Faillissement Juwelier Herman Schipper (fotolijsten);Netherlands;nl;2020-02-05;2020-02-12;;0;0;1;0;0;1;art
+45876;Faillissement Juwelier Herman Schipper (sieraden);Netherlands;nl;2020-02-07;2020-02-14;;0;0;1;0;0;1;art
+45877;Faillissement Juwelier Herman Schipper (zilverwerk);Netherlands;nl;2020-02-12;2020-02-19;;0;0;1;0;0;1;art
+45878;Faillissement Juwelier Herman Schipper (sieraden);Netherlands;nl;2020-02-14;2020-02-21;;0;0;1;0;0;1;art
+45879;Sieraden - Faillissement Juwelier Herman Schipper;Netherlands;nl;2020-02-19;2020-02-26;;0;0;1;0;0;1;art
+45880;Gouden sieraden - Faillissement Juwelier Herman Schipper;Netherlands;nl;2020-02-21;2020-02-28;;0;0;1;0;0;1;art
+45893;Eikenhouten en visgraat vloeren;Netherlands;nl;2020-02-06;2020-02-18;;0;0;1;0;0;1;bva
+45898;Educatief speelgoed onderwijs benodigdheden en baby artikelen. van o.a. Stokke Quinny en Educo te Veghel;Netherlands;nl;2020-02-06;2020-02-14;;0;0;0;0;0;1;bva
+45901;The daily vintage market (fri);Netherlands;nl;2020-02-07;2020-02-14;;0;0;1;0;0;1;art
+45902;BU5 - VCC UK;Netherlands;nl;2020-02-08;2020-02-15;;0;0;1;1;0;1;art
+45903;BU5 - VCC UK;Netherlands;nl;2020-02-09;2020-02-16;;0;0;1;1;0;1;art
+45904;The daily vintage market (mon);Netherlands;nl;2020-02-10;2020-02-17;;0;0;1;0;0;1;art
+45906;The daily vintage market (tue);Netherlands;nl;2020-02-11;2020-02-18;;0;0;1;0;0;1;art
+45907;The daily vintage market (wed);Netherlands;nl;2020-02-12;2020-02-19;;0;0;1;0;0;1;art
+45908;The daily vintage market (thu);Netherlands;nl;2020-02-13;2020-02-20;;0;0;1;0;0;1;art
+45909;The daily vintage market (fri);Netherlands;nl;2020-02-14;2020-02-21;;0;0;1;0;0;1;art
+45910;The daily vintage market (sat);Netherlands;nl;2020-02-15;2020-02-22;;0;0;1;0;0;1;art
+45911;The daily vintage market (sun);Netherlands;nl;2020-02-16;2020-02-23;;0;0;1;0;0;1;art
+45912;The daily vintage market (mon);Netherlands;nl;2020-02-17;2020-02-24;;0;0;1;0;0;1;art
+45913;The daily vintage market (tue);Netherlands;nl;2020-02-18;2020-02-25;;0;0;1;0;0;1;art
+45914;The daily vintage market (wed);Netherlands;nl;2020-02-19;2020-02-26;;0;0;1;0;0;1;art
+45915;BU5 - VCC UK;Netherlands;nl;2020-02-20;2020-02-27;;0;0;1;1;0;1;art
+45916;The daily vintage market (fri);Netherlands;nl;2020-02-21;2020-02-28;;0;0;1;0;0;1;art
+45917;The daily vintage market (sat);Netherlands;nl;2020-02-22;2020-02-29;;0;0;1;0;0;1;art
+45918;The daily vintage market (sun);Netherlands;nl;2020-02-23;2020-03-01;;0;0;1;0;0;1;art
+45924;(F) Faillissement Endostim bv te Nijmegen;Netherlands;nl;2020-02-04;2020-02-17;;0;0;1;0;0;1;bva
+45926;Vintage Jewels and Watches;Netherlands;nl;2020-02-04;2020-02-11;;0;0;1;0;0;1;art
+45927;Diamonds;Netherlands;nl;2020-02-18;2020-02-25;;0;0;1;0;0;1;art
+45930;Personen- en bedrijfsauto’s te Beers;Netherlands;nl;2020-01-30;2020-02-10;;0;0;0;0;0;1;bva
+45931;Luxury Jewels and Watches;Netherlands;nl;2020-02-08;2020-02-15;;0;0;1;0;0;1;art
+45932;Luxury Jewels;Netherlands;nl;2020-02-09;2020-02-16;;0;0;1;0;0;1;art
+45934;Art - DCA;Netherlands;nl;2020-02-16;2020-02-23;;0;0;1;1;0;1;art
+45935;Luxury Jewels;Netherlands;nl;2020-02-17;2020-02-24;;0;0;1;0;0;1;art
+45938;Schilderijen tekeningen en grafiek uit diverse bedrijfscollecties te Amersfoort;Netherlands;nl;2020-02-07;2020-02-16;;0;0;0;0;0;1;art
+45939;Schilderijen tekeningen en grafiek uit diverse bedrijfscollecties;Netherlands;nl;2020-02-21;2020-03-01;;0;0;0;0;0;1;art
+45941;Metaalbewerkings fabrikant (afdeling electrowagens) te Hoogvliet;Netherlands;nl;2020-02-03;2020-02-19;;0;0;0;0;0;1;bva
+45945;Faillissement Tyme beheer (trampolinepark) te Apeldoorn;Netherlands;nl;2020-02-05;2020-02-17;;0;0;0;0;0;1;bva
+45948;The daily vintage market (tue - evening);Netherlands;nl;2020-02-04;2020-02-11;;0;0;1;0;0;1;art
+45950;Faillissement Just Wellness inventaris te Valkenswaard;Netherlands;nl;2020-02-10;2020-02-19;;0;0;0;0;0;1;bva
+45951;Faillissement Just Wellness te Eindhoven;Netherlands;nl;2020-02-10;2020-02-19;;0;0;0;0;0;1;bva
+45952;Koetsen arrensleeën tuigage en toebehoren te Soest;Netherlands;nl;2020-02-10;2020-02-27;;0;0;0;0;0;1;bva
+45953;Executieveiling gouden sieraden;Netherlands;nl;2020-02-07;2020-02-18;;0;0;1;0;0;1;art
+45954;Wijnen te Amersfoort;Netherlands;nl;2020-02-07;2020-02-14;;0;0;0;0;0;1;art
+45955;Exclusieve wijnen te Amersfoort;Netherlands;nl;2020-02-15;2020-02-22;;0;0;0;0;0;1;art
+45956;Wijnen te Amersfoort;Netherlands;nl;2020-02-23;2020-03-01;;0;0;0;0;0;1;art
+45959;Edelstenen sieraden en horloges (Domeinen Roerende Zaken);Netherlands;nl;2020-02-09;2020-02-18;;0;0;1;0;0;1;bva
+45961;Art - DRZ Combi;Netherlands;nl;2020-02-18;2020-02-25;;0;0;1;1;0;1;bva
+45963;Heftruck stellingen zaag- en schuurmachine lasapparaat etc. te Dinxperlo (Impulse Technologies);Netherlands;nl;2020-02-12;2020-02-24;;0;0;0;1;0;1;bva
+45964;Silverware and Jewellery;Netherlands;nl;2020-02-12;2020-02-20;;0;0;1;0;0;1;art
+45965;New Watches i.a. Diesel Hugo Boss & Emporio Armani;Netherlands;nl;2020-02-12;2020-02-18;;0;0;1;0;0;1;art
+45967;Kantoorinventaris en Xerox printers (Domeinen Roerende Zaken) Amersfoort;Netherlands;nl;2020-02-07;2020-02-10;;0;0;0;0;0;1;bva
+45968;Defensiegoederen (Domeinen Roerende Zaken) Amersfoort;Netherlands;nl;2020-02-10;2020-02-17;;0;0;0;0;0;1;bva
+45972;Kachels en toebehoren te Numansdorp;Netherlands;nl;2020-02-11;2020-02-19;;0;0;0;0;0;1;bva
+45974;Voorraden installatiebedrijf te Wijchen;Netherlands;nl;2020-02-06;2020-02-17;;0;0;0;0;0;1;bva
+45975;(F) Faillissement van Arragon BV te Borculo;Netherlands;nl;2020-02-07;2020-02-19;;0;0;0;0;0;1;bva
+45976;Premium watches i.a. Seiko Franck Muller & Cartier;Netherlands;nl;2020-02-03;2020-02-09;;0;0;1;0;0;1;art
+45977;Premium horloges van o.a. Calvin Klein Seiko en Maurice Lacroix;Netherlands;nl;2020-02-10;2020-02-16;;0;0;1;0;0;1;art
+45978;Premium horloges van o.a. Seiko Breitling & Versace;Netherlands;nl;2020-02-17;2020-02-23;;0;0;1;0;0;1;art
+45979;Premium watches i.a. Seiko Versace & Maurice Lacroix;Netherlands;nl;2020-02-24;2020-03-01;;0;0;1;0;0;1;art
+45980;Executieveiling fitness apparatuur te Amersfoort;Netherlands;nl;2020-02-10;2020-02-19;;0;0;0;0;0;1;bva
+45989;Retourgoederen te Hoofddorp;Netherlands;nl;2020-02-12;2020-02-19;;0;0;0;0;0;1;bva
+45993;Partij diversen (Domeinen Roerende Zaken) te Veenhuizen;Netherlands;nl;2020-02-06;2020-02-18;;0;0;0;0;0;1;bva
+45995;Partij kantoormeubilair (Domeinen Roerende Zaken) Veenhuizen;Netherlands;nl;2020-02-06;2020-02-18;;0;0;0;0;0;1;bva
+45996;Faillissementsgoederen te Amersfoort;Netherlands;nl;2020-02-17;2020-02-24;;0;0;0;0;0;1;bva
+45999;Richmond en Riverdale meubels en woonaccessoires te Boxmeer;Netherlands;nl;2020-02-13;2020-02-27;;0;0;0;0;0;1;bva
+46000;Dagaanbiedingen maandagavond;Netherlands;nl;2020-02-23;2020-02-24;;0;0;1;0;0;1;3rdpartydailyspecials
+46001;Dagaanbiedingen dinsdagavond;Netherlands;nl;2020-02-24;2020-02-25;;0;0;1;0;0;1;3rdpartydailyspecials
+46002;Dagaanbiedingen woensdagavond;Netherlands;nl;2020-02-25;2020-02-26;;0;0;1;0;0;1;3rdpartydailyspecials
+46003;Dagaanbiedingen donderdagavond;Netherlands;nl;2020-02-26;2020-02-27;;0;0;1;0;0;1;3rdpartydailyspecials
+46004;Dagaanbiedingen vrijdagavond;Netherlands;nl;2020-02-27;2020-02-28;;0;0;1;0;0;1;3rdpartydailyspecials
+46005;Dagaanbiedingen maandagmiddag;Netherlands;nl;2020-02-23;2020-02-24;;0;0;1;0;0;1;3rdpartydailyspecials
+46006;Dagaanbiedingen dinsdagmiddag;Netherlands;nl;2020-02-24;2020-02-25;;0;0;1;0;0;1;3rdpartydailyspecials
+46007;Dagaanbiedingen woensdagmiddag;Netherlands;nl;2020-02-25;2020-02-26;;0;0;1;0;0;1;3rdpartydailyspecials
+46008;Dagaanbiedingen donderdagmiddag;Netherlands;nl;2020-02-26;2020-02-27;;0;0;1;0;0;1;3rdpartydailyspecials
+46009;Dagaanbiedingen vrijdagmiddag;Netherlands;nl;2020-02-27;2020-02-28;;0;0;1;0;0;1;3rdpartydailyspecials
+46010;Dagaanbiedingen zaterdagmiddag;Netherlands;nl;2020-02-28;2020-02-29;;0;0;1;0;0;1;3rdpartydailyspecials
+46011;Dagaanbiedingen zaterdagavond;Netherlands;nl;2020-02-28;2020-02-29;;0;0;1;0;0;1;3rdpartydailyspecials
+46012;Dagaanbiedingen zondagmiddag;Netherlands;nl;2020-02-29;2020-03-01;;0;0;1;0;0;1;3rdpartydailyspecials
+46013;Dagaanbiedingen zondagavond;Netherlands;nl;2020-02-29;2020-03-01;;0;0;1;0;0;1;3rdpartydailyspecials
+46016;Faillissement Het Pretpaleis Funverhuur te Hoogwoud;Netherlands;nl;2020-02-10;2020-02-19;;0;0;0;0;0;1;bva
+46017;Winkelinventaris te Varsseveld;Netherlands;nl;2020-02-10;2020-02-24;;0;0;0;0;0;1;bva
+46019;Executieveiling magazijn sanitair en kantoor te Zutphen;Netherlands;nl;2020-02-04;2020-02-06;;0;0;0;0;0;1;bva
+46020;(Partijen) sanitair bouwmaterialen & elektra te Uden;Netherlands;nl;2020-02-04;2020-02-10;;0;0;0;0;0;1;bva
+46024;Consumentengoederen w.o. fietszitjes terraswarmers en verlichting;Netherlands;nl;2020-02-08;2020-02-15;;0;0;1;0;0;1;bva
+46026;Faillissement Arjaa's Italian Food B.V. te Rotterdam;Netherlands;nl;2020-02-10;2020-02-17;;0;0;0;0;0;1;bva
+46036;Personen- en bedrijfsauto’s te Amersfoort;Netherlands;nl;2020-02-11;2020-02-19;;0;0;0;0;0;1;bva
+46037;Partij bureaus ca 500 stuks (Domeinen Roerende Zaken) Heerlen;Netherlands;nl;2020-02-06;2020-02-13;;0;0;0;0;0;1;bva
+46039;Partij kantoormeubilair (Domeinen Roerende Zaken) Haulerwijk;Netherlands;nl;2020-02-06;2020-02-18;;0;0;0;0;0;1;bva
+46048;Bakkerij inventaris te Winterswijk;Netherlands;nl;2020-02-10;2020-02-17;;0;0;0;0;0;1;bva
+46049;Dames en heren fietsen te de Kwakel;Netherlands;nl;2020-02-12;2020-02-18;;0;0;0;0;0;1;bva
+46051;Aftersale - Kunst- Antiek- en Inboedelveiling Notarishuis Arnhem;Netherlands;nl;2020-02-04;2020-02-10;;0;0;0;0;0;1;art
+46053;Zilveren munten;Netherlands;nl;2020-02-13;2020-02-20;;0;0;1;0;0;1;art
+46054;Postzegels en Eerste dag enveloppen;Netherlands;nl;2020-02-20;2020-02-27;;0;0;1;0;0;1;3rdpartydailyspecials
+46055;Zeldzame postzegelcollecties;Netherlands;nl;2020-02-22;2020-03-01;;0;0;1;0;0;1;art
+46060;Ex-lease auto’s te Apeldoorn;Netherlands;nl;2020-02-17;2020-02-25;;0;0;0;0;0;1;bva
+46066;Winkelvoorraden installatiematerialen sanitair en kantoorinrichting te Beugen;Netherlands;nl;2020-02-12;2020-02-19;;0;0;0;0;0;1;bva
+46070;Badkamermeubels en tegels te Zegge;Netherlands;nl;2020-02-12;2020-02-26;;0;0;0;0;0;1;bva
+46074;Sanitair en installatiemateriaal te Ede;Netherlands;nl;2020-02-18;2020-02-27;;0;0;0;0;0;1;bva
+46075;Kunst en antiek te Amersfoort;Netherlands;nl;2020-02-07;2020-02-16;;0;0;0;0;0;1;art
+46077;Art - Jaap Roukens;Netherlands;nl;2020-02-07;2020-02-17;;0;0;0;1;0;1;art
+46079;Campers en Caravans te Apeldoorn;Netherlands;nl;2020-02-17;2020-02-24;;0;0;0;0;0;1;bva
+46080;Budget en festival campers en caravans te Brummen en Bosschenhoofd;Netherlands;nl;2020-02-17;2020-02-24;;0;0;0;0;0;1;bva
+46089;(T) Sanitair van o.a. Villeroy & Boch Grohe en Geberit te Amersfoort (Jomar Jandelsonderneming);Netherlands;nl;2020-02-08;2020-02-18;;0;0;0;0;0;1;bva
+46092;Kantoorinventaris en Xerox printers (Domeinen Roerende Zaken) te Amersfoort;Netherlands;nl;2020-02-14;2020-02-17;;0;0;0;0;0;1;bva
+46093;Defensiegoederen (Domeinen Roerende Zaken) Amersfoort;Netherlands;nl;2020-02-17;2020-02-24;;0;0;0;0;0;1;bva
+46095;Faillissement FinHill Holding te Hilversum;Netherlands;nl;2020-02-10;2020-02-18;;0;0;0;0;0;1;bva
+46096;Kantoormeubilair magazijninventaris kleding en decoratie te Boxmeer;Netherlands;nl;2020-02-14;2020-02-25;;0;0;0;0;0;1;bva
+46100;Delta Light designverlichting;Netherlands;nl;2020-02-19;2020-02-29;;0;0;1;0;0;1;bva
+46111;Voertuigen te Klarenbeek;Netherlands;nl;2020-02-14;2020-02-24;;0;0;0;0;0;1;bva
+46114;Executie slotveiling te Uden;Netherlands;nl;2020-02-07;2020-02-13;;0;0;0;0;0;1;bva
+46116;Faillissement Broekema’s Camping Service B.V. te Anloo (1/2);Netherlands;nl;2020-02-10;2020-02-17;;0;0;0;0;0;1;bva
+46119;Partijhandel Delta Light designverlichting te Amersfoort;Netherlands;nl;2020-02-15;2020-02-26;;0;0;0;0;0;1;bva
+46120;Faillissement Vidrea Retail B.V. te Alkmaar;Netherlands;nl;2020-02-13;2020-02-24;;0;0;0;0;0;1;bva
+46122;Verzamelveiling (Domeinen Roerende Zaken) te Amersfoort;Netherlands;nl;2020-02-14;2020-02-17;;0;0;0;0;0;1;bva
+46125;Lobby hotel De L'Europe Amsterdam te Alkmaar;Netherlands;nl;2020-02-15;2020-02-25;;0;0;0;0;0;1;bva
+46126;Test faillissement Flash te Amersfoort (45980);Netherlands;nl;2020-02-10;2020-02-19;;0;1;0;0;0;1;bva
+46133;Partij kantoormeubilair (Domeinen Roerende Zaken) Haulerwijk;Netherlands;nl;2020-02-13;2020-02-25;;0;0;0;0;0;1;bva
+46152;Faillissement Broekema’s Camping Service B.V. te Anloo (2/2);Netherlands;nl;2020-02-10;2020-02-17;;0;0;0;0;0;1;bva
+46155;K (F) Uitverkoop Faillissement Engelen B.V. (Diverse locaties);Netherlands;nl;2020-02-10;2020-02-10;;0;1;0;na;0;1;bva
+46156;Mediterrane bomen;Netherlands;nl;2020-02-15;2020-02-26;;0;0;0;0;0;1;bva
+46157;Besselink verlichting;Netherlands;nl;2020-02-15;2020-02-27;;0;0;1;0;0;1;bva
+46164;Consumentengoederen (Domeinen Roerende Zaken) te Amersfoort;Netherlands;nl;2020-02-17;2020-02-23;;0;0;0;0;0;1;bva
+46186;Exclusieve auto's & oldtimers te Boxmeer;Netherlands;nl;2020-02-17;2020-02-27;;0;0;0;0;0;1;bva
+46187;Magazijn opruiming stoelen en tafels te Utrecht;Netherlands;nl;2020-02-18;2020-02-23;;0;0;0;0;0;1;bva
+46188;Tuinartikelen hekwerken en kachels te Leiden;Netherlands;nl;2020-02-15;2020-02-25;;0;0;0;0;0;1;bva
+46195;Executieveiling Opticien te Houten;Netherlands;nl;2020-02-17;2020-02-26;;0;0;0;0;0;1;bva
+46196;Gereedschap en klein materiaal van Boels verhuur;Netherlands;nl;2020-02-19;2020-02-28;;0;0;1;0;0;1;bva
+46197;Mercedes G-klasse te Ammerzoden;Netherlands;nl;2020-02-18;2020-02-26;;0;0;0;0;0;1;bva
+46205;Consumentengoederen met producten van o.a. iBella Living Samsung Apple en Grundig;Netherlands;nl;2020-02-19;2020-02-27;;0;0;1;0;0;1;bva
+46206;Kantoorinventaris en Xerox printers (Domeinen Roerende Zaken) te Amersfoort;Netherlands;nl;2020-02-21;2020-02-24;;0;0;0;0;0;1;bva
+46207;Verzamelveiling (Domeinen Roerende Zaken) te Amersfoort;Netherlands;nl;2020-02-21;2020-02-24;;0;0;0;0;0;1;bva
+46216;Gaming-pc’s ICT & POS-apparatuur;Netherlands;nl;2020-02-21;2020-02-29;;0;0;1;0;0;1;bva
+46271;Apple producten laptops en ICT;Netherlands;nl;2020-02-25;2020-03-01;;0;0;1;0;0;1;bva
+46316;Partijen led verlichting en beveiligingscamera’s;Netherlands;nl;2020-02-26;2020-03-01;;0;0;1;0;0;1;bva
+46337;Biljetten & Munten;Netherlands;nl;2020-02-20;2020-02-27;;0;0;1;0;0;1;art
+46346;Personen- en bedrijfsauto’s te Geldrop;Netherlands;nl;2020-02-19;2020-02-26;;0;0;0;0;0;1;bva
+46476;test;Netherlands;nl;2020-02-24;2020-02-24;;0;1;0;0;0;1;bva
+47685;Preview Q;Netherlands;nl;2020-01-01;2020-01-02;;0;1;0;0;0;1;bva
+54334;FAILED Controle BVA Import;Netherlands;nl;2020-02-02;2020-02-02;;0;1;0;0;0;1;bva
