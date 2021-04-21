@@ -52,5 +52,39 @@ df_fact_lots2 = pd.read_excel(
     skiprows=2,
     parse_dates=["auction_closingdate", "closingdate"],
 )
+# %%
 
+
+def get_common_cols(df1, df2):
+    cols1 = set(df1.columns)
+    cols2 = set(df2.columns)
+    return list(cols1.intersection(cols2))
+
+
+# %% Merge two dataframes into single dataframe for lots
+df_fact_lots = pd.concat([df_fact_lots1, df_fact_lots2])
+# %% 1 MERGE WITH BIDS (lots-bids: 1-n relationship)
+common_cols_lots_bids = get_common_cols(df_fact_bids1, df_fact_lots)
+df_fact_lots_bids = pd.merge(
+    df_fact_lots,
+    df_fact_bids1,
+    left_on=common_cols_lots_bids,
+    right_on=common_cols_lots_bids)
+# %% 2 MERGE WITH AUCTIONS
+common_cols_auctions_bids = get_common_cols(df_auctions, df_fact_lots_bids)
+df_fact_lots_bids_auctions = pd.merge(
+    df_fact_lots_bids,
+    df_auctions,
+    left_on=common_cols_auctions_bids,
+    right_on=common_cols_auctions_bids)
+# %% 3 MERGE WITH LOTS
+common_cols_auctions_bids_lots = get_common_cols(df_fact_lots_bids_auctions, df_lots)
+df = pd.merge(
+    df_fact_lots_bids_auctions,
+    df_lots,
+    left_on=['lot_id'],
+    right_on=['lot_id'])
+
+# %% 4 MERGE WITH PROJECTS
+df.to_csv("./Data/data_1bm130.csv.gz", index=False)
 # %%
