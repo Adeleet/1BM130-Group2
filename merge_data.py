@@ -8,6 +8,14 @@ df_auctions = pd.read_csv(
     parse_dates=["startdate", "closedate"],
     low_memory=False,
 )
+# Drop is_active and open_for_bidding, because they are not applicable
+# And drop is_public and onlinedate as they consists of only NaN values
+df_auctions.drop(labels = ['is_active',
+                           'open_for_bidding',
+                           'onlinedate',
+                           'is_public'],
+                 axis = 1,
+                 inplace=True)
 # %%
 df_lots = pd.read_csv(
     "./Data/DIM_LOT.csv.gz",
@@ -26,6 +34,10 @@ df_projects = pd.read_csv(
     ],
     low_memory=False,
 )
+df_projects.drop(labels = ["project_auction_start",
+                           "project_auction_end",
+                           "project_auction_online"], axis = 1, inplace = True)
+
 # %%
 df_fact_bids1 = pd.read_csv(
     "./Data/Fact_bids1.csv.gz",
@@ -33,6 +45,8 @@ df_fact_bids1 = pd.read_csv(
     parse_dates=["bid_date", "lot_closingdate", "auction_closingdate"],
     low_memory=False,
 )
+
+df_fact_bids1.drop(labels = ['seller_id', 'channel_id'], axis = 1, inplace = True)
 # %%
 df_public_auction_data = pd.read_csv(
     "./Data/publicAuctionData.csv",
@@ -55,6 +69,7 @@ df_fact_lots2 = pd.read_excel(
 
 # %% Merge two dataframes into single dataframe for lots
 df_fact_lots = pd.concat([df_fact_lots1, df_fact_lots2])
+df_fact_lots.drop(labels = ['seller_id'], axis = 1, inplace = True)
 # %% 1 MERGE WITH BIDS (lots-bids: 1-n relationship)
 df_fact_lots_bids = pd.merge(df_fact_lots, df_fact_bids1)
 # %% 2 MERGE WITH AUCTIONS
