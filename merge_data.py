@@ -70,10 +70,15 @@ df_fact_lots2 = pd.read_excel(
 # %% Merge two dataframes into single dataframe for lots
 df_fact_lots = pd.concat([df_fact_lots1, df_fact_lots2])
 df_fact_lots.drop(labels = ['seller_id'], axis = 1, inplace = True)
+
+# %% Merge df_public_auction_data and df_auctions
+df_auctions_public_auction = pd.merge(df_auctions, df_public_auction_data)
+
+
 # %% 1 MERGE WITH BIDS (lots-bids: 1-n relationship)
 df_fact_lots_bids = pd.merge(df_fact_lots, df_fact_bids1)
 # %% 2 MERGE WITH AUCTIONS
-df_fact_lots_bids_auctions = pd.merge(df_fact_lots_bids, df_auctions)
+df_fact_lots_bids_auctions = pd.merge(df_fact_lots_bids, df_auctions_public_auction)
 # %% 3 MERGE WITH LOTS
 
 # df_lots contains an auction id which is a string.
