@@ -17,6 +17,14 @@ df_auctions.drop(labels=['is_active',
                  axis=1,
                  inplace=True)
 # %%
+#From public auction data we only need is_public (and auction_id for merging)
+df_public_auction_data = pd.read_csv(
+    "./Data/publicAuctionData.txt",
+    sep=";",
+    usecols= ['auction_id', 'is_public'],
+    low_memory=False,
+)
+# %%
 df_lots = pd.read_csv(
     "./Data/DIM_LOT.csv.gz",
     sep=";",
@@ -34,6 +42,7 @@ df_projects = pd.read_csv(
     ],
     low_memory=False,
 )
+#Drop project_auction_start, end as they will be taken from other df. Online irrelevant
 df_projects.drop(labels=["project_auction_start",
                          "project_auction_end",
                          "project_auction_online"], axis=1, inplace=True)
@@ -45,15 +54,9 @@ df_fact_bids1 = pd.read_csv(
     parse_dates=["bid_date", "lot_closingdate", "auction_closingdate"],
     low_memory=False,
 )
-
+#Drop seller id and channel id as they are irrelevant
 df_fact_bids1.drop(labels=['seller_id', 'channel_id'], axis=1, inplace=True)
-# %%
-df_public_auction_data = pd.read_csv(
-    "./Data/publicAuctionData.csv",
-    sep=";",
-    parse_dates=["startdate", "closedate", "onlinedate"],
-    low_memory=False,
-)
+
 # %%
 
 df_fact_lots1 = pd.read_excel(
@@ -69,39 +72,45 @@ df_fact_lots2 = pd.read_excel(
 
 # %% Merge two dataframes into single dataframe for lots
 df_fact_lots = pd.concat([df_fact_lots1, df_fact_lots2])
-df_fact_lots.drop(labels=['seller_id', 'auction_closingdate'], axis=1, inplace=True)
+#Drop seller id, since irrelevant and auction closing date as other df will be used for this
+df_fact_lots.drop(
+    labels=['seller_id', 'auction_closingdate'], axis=1, inplace=True)
 df_fact_lots.rename(
     columns={
         "startingdate": "lot_startingdate",
         "closingdate": "lot_closingdate"},
     inplace=True)
-# %% Merge df_public_auction_data and df_auctions
-df_auctions_public_auction = pd.merge(df_auctions, df_public_auction_data)
+
+# %% Add the correct is_public column to df_auctions
+df_auctions_correct = pd.merge(df_auctions, df_public_auction_data, on = 'auction_id')
 
 
 # %% 1 MERGE WITH BIDS (lots-bids: 1-n relationship)
 #df_fact_lots_bids = pd.merge(df_fact_lots, df_fact_bids1)
 
-### alternative
-df_fact_lots_bids = pd.merge(df_fact_bids1, df_fact_lots, how='left', on=list(set(df_fact_bids1.columns).intersection(set(df_fact_lots.columns))))
+# alternative
+# TODO: DIT moet veranderd worden -> Meeting
+df_fact_lots_bids = pd.merge(df_fact_bids1, df_fact_lots, how='left', on=list(
+    set(df_fact_bids1.columns).intersection(set(df_fact_lots.columns))))
 # %% 2 MERGE WITH AUCTIONS
-#df_fact_lots_bids_auctions = pd.merge(df_fact_lots_bids, df_auctions_public_auction)
+df_fact_lots_bids_auctions = pd.merge(df_fact_lots_bids, df_auctions_correct)
 
-### alternative
-df_fact_lots_bids_auctions = pd.merge(df_fact_lots_bids, df_auctions_public_auction, how='left', on=list(set(df_fact_lots_bids.columns).intersection(set(df_auctions_public_auction.columns))))
-df_fact_lots_bids_auctions
 # %% 3 MERGE WITH LOTS
 
 # df_lots contains an auction id which is a string.
 # This does not occur in the other data so will be excluded when merging anyways
 # So, before merging, remove entries with this auction_id and convert type to int
-df_lots = df_lots[df_lots.auction_id != '3667-'].astype({'auction_id': 'int64'})
-df = pd.merge(df_fact_lots_bids_auctions, df_lots, how='left', on=list(set(df_fact_lots_bids_auctions.columns).intersection(set(df_lots.columns))))
+df_lots = df_lots[df_lots.auction_id !=
+                  '3667-'].astype({'auction_id': 'int64'})
+#df_fact_lots_bids_auctions categorycode column consists of almost only NaNs
+# Remove these before merging, and use the correct categorycodes from df_lots
+df_fact_lots_bids_auctions.drop(labels = ['categorycode'], axis = 1, inplace=True)
+# TODO kijk naar beste optie in meeting -> Igor heeft de opties
+df = pd.merge(df_fact_lots_bids_auctions, df_lots, on = ['lot_id', 'opportunity_id', 'auction_id'])
+# df = pd.merge(df_fact_lots_bids_auctions, df_lots, how='left', on=list(
+#     set(df_fact_lots_bids_auctions.columns).intersection(set(df_lots.columns))))
 
-# %% #TODO FIX INCORRECT MERGE (RESULTS IN ONLY 1300 ROWS)
-#pd.merge(df_fact_lots_bids_auctions, df_lots, left_on=["auction_id"], right_on=["auction_id"])
 
-# This is fixed in the cell above
 # %% 4 MERGE WITH AUCTION CLOSE TIMES
 df_auction_close_times = pd.read_csv(
     "./Data/AuctionCloseTimes.csv",
@@ -113,15 +122,13 @@ df_auction_close_times = pd.read_csv(
         'LOTMINENDDATE',
         'LOTMAXENDDATE'])
 
-#df_auction_close_times['auction_id'] = df_auction_close_times["AUCTIONID"]
-#df_auction_close_times.drop("AUCTIONID", axis=1, inplace=True)       
-df_auction_close_times.rename(columns={"AUCTIONID": "auction_id"}, inplace=True)        
-datetime_cols = [col for col in df_auction_close_times.columns if "DATE" in col]   
-df = pd.merge(df, df_auction_close_times, how='left', on=list(set(df.columns).intersection(set(df_auction_close_times.columns))))
+
+df_auction_close_times.rename(
+    columns={"AUCTIONID": "auction_id"}, inplace=True)
+df = pd.merge(df, df_auction_close_times)
 df.drop(["auction_closingdate", "closingdate", "startingdate",
          "startdate", "closedate"], axis=1, inplace=True)
 
-df
 # %% Export to csv
 df.to_csv("./Data/data_1bm130.csv.gz", chunksize=1000)
 # %%
