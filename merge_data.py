@@ -74,7 +74,7 @@ df_fact_lots2 = pd.read_excel(
 df_fact_lots = pd.concat([df_fact_lots1, df_fact_lots2])
 #Drop seller id, since irrelevant and auction closing date as other df will be used for this
 df_fact_lots.drop(
-    labels=['seller_id', 'auction_closingdate'], axis=1, inplace=True)
+    labels=['seller_id', 'auction_closingdate'], axis=1, inplace=True)  
 df_fact_lots.rename(
     columns={
         "startingdate": "lot_startingdate",
@@ -86,12 +86,14 @@ df_auctions_correct = pd.merge(df_auctions, df_public_auction_data, on = 'auctio
 
 
 # %% 1 MERGE WITH BIDS (lots-bids: 1-n relationship)
-#df_fact_lots_bids = pd.merge(df_fact_lots, df_fact_bids1)
+df_fact_lots.drop(columns=['lot_closingdate'], inplace=True)
+df_fact_lots_bids = pd.merge(df_fact_bids1, df_fact_lots)
+print(df_fact_lots_bids.shape)
+#business line zorgt voor 2000 minder rijen
 
-# alternative
-# TODO: DIT moet veranderd worden -> Meeting
-df_fact_lots_bids = pd.merge(df_fact_bids1, df_fact_lots, how='left', on=list(
-    set(df_fact_bids1.columns).intersection(set(df_fact_lots.columns))))
+not_overlapping_ids = set(df_fact_bids1["lot_id"].values).difference(set(df_fact_lots["lot_id"].values))
+print(f'The following number of lot_ids ({len(not_overlapping_ids)}) is not available in both dataframes')
+
 # %% 2 MERGE WITH AUCTIONS
 df_fact_lots_bids_auctions = pd.merge(df_fact_lots_bids, df_auctions_correct)
 
@@ -105,11 +107,8 @@ df_lots = df_lots[df_lots.auction_id !=
 #df_fact_lots_bids_auctions categorycode column consists of almost only NaNs
 # Remove these before merging, and use the correct categorycodes from df_lots
 df_fact_lots_bids_auctions.drop(labels = ['categorycode'], axis = 1, inplace=True)
-# TODO kijk naar beste optie in meeting -> Igor heeft de opties
-df = pd.merge(df_fact_lots_bids_auctions, df_lots, on = ['lot_id', 'opportunity_id', 'auction_id'])
-# df = pd.merge(df_fact_lots_bids_auctions, df_lots, how='left', on=list(
-#     set(df_fact_lots_bids_auctions.columns).intersection(set(df_lots.columns))))
-
+df_lots.drop(columns=['opportunity_id'], inplace=True)
+df = pd.merge(df_fact_lots_bids_auctions, df_lots)
 
 # %% 4 MERGE WITH AUCTION CLOSE TIMES
 df_auction_close_times = pd.read_csv(
@@ -122,13 +121,18 @@ df_auction_close_times = pd.read_csv(
         'LOTMINENDDATE',
         'LOTMAXENDDATE'])
 
-
 df_auction_close_times.rename(
     columns={"AUCTIONID": "auction_id"}, inplace=True)
 df = pd.merge(df, df_auction_close_times)
 df.drop(["auction_closingdate", "closingdate", "startingdate",
-         "startdate", "closedate"], axis=1, inplace=True)
+         "startdate", "closedate", "type", "lot_newprice"], axis=1, inplace=True)
+df['brand'] = df['brand'].fillna('no_brand')
+df = df[df['efficy_business_line'] != '006.Automotive']
+df = df.reset_index(drop=True)
 
+print(df['efficy_business_line'].unique())
+# column type bevat opmerkelijk waardes zoals "grijs" en "baby car seat cover"
+# brand values zijn niet legit
 # %% Export to csv
 df.to_csv("./Data/data_1bm130.csv.gz", chunksize=1000)
 # %%
