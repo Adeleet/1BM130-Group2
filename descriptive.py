@@ -54,12 +54,14 @@ df_auc_perf = pd.merge(df_auc_perf, df_auctions_dates, how="outer")
 df_auc_perf = pd.merge(df_auc_perf, df_auc_num_bids, how="outer")
 df_auc_perf = pd.merge(df_auc_perf, df_auction_price_diff, how="outer")
 
+#%%
+df_auc_perf
 #%% Performance: Percentage Sold (Histogram)
 sns.histplot(df_auc_perf["auction.pct_sold"])
 plt.title("Histogram of percentage sold for Auctions"), plt.xlabel("% Sold")
 
 #%% Performance: Num Bids (Histogram)
-sns.hist(df_auc_perf["auction.num_bids"])
+sns.histplot(df_auc_perf["auction.num_bids"])
 plt.title("Histogram of number of bids for Auctions"), plt.xlabel("Number of bids")
 #%% Performance: Price Differencce (Histogram)
 sns.histplot(
@@ -88,9 +90,14 @@ plt.title("Timeseries of End Price vs. Start Price for Auctions"), plt.xlabel("D
     "End Price - Start Price "
 )
 
+#%%
+df.groupby("lot.category")["auction.pct_sold"].mean().sample(20).plot.bar()
 # %%
 df = pd.merge(df, df_auc_perf)
-
+#%%
+df_corr = df.corr().abs()[["auction.pct_sold", "auction.num_bids", "auction.price_diff"]]
+#%%
+sns.heatmap(df_corr[df_corr.max(axis=1).between(0.5, 0.99)].round(2), annot=True)
 #%%
 df_auctions = df.drop_duplicates("auction.id")
 df_auc_perf_hd = df_auctions.groupby("auction.is_homedelivery")[
@@ -114,6 +121,14 @@ df_lots_scarcity_bids = (
     .reset_index(name="lot.num_bids")
 )
 # %%
-pd.merge(df_lots_scarcity, df_lots_scarcity_bids).corr()
+df_scarcity = pd.merge(df_lots_scarcity, df_lots_scarcity_bids)
+df_scarcity.groupby("lot.category")["lot.closing_count"].mean().sample(10).plot.bar()
+plt.xticks(rotation=60)
+plt.title("Scarcity per category")
+plt.ylabel("Avg. number of items per day")
+plt.xlabel("Lot Category")
+
+# %%
+df_scarcity
 
 # %%
