@@ -63,6 +63,7 @@ df_lots = pd.read_csv(
     parse_dates=["startingdate", "closingdate", "uitleverdatum"],
     low_memory=False,
     decimal=",",
+    dtype={"valid_bid_count": "Int64"}
 )
 df_lots = df_lots[df_lots["auction_id"] != "3667-"].astype({"auction_id": "int64"})
 df_lots.rename(columns=constants.COLNAMES_LOTS, inplace=True)
@@ -114,6 +115,14 @@ df = pd.merge(df, df_fact_lots)
 
 #%% Drop column 'lot.type' and 'auction.main_category' (mixed dtypes, many missing)
 df.drop(["lot.type", "auction.main_category"], axis=1, inplace=True)
+
+# %% Drop column auction.is_closed: This has value 1 for each row
+df.drop(['auction.is_closed'], axis = 1, inplace = True)
+# Drop column lot.is_open: This has value 0 for each row
+df.drop(['lot.is_open'], axis = 1, inplace = True)
+# Drop column lot.has_bid: This has value 1 for each row
+df.drop(['lot.has_bid'], axis = 1, inplace = True)
+
 #%%
 
 df.to_csv("data/data_merged.csv.gz", index=False)
