@@ -90,10 +90,11 @@ plt.title("Timeseries of End Price vs. Start Price for Auctions"), plt.xlabel("D
     "End Price - Start Price "
 )
 
-#%%
-df.groupby("lot.category")["auction.pct_sold"].mean().sample(20).plot.bar()
 # %%
 df = pd.merge(df, df_auc_perf)
+
+# %%
+df.groupby("lot.category")["auction.pct_sold"].mean().sample(20).plot.bar()
 #%%
 df_corr = df.corr().abs()[["auction.pct_sold", "auction.num_bids", "auction.price_diff"]]
 #%%
