@@ -2,6 +2,8 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
+import numpy as np
+from sklearn.linear_model import LinearRegression
 
 #%%
 df = pd.read_csv(
@@ -111,25 +113,112 @@ df_auc_perf_hd["auction.num_bids"].plot.bar()
 #%%
 df_auc_perf_hd["auction.price_diff"].plot.bar()
 
-# %% Scarcity
+# %% Calculate scarcity
 df_lots_scarcity = (
     df.groupby(["lot.category", "lot.closingdate"])["lot.id"].nunique()
 ).reset_index(name="lot.closing_count")
-# %%
+
+sns.histplot(df_lots_scarcity["lot.closing_count"], bins=32)
+plt.title("Histogram of scarcity"), plt.xlabel("Scarcity")
+
+# %% I don't know why we would need this
+# Number of bids per category per closing date?
 df_lots_scarcity_bids = (
     df.groupby(["lot.category", "lot.closingdate"])["lot.valid_bid_count"]
     .sum()
-    .reset_index(name="lot.num_bids")
+    .reset_index(name="lot.num_bids") 
 )
+
 # %%
 df_scarcity = pd.merge(df_lots_scarcity, df_lots_scarcity_bids)
-df_scarcity.groupby("lot.category")["lot.closing_count"].mean().sample(10).plot.bar()
-plt.xticks(rotation=60)
-plt.title("Scarcity per category")
-plt.ylabel("Avg. number of items per day")
+df = pd.merge(df_scarcity, df)
+per_category = df_scarcity.groupby("lot.category")["lot.closing_count"].mean().reset_index()
+
+per_category.nlargest(15, columns=["lot.closing_count"]).plot.bar(x="lot.category")
+plt.xticks(rotation=90)
+plt.title("15 least scarce categories")
+plt.ylabel("Avg. number of items per closing date that the category is present") 
 plt.xlabel("Lot Category")
+
+per_category.nsmallest(15, columns=["lot.closing_count"]).plot.bar(x="lot.category")
+plt.xticks(rotation=90)
+plt.title("15 most scarce categories")
+plt.ylabel("Avg. number of items per closing date that the category is present") 
+plt.xlabel("Lot Category")
+
+# %% Log-transform
+df["lot.closing_count_log"] = np.log(df['lot.closing_count'])
+sns.histplot(df["lot.closing_count_log"], bins=32)
+plt.title("Histogram of log-transformed scarcity"), plt.xlabel("Scarcity")
+
+# deze plot duurt eeuwen
+#sns.regplot(x=df['lot.closing_count_log'], y=df['lot.num_bids'])
+
+# %% Regression per lot
+print(  'REGRESSION PER LOT: \n'
+        'num_bids = per category per closing date! \n')
+
+for alt in ['valid_bid_count', 'num_bids', 'is_sold']:
+    model = LinearRegression()
+    X = df[['lot.closing_count_log']].values
+    y = df[[f'lot.{alt}']].values          
+    model.fit(X, y)
+    print(f'Scarcity per lot on {alt} per lot')
+    print(f'r2: {round(model.score(X, y), 2)}')
+    print(f'coef: {round(model.coef_[0][0], 2)} \n')
+
+# %% Create auction scarcity measures
+df_auctions_scarcity = (
+    df.groupby(["auction.id"])["lot.closing_count"].mean()
+).reset_index(name="auction.closing_count")
+df_auctions_scarcity["auction.closing_count_log"] = np.log(df_auctions_scarcity['auction.closing_count'])
+
+df_auctions_scarcity_bids = (
+    df.groupby(["auction.id"])["lot.valid_bid_count"].sum() 
+).reset_index(name="auction.num_bids")
+
+df_auctions_scarcity_perc_sold = (
+    df.groupby(["auction.id"])["lot.is_sold"].mean()
+).reset_index(name="auction.perc_sold")
+
+df_scarcity2 = pd.merge(df_auctions_scarcity, df_auctions_scarcity_bids)
+df_scarcity2 = pd.merge(df_scarcity2, df_auctions_scarcity_perc_sold)
+df = pd.merge(df_scarcity2, df)
+
+sns.histplot(df["auction.num_bids"])
+plt.title("Histogram of the number of bids per auction"), plt.xlabel("Number of bids per auction")
+print("Check hoe laag deze aantallen zijn, maar met num_bids wordt het niet beter")
+
+# %%
+sns.histplot(df["auction.perc_sold"])
+plt.title("Histogram of the percentage of lots sold per auction"), plt.xlabel("Percentage sold")
+
+# %% Regression per auction
+print(  'REGRESSION PER AUCTION: \n')
+
+for alt in ['num_bids', 'perc_sold']:
+    model = LinearRegression()
+    X = df[['auction.closing_count_log']].values
+    y = df[[f'auction.{alt}']].values          
+    model.fit(X, y)
+    print(f'Scarcity per auction on {alt} per auction')
+    print(f'r2: {round(model.score(X, y), 2)}')
+    print(f'coef: {round(model.coef_[0][0], 2)} \n')
 
 # %%
 df_scarcity
+
+# %% The effect of the starting price
+sns.histplot(df["lot.start_amount"], bins=32)
+plt.title("Histogram of the start amount per lot"), plt.xlabel("Amount in euros")
+
+
+# %%
+df_lowest_bids = (
+    df.groupby(["lot.id"])["bid.amount"].min() 
+).reset_index(name="lot.min_bid")
+
+sns.histplot(df_lowest_bids["lot.min_bid"])
+plt.title("Histogram of the lowest bid per lot"), plt.xlabel("Amount in euros")
 
 # %%
