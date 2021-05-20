@@ -144,7 +144,6 @@ def create_cluster_data(df: pd.DataFrame, file_name: str) -> pd.DataFrame:
 
 
 # %%
-#TODO !!!!!!!!!! In deze functie alles scalen voor vergelijking met absolute bid counts
 def create_cluster_datav2(df: pd.DataFrame, file_name: str) -> pd.DataFrame:
     """Function which preprocesses data to create features for clustering
 
@@ -190,13 +189,13 @@ def create_cluster_datav2(df: pd.DataFrame, file_name: str) -> pd.DataFrame:
                 entry_time_in_hours = (df_user_lot["bid.date"][0] - df_user_lot["auction.lot_min_start_date"][0]) / pd.Timedelta("1 hour")
                 total_time_auction = (df_user_lot.iloc[0]["auction.lot_max_end_date"] - df_user_lot.iloc[0]["auction.lot_min_start_date"]) / pd.Timedelta("1 hour")
                 #Divide the entry time by the total time of the lot
-                time_of_entry_fraction = entry_time_in_hours / total_time_auction
+                time_of_entry_fraction = (entry_time_in_hours / total_time_auction) * 5 + 1
                 cluster_dict["time_of_entry"].append(time_of_entry_fraction)
 
                 ### Find the time of exit ###
                 
                 exit_time_in_hours = (df_user_lot["bid.date"][df_user_lot.shape[0] - 1] - df_user_lot["auction.lot_min_start_date"][df_user_lot.shape[0] - 1]) / pd.Timedelta("1 hour")
-                exit_time_fraction = exit_time_in_hours / total_time_auction
+                exit_time_fraction = (exit_time_in_hours / total_time_auction) * 5 + 1
                 cluster_dict["time_of_exit"].append(exit_time_fraction)
                 
                 ### Find the average bid increment ###
@@ -224,10 +223,10 @@ def create_cluster_datav2(df: pd.DataFrame, file_name: str) -> pd.DataFrame:
                             
                         increment_list.append(increment)
                 #Append the mean increment number to the cluster_dict
-                cluster_dict["bid_increment"].append(np.array(increment_list).mean())
+                cluster_dict["bid_increment"].append(np.array(increment_list).mean() * 5 + 1)
                 ## Check for autobid
                 #Append the percentage of bids in this auction by the user that were made using autobid
-                cluster_dict["autobid"].append(df_user_lot["bid.is_autobid"].mean())
+                cluster_dict["autobid"].append(df_user_lot["bid.is_autobid"].mean() * 5 + 1)
 
                 
                 
@@ -245,6 +244,7 @@ def create_cluster_datav2(df: pd.DataFrame, file_name: str) -> pd.DataFrame:
 # %%
 cluster_data = create_cluster_data(df = df, file_name= "cluster_features.csv")
 #TODO Ditzelfde. maar met andere file_name en cluster_data_v2 nioemen
+cluster_data_v2 = create_cluster_data(df = df, file_name= "cluster_features_v2.csv")
 # Nr. of bids
 # Time of first bid
 # Time of last bid
@@ -254,8 +254,9 @@ cluster_data = create_cluster_data(df = df, file_name= "cluster_features.csv")
 
 # %%
 cluster_data = pd.read_csv(os.path.join("Data", "cluster_features.csv"))
-
 # %%
+cluster_data_v2 = pd.read_csv(os.path.join("Data", "cluster_features_v2.csv"))
+# %% Perform clustering for v1
 silhouette_scores_list = []
 davies_bouldin_list = []
 inertia_list = []
@@ -272,7 +273,24 @@ plt.plot(list(range(2, 10)), davies_bouldin_list)
 plt.show()
 plt.plot(list(range(2, 10)), inertia_list)
 
-#TODO Doe dit clusteren voor cluster_data_v2
+# %% Perform clustering for v2
+silhouette_scores_list_v2 = []
+davies_bouldin_list_v2 = []
+inertia_list_v2 = []
+model_list_v2 = []
+for nr_clusters in tqdm(range(2, 10)):
+    X = cluster_data_v2.drop("lot_user_combi", axis=1)
+    kmeans_model = KMeans(n_clusters = nr_clusters, random_state = 0).fit(X)
+    labels = kmeans_model.labels_
+    silhouette_scores_list_v2.append(metrics.silhouette_score(X, labels, metric='euclidean'))
+    davies_bouldin_list_v2.append(metrics.davies_bouldin_score(X, labels))
+    inertia_list_v2.append(kmeans_model.inertia_)
+    model_list_v2.append(kmeans_model)
+plt.plot(list(range(2, 10)), silhouette_scores_list_v2)
+plt.show()
+plt.plot(list(range(2, 10)), davies_bouldin_list_v2)
+plt.show()
+plt.plot(list(range(2, 10)), inertia_list_v2)
 
 
 
