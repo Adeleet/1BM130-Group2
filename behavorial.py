@@ -1,10 +1,12 @@
 # %%
 import os
 
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
-
+from sklearn import metrics
+from sklearn.cluster import KMeans
 # %%
 COLUMNS_LIST = ["auction.id", "auction.start_date", "auction.end_date",
                 "auction.lot_min_start_date", "auction.lot_max_start_date",
@@ -39,7 +41,7 @@ print(f"Unique values for bid.is_valid are {df['bid.is_valid'].unique()}")
 # %% Drop invalid bids
 df = df[df["bid.is_valid"] != 0] 
 # %% Remove this cell later
-# df = df.iloc[:100000]
+df = df.iloc[:100000]
 
 # %% Make sure to only keep values where the valid bid count is equal to the number of bids in the dataset
 #Iterate over each lot_id
@@ -149,3 +151,21 @@ cluster_data = create_cluster_data(df = df, file_name= "cluster_features.csv")
 
 # %%
 cluster_data = pd.read_csv(os.path.join("Data", "cluster_features.csv"))
+
+# %%
+silhouette_scores_list = []
+davies_bouldin_list = []
+inertia_list = []
+for nr_clusters in range(2, 10):
+    X = cluster_data.drop("lot_user_combi", axis=1)
+    kmeans_model = KMeans(n_clusters = nr_clusters, random_state = 0).fit(X)
+    labels = kmeans_model.labels_
+    silhouette_scores_list.append(metrics.silhouette_score(X, labels, metric='euclidean'))
+    davies_bouldin_list.append(metrics.davies_bouldin_score(X, labels))
+    inertia_list.append(kmeans_model.inertia_)
+plt.plot(list(range(2, 10)), silhouette_scores_list)
+plt.show()
+plt.plot(list(range(2, 10)), davies_bouldin_list)
+plt.show()
+plt.plot(list(range(2, 10)), inertia_list)
+# %%
