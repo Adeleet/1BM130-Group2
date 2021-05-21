@@ -5,9 +5,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
-from tqdm import tqdm
 from sklearn import metrics
 from sklearn.cluster import KMeans, MiniBatchKMeans
+from tqdm import tqdm
+
 # %%
 COLUMNS_LIST = ["auction.id", "auction.start_date", "auction.end_date",
                 "auction.lot_min_start_date", "auction.lot_max_start_date",
@@ -243,8 +244,8 @@ def create_cluster_datav2(df: pd.DataFrame, file_name: str) -> pd.DataFrame:
 
 # %%
 cluster_data = create_cluster_data(df = df, file_name= "cluster_features.csv")
-#TODO Ditzelfde. maar met andere file_name en cluster_data_v2 nioemen
-cluster_data_v2 = create_cluster_data(df = df, file_name= "cluster_features_v2.csv")
+# %% Ditzelfde. maar met andere file_name en cluster_data_v2 nioemen
+cluster_data_v2 = create_cluster_datav2(df = df, file_name= "cluster_features_v2.csv")
 # Nr. of bids
 # Time of first bid
 # Time of last bid
@@ -278,7 +279,7 @@ silhouette_scores_list_v2 = []
 davies_bouldin_list_v2 = []
 inertia_list_v2 = []
 model_list_v2 = []
-for nr_clusters in tqdm(range(2, 10)):
+for nr_clusters in tqdm(range(2, 10), desc = "Performing clustering for multiple k-values"):
     X = cluster_data_v2.drop("lot_user_combi", axis=1)
     kmeans_model = KMeans(n_clusters = nr_clusters, random_state = 0).fit(X)
     labels = kmeans_model.labels_
@@ -305,4 +306,9 @@ cluster_data_with_labels_k5["labels"] = kmeans_model.labels_
 print("done2")
 sns.pairplot(cluster_data_with_labels_k5.sample(100), hue = "labels", diag_kind=None)
 
+# %%
+print("Model with k = 3:", model_list_v2[1].cluster_centers_, sep = "\n")
+print("Model with k = 4:", model_list_v2[2].cluster_centers_, sep = "\n")
+print("Model with k = 5:", model_list_v2[3].cluster_centers_, sep = "\n")
+print("Model with k = 6:", model_list_v2[4].cluster_centers_, sep = "\n")
 # %%
