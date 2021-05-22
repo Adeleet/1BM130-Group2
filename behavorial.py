@@ -292,6 +292,8 @@ plt.show()
 plt.plot(list(range(2, 10)), davies_bouldin_list_v2)
 plt.show()
 plt.plot(list(range(2, 10)), inertia_list_v2)
+plt.xlabel("Number of Clusters")
+plt.ylabel("Sum of Squares")
 
 
 
@@ -311,4 +313,31 @@ print("Model with k = 3:", model_list_v2[1].cluster_centers_, sep = "\n")
 print("Model with k = 4:", model_list_v2[2].cluster_centers_, sep = "\n")
 print("Model with k = 5:", model_list_v2[3].cluster_centers_, sep = "\n")
 print("Model with k = 6:", model_list_v2[4].cluster_centers_, sep = "\n")
+# %%
+import time
+from sklearn.cluster import AgglomerativeClustering
+now = time.time()
+X = cluster_data_v2.drop("lot_user_combi", axis=1)
+clustering = AgglomerativeClustering().fit(X)
+end = time.time()
+print(f"Total time hierarchical clustering is {end - now} seconds")
+# %%
+
+cluster_data_v2_labeled = cluster_data_v2.copy()
+cluster_data_v2_labeled["label"] = model_list_v2[1].labels_
+#
+# %%
+start_list = []
+end_list = []
+for lot_id in tqdm(df["lot.id"].unique(), desc= "Creating clustering features"):
+    df_this_lot = df[df["lot.id"] == lot_id]
+    # Check if valid_bid_count is equal to the number of bids in the data for this lot 
+    if df_this_lot["lot.valid_bid_count"].mean() == df_this_lot.shape[0]:
+        start = df_this_lot.iloc[0]["lot.start_amount"]
+        end = df_this_lot[df_this_lot["bid.is_latest"] == 1]["bid.amount"]
+        # Iterate over each user that made a bid for this lot
+        for user_id in df[df["lot.id"] == lot_id]["user.id"].unique():
+            start_list.append(start)
+            end_list.append(end)
+
 # %%
