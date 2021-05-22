@@ -12,13 +12,13 @@ df_auctions = pd.read_csv(
 # DROP 'is_active', 'open_for_bidding': Not Applicable (Data Description)
 df_auctions.drop(["is_active", "open_for_bidding"], axis=1, inplace=True)
 # DROP 'is_public' ,'is_private', 'onlinedate': consists of only NaN values/obtained from publicAuctionData.txt
-df_auctions.drop(["onlinedate", "is_public", "is_private"], axis=1, inplace=True)
+df_auctions.drop(["onlinedate", "is_public", "is_private"],
+                 axis=1, inplace=True)
 # DROP date columns, more precise date+time is obtained from 'AuctionCloseTimes.csv'
 df_auctions.drop(["startdate", "closedate"], axis=1, inplace=True)
 
 # RENAME columns
 df_auctions.rename(columns=constants.COLNAMES_DIM_AUCTION, inplace=True)
-
 # %% Dataset 1-A: 'publicAuctionData.txt' to obtain correct 'is_public' values for auctions
 df_public_auction_data = pd.read_csv(
     "data/raw_data/publicAuctionData.txt",
@@ -47,7 +47,8 @@ df_auction_close_times = pd.read_csv(
     ],
     dayfirst=True,
 )
-df_auction_close_times.rename(columns=constants.COLNAMES_AUCTION_CLOSE_TIMES, inplace=True)
+df_auction_close_times.rename(
+    columns=constants.COLNAMES_AUCTION_CLOSE_TIMES, inplace=True)
 
 # %%
 AUCTIONS_MISSING_CLOSETIMES = set(df_auctions["auction.id"]).difference(
@@ -65,7 +66,8 @@ df_lots = pd.read_csv(
     decimal=",",
     dtype={"valid_bid_count": "Int64"}
 )
-df_lots = df_lots[df_lots["auction_id"] != "3667-"].astype({"auction_id": "int64"})
+df_lots = df_lots[df_lots["auction_id"] !=
+                  "3667-"].astype({"auction_id": "int64"})
 df_lots.rename(columns=constants.COLNAMES_LOTS, inplace=True)
 
 # %%
@@ -75,12 +77,13 @@ df_projects = pd.read_csv("data/raw_data/Dim_projects.csv", sep=",")
 
 # Drop project_auction_start, end as they will be taken from other df. Online irrelevant
 df_projects.drop(
-    labels=["project_auction_start", "project_auction_end", "project_auction_online"],
+    labels=["project_auction_start",
+            "project_auction_end", "project_auction_online"],
     axis=1,
     inplace=True,
 )
 df_projects.rename(columns=constants.COLNAMES_PROJECTS, inplace=True)
-#%%
+# %%
 df = pd.merge(df, df_projects)
 # %%
 df_bids = pd.read_csv(
@@ -94,10 +97,11 @@ df_bids = pd.read_csv(
 df_bids.drop(["seller_id", "channel_id"], axis=1, inplace=True)
 
 # Drop 'lot_closingdate' and 'auction_closingdate', 'opportunity_id' as these are already included
-df_bids.drop(["lot_closingdate", "auction_closingdate", "opportunity_id"], axis=1, inplace=True)
+df_bids.drop(["lot_closingdate", "auction_closingdate",
+             "opportunity_id"], axis=1, inplace=True)
 df_bids.rename(columns=constants.COLNAMES_BIDS, inplace=True)
 
-#%%
+# %%
 df = pd.merge(df, df_bids)
 
 # %%
@@ -113,17 +117,17 @@ df_fact_lots.drop(
 df_fact_lots.rename(columns=constants.COLNAMES_FACT_LOTS, inplace=True)
 df = pd.merge(df, df_fact_lots)
 
-#%% Drop column 'lot.type' and 'auction.main_category' (mixed dtypes, many missing)
+# %% Drop column 'lot.type' and 'auction.main_category' (mixed dtypes, many missing)
 df.drop(["lot.type", "auction.main_category"], axis=1, inplace=True)
 
 # %% Drop column auction.is_closed: This has value 1 for each row
-df.drop(['auction.is_closed'], axis = 1, inplace = True)
+df.drop(['auction.is_closed'], axis=1, inplace=True)
 # Drop column lot.is_open: This has value 0 for each row
-df.drop(['lot.is_open'], axis = 1, inplace = True)
+df.drop(['lot.is_open'], axis=1, inplace=True)
 # Drop column lot.has_bid: This has value 1 for each row
-df.drop(['lot.has_bid'], axis = 1, inplace = True)
+df.drop(['lot.has_bid'], axis=1, inplace=True)
 
-#%%
+# %%
 
 df.to_csv("data/data_merged.csv.gz", index=False)
 

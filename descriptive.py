@@ -1,11 +1,14 @@
-#%%
+# %%
+from sklearn.linear_model import LogisticRegression
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 import numpy as np
 from sklearn.linear_model import LinearRegression
+from statsmodels.graphics.gofplots import qqplot
+from scipy.stats import pearsonr
 
-#%%
+# %%
 df = pd.read_csv(
     "data/data_merged.csv.gz",
     parse_dates=[
@@ -21,10 +24,12 @@ df = pd.read_csv(
         "bid.date",
     ],
 )
-#%%
-df = df.sort_values(by=["auction.id", "lot.id", "bid.date"]).reset_index(drop=True)
 
-#%% Calculate lot price difference (end price - starting price)
+# %%
+df = df.sort_values(
+    by=["auction.id", "lot.id", "bid.date"]).reset_index(drop=True)
+
+# %% Calculate lot price difference (end price - starting price)
 df_valid_bids = df[(df["bid.is_valid"] == 1) & (df["lot.is_sold"] == 1)]
 df_lot_start_price = df_valid_bids.groupby("lot.id")["lot.start_amount"].min()
 df_lot_end_price = df_valid_bids.groupby("lot.id")["bid.amount"].max()
@@ -32,10 +37,12 @@ df_lot_price_diff = df_lot_end_price - df_lot_start_price
 df_lot_price_diff = df_lot_price_diff.reset_index(name="lot.price_diff")
 df = pd.merge(df, df_lot_price_diff, how="outer")
 # %% Auction Performance
-df_auctions_dates = df.groupby("auction.id")["auction.end_date"].min().reset_index()
+df_auctions_dates = df.groupby("auction.id")[
+    "auction.end_date"].min().reset_index()
 
 # Performance A - % sold
-df_auc_perf = df.groupby("auction.id")["lot.is_sold"].mean().reset_index(name="auction.pct_sold")
+df_auc_perf = df.groupby("auction.id")["lot.is_sold"].mean(
+).reset_index(name="auction.pct_sold")
 
 # Performance B - Number of bids
 df_auc_num_bids = (
@@ -51,174 +58,244 @@ df_auction_price_diff = (
     .sum()
     .reset_index(name="auction.price_diff")
 )
-#%%
+# %%
 df_auc_perf = pd.merge(df_auc_perf, df_auctions_dates, how="outer")
 df_auc_perf = pd.merge(df_auc_perf, df_auc_num_bids, how="outer")
 df_auc_perf = pd.merge(df_auc_perf, df_auction_price_diff, how="outer")
 
-#%%
-df_auc_perf
-#%% Performance: Percentage Sold (Histogram)
+# %% Performance: Percentage Sold (Histogram)
 sns.histplot(df_auc_perf["auction.pct_sold"])
-plt.title("Histogram of percentage sold for Auctions"), plt.xlabel("% Sold")
+# plt.title("Histogram of percentage sold for Auctions")
+plt.xlabel("% Sold")
+plt.savefig("./figures/descriptive_auction_pct_sold_hist.svg")
 
-#%% Performance: Num Bids (Histogram)
+# %% Performance: Num Bids (Histogram)
 sns.histplot(df_auc_perf["auction.num_bids"])
-plt.title("Histogram of number of bids for Auctions"), plt.xlabel("Number of bids")
-#%% Performance: Price Differencce (Histogram)
-sns.histplot(
-    df_auc_perf["auction.price_diff"],
-)
+# plt.title("Histogram of number of bids for Auctions")
+plt.xlabel("Number of bids")
+plt.savefig("./figures/descriptive_auction_num_bids_hist.svg")
+
+# %% Performance: Price Differencce (Histogram)
+sns.histplot(df_auc_perf["auction.price_diff"])
 plt.xlim(0, 30000)
-plt.title("Histogram of End Price - Start Price for Auctions"), plt.xlabel(
-    "End Price - Start Price"
-)
-#%% Performance - timeseries
+# plt.title("Histogram of End Price - Start Price for Auctions")
+plt.xlabel("End Price - Start Price")
+plt.savefig("./figures/descriptive_auction_price_diff_hist.svg")
+
+# %% Performance - timeseries
 df_auc_perf_ts = df_auc_perf.set_index("auction.end_date").sort_index()
 df_auc_perf_ts = df_auc_perf_ts.resample(pd.Timedelta("1d")).mean()
 df_auc_perf_ts = df_auc_perf_ts.rolling(window="14d").mean()
-#%% Performance: Percentage Sold (Timeseries)
+# %% Performance: Percentage Sold (Timeseries)
 df_auc_perf_ts["auction.pct_sold"].plot()
-plt.title("Timeseries of percentage sold for Auctions"), plt.xlabel("Date"), plt.ylabel("% Sold")
+# plt.title("Timeseries of percentage sold for Auctions")
+plt.xlabel("")
+plt.ylabel("% Sold")
+plt.savefig("./figures/descriptive_auction_perc_sold_timeseries.svg")
 
-#%% Performance: Number of Bids (Timeseries)
+
+# %% Performance: Number of Bids (Timeseries)
 df_auc_perf_ts["auction.num_bids"].plot()
-plt.title("Timeseries of number of bids for Auctions"), plt.xlabel("Date"), plt.ylabel(
-    "Number of Bids"
-)
-#%% Performance: Price Difference (Timeseries))
+# plt.title("Timeseries of number of bids for Auctions")
+plt.xlabel("")
+plt.ylabel("Number of Bids")
+plt.savefig("./figures/descriptive_auction_num_bids_timeseries.svg")
+
+# %% Performance: Price Difference (Timeseries))
 df_auc_perf_ts["auction.price_diff"].plot()
-plt.title("Timeseries of End Price vs. Start Price for Auctions"), plt.xlabel("Date"), plt.ylabel(
-    "End Price - Start Price "
+# plt.title("Timeseries of End Price vs. Start Price for Auctions")
+plt.xlabel("")
+plt.ylabel("End Price - Start Price")
+plt.savefig("./figures/descriptive_auction_price_diff_timeseries.svg")
+
+
+# %% Impact of scarcity
+df_lots_scarcity_bids = (
+    df.groupby(["lot.category", "lot.closingdate"])["lot.valid_bid_count"]
+    .sum()
+    .reset_index(name="lot.num_bids")
 )
 
-# %%
-df = pd.merge(df, df_auc_perf)
-
-# %%
-df.groupby("lot.category")["auction.pct_sold"].mean().sample(20).plot.bar()
-#%%
-df_corr = df.corr().abs()[["auction.pct_sold", "auction.num_bids", "auction.price_diff"]]
-#%%
-sns.heatmap(df_corr[df_corr.max(axis=1).between(0.5, 0.99)].round(2), annot=True)
-#%%
-df_auctions = df.drop_duplicates("auction.id")
-df_auc_perf_hd = df_auctions.groupby("auction.is_homedelivery")[
-    ["auction.pct_sold", "auction.num_bids", "auction.price_diff"]
-].mean()
-#%%
-df_auc_perf_hd["auction.pct_sold"].plot.bar(ylim=(0, 1))
-#%%
-df_auc_perf_hd["auction.num_bids"].plot.bar()
-#%%
-df_auc_perf_hd["auction.price_diff"].plot.bar()
 
 # %% Calculate scarcity
 df_lots_scarcity = (
     df.groupby(["lot.category", "lot.closingdate"])["lot.id"].nunique()
 ).reset_index(name="lot.closing_count")
-
-sns.histplot(df_lots_scarcity["lot.closing_count"], bins=32)
-plt.title("Histogram of scarcity"), plt.xlabel("Scarcity")
-
-# %% I don't know why we would need this
-# Number of bids per category per closing date?
-df_lots_scarcity_bids = (
-    df.groupby(["lot.category", "lot.closingdate"])["lot.valid_bid_count"]
-    .sum()
-    .reset_index(name="lot.num_bids") 
-)
-
 # %%
 df_scarcity = pd.merge(df_lots_scarcity, df_lots_scarcity_bids)
 df = pd.merge(df_scarcity, df)
-per_category = df_scarcity.groupby("lot.category")["lot.closing_count"].mean().reset_index()
-
-per_category.nlargest(15, columns=["lot.closing_count"]).plot.bar(x="lot.category")
-plt.xticks(rotation=90)
-plt.title("15 least scarce categories")
-plt.ylabel("Avg. number of items per closing date that the category is present") 
-plt.xlabel("Lot Category")
-
-per_category.nsmallest(15, columns=["lot.closing_count"]).plot.bar(x="lot.category")
-plt.xticks(rotation=90)
-plt.title("15 most scarce categories")
-plt.ylabel("Avg. number of items per closing date that the category is present") 
-plt.xlabel("Lot Category")
-
-# %% Log-transform
-df["lot.closing_count_log"] = np.log(df['lot.closing_count'])
-sns.histplot(df["lot.closing_count_log"], bins=32)
-plt.title("Histogram of log-transformed scarcity"), plt.xlabel("Scarcity")
-
-# deze plot duurt eeuwen
-#sns.regplot(x=df['lot.closing_count_log'], y=df['lot.num_bids'])
-
-# %% Regression per lot
-print(  'REGRESSION PER LOT: \n'
-        'num_bids = per category per closing date! \n')
-
-for alt in ['valid_bid_count', 'num_bids', 'is_sold']:
-    model = LinearRegression()
-    X = df[['lot.closing_count_log']].values
-    y = df[[f'lot.{alt}']].values          
-    model.fit(X, y)
-    print(f'Scarcity per lot on {alt} per lot')
-    print(f'r2: {round(model.score(X, y), 2)}')
-    print(f'coef: {round(model.coef_[0][0], 2)} \n')
-
-# %% Create auction scarcity measures
-df_auctions_scarcity = (
-    df.groupby(["auction.id"])["lot.closing_count"].mean()
-).reset_index(name="auction.closing_count")
-df_auctions_scarcity["auction.closing_count_log"] = np.log(df_auctions_scarcity['auction.closing_count'])
-
-df_auctions_scarcity_bids = (
-    df.groupby(["auction.id"])["lot.valid_bid_count"].sum() 
-).reset_index(name="auction.num_bids")
-
-df_auctions_scarcity_perc_sold = (
-    df.groupby(["auction.id"])["lot.is_sold"].mean()
-).reset_index(name="auction.perc_sold")
-
-df_scarcity2 = pd.merge(df_auctions_scarcity, df_auctions_scarcity_bids)
-df_scarcity2 = pd.merge(df_scarcity2, df_auctions_scarcity_perc_sold)
-df = pd.merge(df_scarcity2, df)
-
-sns.histplot(df["auction.num_bids"])
-plt.title("Histogram of the number of bids per auction"), plt.xlabel("Number of bids per auction")
-print("Check hoe laag deze aantallen zijn, maar met num_bids wordt het niet beter")
-
-# %%
-sns.histplot(df["auction.perc_sold"])
-plt.title("Histogram of the percentage of lots sold per auction"), plt.xlabel("Percentage sold")
-
-# %% Regression per auction
-print(  'REGRESSION PER AUCTION: \n')
-
-for alt in ['num_bids', 'perc_sold']:
-    model = LinearRegression()
-    X = df[['auction.closing_count_log']].values
-    y = df[[f'auction.{alt}']].values          
-    model.fit(X, y)
-    print(f'Scarcity per auction on {alt} per auction')
-    print(f'r2: {round(model.score(X, y), 2)}')
-    print(f'coef: {round(model.coef_[0][0], 2)} \n')
-
 # %%
 df_scarcity
-
-# %% The effect of the starting price
-sns.histplot(df["lot.start_amount"], bins=32)
-plt.title("Histogram of the start amount per lot"), plt.xlabel("Amount in euros")
+# %%
+df_total_scarcity = df.groupby(['lot.category', 'lot.closingdate'])[
+    'lot.id'].nunique().unstack().sum().reset_index(name="scarcity")
+df = pd.merge(df_total_scarcity, df)
 
 
 # %%
-df_lowest_bids = (
-    df.groupby(["lot.id"])["bid.amount"].min() 
-).reset_index(name="lot.min_bid")
+# %%
+df['lot.num_bids_log'] = np.log(df['lot.num_bids'])
+# %%
+df.drop_duplicates('lot.id').groupby('scarcity')[
+    'lot.num_bids'].median().plot()
 
-sns.histplot(df_lowest_bids["lot.min_bid"])
-plt.title("Histogram of the lowest bid per lot"), plt.xlabel("Amount in euros")
+
+# %%
+most_common_categories = df['lot.category'].value_counts().sample(
+    10).plot.bar()
+# %%
+scarcity_is_sold = df.groupby(['lot.category', 'lot.is_sold'])[
+    'lot.closing_count'].mean().unstack().round(2)
+scarcity_is_sold.sample(10).plot.bar()
+
+# %%
+most_common_categories = df['lot.category'].value_counts().head(10).index
+most_common_categories
+# %%
+df['lot.category'].value_counts().head(20)
+# %%
+
+df.drop_duplicates('lot.id').groupby('lot.category')[
+    'lot.price_diff'].mean()[most_common_categories].plot.bar()
+# %% center scarcity
+lot_category_mean_closing_count = df.groupby(
+    ['lot.category'])['lot.closing_count'].describe()[['mean', 'std']].reset_index()
+lot_category_mean_closing_count.rename(
+    columns={"mean": "lot.category_scarcity_mean", "std": "lot.category_scarcity_std"}, inplace=True)
+df = pd.merge(df, lot_category_mean_closing_count)
+df['lot.scarcity'] = (df['lot.closing_count'] -
+                      df['lot.category_scarcity_mean']) / df['lot.category_scarcity_std']
+
+# %% center valid_bid_count
+lot_category_mean_valid_bid_count = df.groupby(
+    ['lot.category'])['lot.valid_bid_count'].describe()[['mean', 'std']].reset_index()
+lot_category_mean_valid_bid_count.rename(
+    columns={"mean": "lot.category_valid_bid_count_mean", "std": "lot.category_valid_bid_count_std"}, inplace=True)
+df = pd.merge(df, lot_category_mean_valid_bid_count)
+df['lot.valid_bid_count_relative'] = (df['lot.valid_bid_count'] -
+                                      df['lot.category_valid_bid_count_mean']) / df['lot.category_valid_bid_count_std']
+# %%
+sns.boxplot(data=df.drop_duplicates('lot.id'),
+            x='lot.is_sold', y='lot.scarcity')
+plt.ylim(-4, 5)
+plt.ylabel("Lot scarcity (category-relative)")
+plt.xlabel("Lot sold")
+plt.savefig("./figures/descriptive_scarcity_is_sold.svg")
+
+
+# %%
+train_data = df.drop_duplicates(
+    'lot.id')[['lot.valid_bid_count_relative', 'lot.scarcity']]
+sns.scatterplot(data=df.drop_duplicates('lot.id').sample(
+    10000), y='lot.valid_bid_count_relative', x='lot.scarcity')
+plt.ylim(-2, 3)
+plt.xlim(-2, 3)
+plt.xlabel("Lot Scarcity")
+plt.ylabel("Number of Bids (category-relative)")
+plt.savefig("./figures/descriptive_scarcity_bid_count.svg")
+
+# train_data.quantile(0.05)
+# %%
+lot_category_mean_price_diff = df.groupby(
+    ['lot.category'])['lot.price_diff'].describe()[['mean', 'std']].reset_index()
+lot_category_mean_price_diff.rename(
+    columns={"mean": "lot.category_price_diff_mean", "std": "lot.category_price_diff_std"}, inplace=True)
+df = pd.merge(df, lot_category_mean_price_diff)
+df['lot.price_diff_relative'] = (df['lot.price_diff'] -
+                                 df['lot.category_price_diff_mean']) / df['lot.category_price_diff_std']
+# %%
+df
+
+# %%
+train_data = df.drop_duplicates(
+    'lot.id')[['lot.price_diff_relative', 'lot.scarcity']]
+sns.scatterplot(data=df.drop_duplicates('lot.id').sample(
+    10000), y='lot.price_diff_relative', x='lot.scarcity')
+plt.ylim(-2, 4)
+plt.xlim(-2, 4)
+plt.xlabel("Lot Scarcity")
+plt.ylabel("Price Difference (category-relative)")
+plt.savefig("./figures/descriptive_scarcity_price_diff.svg")
+# %%
+train_data = df.dropna(subset=['lot.scarcity', 'lot.price_diff_relative'])
+pearsonr(train_data['lot.price_diff_relative'], train_data['lot.scarcity'])
+
+# %% Impact of starting prices
+df = pd.merge(df, df_auc_perf)
+df['lot.start_amount_log'] = np.log1p(df['lot.start_amount'])
+df['lot.price_diff_log'] = np.log1p(df['lot.price_diff'])
+# %%
+df['auction.num_bids']
+# %%
+
+df_corr = df.corr()[["auction.pct_sold",
+                     "auction.num_bids", "auction.price_diff"]]
+
+df_corr_sig = df_corr[df_corr.abs().max(axis=1).between(
+    0.45, 0.99)]  # significant correlations
+plt.figure(figsize=(8, 8))
+sns.heatmap(df_corr_sig.round(2), annot=True)
+plt.savefig("./figures/descriptive_corr_heatmap.svg")
+# %%
+# sns.boxplot(data=df.drop_duplicates('lot.id'),x='lot.starting_at_1EUR', y='lot.valid_bid_count_log')
+df_lots = df.drop_duplicates('lot.id')
+
+df_corr2 = df.corr()[['lot.starting_at_1EUR', 'lot.start_amount']]
+df_corr2[df_corr2.abs().max(axis=1).between(0.5, 0.99)].round(2)
+
+
+# %%
+# %%
+
+df_lots['lot.valid_bid_count_log'] = np.log(df_lots['lot.valid_bid_count'])
+# %%
+sns.boxplot(data=df_lots, x='lot.starting_at_1EUR',
+            y='lot.valid_bid_count_log')
+plt.xlabel("Lot starting at 1 EUR")
+plt.ylabel("log (Number of bids)")
+plt.savefig("./figures/descriptive_lot1EUR_logNumBids_boxplot.svg")
+
+# %%
+sns.boxplot(data=df_lots, x='lot.starting_at_1EUR',
+            y='lot.price_diff_log', whis=3)
+plt.xlabel("Lot starting at 1 EUR")
+plt.ylabel("log (Price Difference)")
+plt.savefig("./figures/descriptive_lot1EUR_logPriceDiff_boxplot.svg")
+
+# %%
+df.groupby('lot.starting_at_1EUR')['lot.is_sold'].describe().round(2)
+# %%
+sns.boxplot(data=df_lots, x='auction.is_homedelivery',
+            y='lot.valid_bid_count_log')
+plt.xlabel("Lot homedelivery")
+plt.ylabel("log (Number of bids)")
+plt.savefig("./figures/descriptive_lotHomedelivery_logNumBids_boxplot.svg")
+
+# %%
+sns.boxplot(data=df_lots, x='auction.is_homedelivery',
+            y='lot.price_diff_log', whis=3)
+plt.xlabel("Lot homedelivery")
+plt.ylabel("log (Price Difference)")
+plt.savefig("./figures/descriptive_lotHomedelivery_logPriceDiff_boxplot.svg")
+
+# %%
+df.groupby('auction.is_homedelivery')['lot.is_sold'].describe().round(2)
+
+
+# %%
+sns.boxplot(data=df_lots, x='auction.is_public',
+            y='lot.valid_bid_count_log')
+plt.xlabel("Public Auction")
+plt.ylabel("log (Number of bids)")
+plt.savefig("./figures/descriptive_lotIsPublic_logNumBids_boxplot.svg")
+# %%
+
+sns.boxplot(data=df_lots, x='auction.is_public',
+            y='lot.price_diff_log', whis=3)
+plt.xlabel("Public Auction")
+plt.ylabel("log (Price Difference)")
+plt.savefig("./figures/descriptive_lotIsPublic_logPriceDiff_boxplot.svg")
+# %%
+df.groupby('auction.is_public')['lot.is_sold'].describe().round(2)
 
 # %%
