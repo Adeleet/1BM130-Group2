@@ -41,7 +41,7 @@ df = df[[
     'auction.is_public', 'lot.auction_lot_number', 'lot.newprice', 'lot.taxrate', 
     'lot.subcategory', 'lot.category', 'lot.starting_at_1EUR', 'lot.brand', 
     'lot.condition', 'lot.category_code', 'project.business_line', 'project.business_unit',
-    'project.is_homedelivery', 'project.is_public', 'lot.start_amount']]
+    'project.is_homedelivery', 'project.is_public', 'lot.start_amount', 'lot.is_sold']]
 
     ### new price dubbel?
 
