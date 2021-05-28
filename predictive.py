@@ -87,27 +87,3 @@ print(f"Best setting: {best}")
 clf = DecisionTreeClassifier(criterion=criterion[best['criterion']], max_depth=best['max_depth'], min_samples_leaf=min_sample_leaf[best['min_samples_leaf']])
 clf.fit(X_res, y_res)
 print(f'Test results: {clf.score(X_test, y_test)}')
-
-
-# %%
-lin = LinearRegression()
-y = train_data['lot.valid_bid_count']
-X = train_data.drop('lot.valid_bid_count', axis=1).select_dtypes("float")
-X_train, X_test, y_train, y_test = train_test_split(X, y)
-lin.fit(X_train, y_train)
-lin.score(X_train, y_train), lin.score(X_test, y_test)
-
-# %% TODO FIX INCONSISTENT NUMBER OF BIDS
-df = df[df['bid.is_valid'] == 1]
-lot_vbid_count = df.groupby('lot.id')['bid.id'].nunique().reset_index()
-lot_vbid_count.rename(
-    columns={"bid.id": "bid.valid_count_chingchang"}, inplace=True)
-
-df = pd.merge(df, lot_vbid_count)
-# %%
-(df['bid.valid_count_chingchang'] !=
- df['lot.valid_bid_count']).value_counts(normalize=True)
-CHINGCHANG_COLS = ['bid.valid_count_chingchang', 'lot.valid_bid_count']
-# %%
-(df['bid.valid_count_chingchang'] - df['lot.valid_bid_count']).describe().round(3)
-# %%
