@@ -102,7 +102,8 @@ df_bids.drop(["lot_closingdate", "auction_closingdate",
 df_bids.rename(columns=constants.COLNAMES_BIDS, inplace=True)
 
 # %%
-df = pd.merge(df, df_bids)
+
+df = pd.merge(df, df_bids, how='outer')
 
 # %%
 df_fact_lots1 = pd.read_excel("data/raw_data/fact_lots_1.xlsx", skiprows=2)
