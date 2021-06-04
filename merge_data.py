@@ -106,10 +106,7 @@ df_bids.rename(columns=constants.COLNAMES_BIDS, inplace=True)
 df = pd.merge(df, df_bids, how='outer')
 
 # %%
-df_fact_lots1 = pd.read_excel("data/raw_data/fact_lots_1.xlsx", skiprows=2)
-df_fact_lots2 = pd.read_excel("data/raw_data/fact_lots_2.xlsx", skiprows=2)
-# Merge two dataframes into single dataframe for lots
-df_fact_lots = pd.concat([df_fact_lots1, df_fact_lots2])
+df_fact_lots = pd.read_csv("data/raw_data/fact_lots.csv.gz")
 
 # Drop seller id, since irrelevant and auction closing date as other df will be used for this
 df_fact_lots.drop(
