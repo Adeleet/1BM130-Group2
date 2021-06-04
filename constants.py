@@ -75,6 +75,8 @@ COLNAMES_BIDS = {
     "lot_id": "lot.id",
     "auction_id": "auction.id",
     "is_autobid": "bid.is_autobid",
+    "lot_closingdate": "lot.closingdate",
+    "auction_closingdate": "auction.closingdate",
     "is_valid": "bid.is_valid",
     "bid_amount": "bid.amount",
     "latest_bid": "bid.is_latest",

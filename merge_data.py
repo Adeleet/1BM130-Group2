@@ -11,7 +11,8 @@ df_auctions = pd.read_csv(
 
 # DROP 'is_active', 'open_for_bidding': Not Applicable (Data Description)
 df_auctions.drop(["is_active", "open_for_bidding"], axis=1, inplace=True)
-# DROP 'is_public' ,'is_private', 'onlinedate': consists of only NaN values/obtained from publicAuctionData.txt
+# DROP 'is_public' ,'is_private', 'onlinedate': consists of only NaN
+# values/obtained from publicAuctionData.txt
 df_auctions.drop(["onlinedate", "is_public", "is_private"],
                  axis=1, inplace=True)
 # DROP date columns, more precise date+time is obtained from 'AuctionCloseTimes.csv'
@@ -70,6 +71,8 @@ df_lots = df_lots[df_lots["auction_id"] !=
                   "3667-"].astype({"auction_id": "int64"})
 df_lots.rename(columns=constants.COLNAMES_LOTS, inplace=True)
 
+# Drop date-only 'lot.closingdate' as 'Fact_bids1.csv.gz' has 'lot.closingdate' with date+time
+df_lots.drop("lot.closingdate", axis=1, inplace=True)
 # %%
 df = pd.merge(df_auctions, df_lots)
 # %%
@@ -96,13 +99,10 @@ df_bids = pd.read_csv(
 # Drop 'seller_id' and 'channel_id' as they are Not Applicable
 df_bids.drop(["seller_id", "channel_id"], axis=1, inplace=True)
 
-# Drop 'lot_closingdate' and 'auction_closingdate', 'opportunity_id' as these are already included
-df_bids.drop(["lot_closingdate", "auction_closingdate",
-             "opportunity_id"], axis=1, inplace=True)
+# Drop 'auction_closingdate', 'opportunity_id' as these are already included
+df_bids.drop(["auction_closingdate", "opportunity_id"], axis=1, inplace=True)
 df_bids.rename(columns=constants.COLNAMES_BIDS, inplace=True)
-
 # %%
-
 df = pd.merge(df, df_bids, how='outer')
 
 # %%
@@ -116,6 +116,8 @@ df_fact_lots.drop(
     ["seller_id", "auction_closingdate", "efficy_business_line"], axis=1, inplace=True
 )
 df_fact_lots.rename(columns=constants.COLNAMES_FACT_LOTS, inplace=True)
+df_fact_lots.columns
+# %%
 df = pd.merge(df, df_fact_lots)
 
 # %% Drop column 'lot.type' and 'auction.main_category' (mixed dtypes, many missing)
@@ -129,7 +131,4 @@ df.drop(['lot.is_open'], axis=1, inplace=True)
 df.drop(['lot.has_bid'], axis=1, inplace=True)
 
 # %%
-
 df.to_csv("data/data_merged.csv.gz", index=False)
-
-# %%
