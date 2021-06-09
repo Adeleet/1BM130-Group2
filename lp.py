@@ -1,8 +1,8 @@
 #%%
 import gurobipy as grb
-from sklearn.tree  import DecisionTreeClassifier
+from sklearn.tree  import DecisionTreeClassifier, DecisionTreeRegressor
 #%%
-clf_price = DecisionTreeClassifier()
+clf_price = DecisionTreeRegressor()
 
 children_left_price = clf_price.tree_.children_left
 children_right_price = clf_price.tree_.children_right
@@ -19,9 +19,21 @@ threshold_sold = clf_sold.tree_.threshold
 value_sold = clf_sold.tree_.value
 #%%
 class Lot:
-    def __init__(self, lot_id, closing_timeslot):
+    def __init__(self, lot_id, *features):
         self.id = lot_id
-        self.closing_timeslot = closing_timeslot
+        self.features = features
+        
+    def set_end_time(self, end_time):
+        self.end_time = end_time
+
+    def get_end_time(self):
+        return self.end_time
+
+    def set_starting_price(self, starting_price):
+        self.starting_price = starting_price
+
+    def get_starting_price(self):
+        return self.starting_price
 
     def get_id(self):
         return self.id
@@ -45,7 +57,7 @@ class Node_price:
         self.leftchild = children_left[self.id]
         self.rightchild = children_right[self.id]
         self.threshold = threshold[self.id]
-
+        #create the list of leaf nodes that are part of the left and right subtree
         leftsubtreenodes = [Nodes_price[self.leftchild]]
         leftsubtreeleaves = []
         for i in leftsubtreenodes:
@@ -81,7 +93,7 @@ class Node_sold:
         self.leftchild = children_left[self.id]
         self.rightchild = children_right[self.id]
         self.threshold = threshold[self.id]
-
+        #create the list of leaf nodes that are part of the left and right subtree
         leftsubtreenodes = [Nodes_sold[self.leftchild]]
         leftsubtreeleaves = []
         for i in leftsubtreenodes:
@@ -159,6 +171,9 @@ for node in range(len(value_sold)):
 
 #%%
 lpmodel = grb.Model("1BM130 prescriptive analytics")
+lpmodel.modelSense = grb.GRB.MAXIMIZE
+
+#create the z^p_l_r variables
 for leafnode in Leafnodes_price:
     myvars = {}
     for lot in Lots:
@@ -166,6 +181,7 @@ for leafnode in Leafnodes_price:
         myvars[lot] = myvar
     Leafnodes_price[leafnode].set_z_vars(myvars)
 
+#create the z^s_l_r variables
 for leafnode in Leafnodes_sold:
     myvars = {}
     for lot in Lots:
@@ -173,9 +189,14 @@ for leafnode in Leafnodes_sold:
         myvars[lot] = myvar
     Leafnodes_sold[leafnode].set_z_vars(myvars)
 
+#create the p and s variables
 for lot in Lots:
     my_p_var = lpmodel.addVar(vtype = grb.GRB.continuous, name = f"p_{lot}")
     my_s_var = lpmodel.addVar(vtype = grb.GRB.binary, name = f"s_{lot}")
     Lots[lot].set_p_var(my_p_var)
     Lots[lot].set_s_var(my_s_var)
 
+lpmodel.setObjective(sum(lot.get_p_var * lot.get_s_var for lot in Lots))
+
+lpmodel.update()
+lpmodel.write("1BM130.lp")
