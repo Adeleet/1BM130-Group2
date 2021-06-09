@@ -1,6 +1,7 @@
+#%%
 import gurobipy as grb
 from sklearn.tree  import DecisionTreeClassifier
-
+#%%
 clf = DecisionTreeClassifier()
 
 children_left = clf.tree_.children_left
@@ -8,7 +9,7 @@ children_right = clf.tree_.children_right
 feature = clf.tree_.feature
 threshold = clf.tree_.threshold
 value = clf.tree_.value
-
+#%%
 class Lot:
     def __init__(self, lot_id, closing_timeslot):
         self.id = lot_id
@@ -16,6 +17,12 @@ class Lot:
 
     def get_id(self):
         return self.id
+
+    def set_p_var(self, p_var):
+        self.p_var = p_var
+
+    def get_p_var(self, p_var):
+        return self.p_var
 
 class Node:
     def __init__(self, id, children_left, children_right, feature, threshold):
@@ -76,12 +83,17 @@ for node in range(len(value)):
     else:
         Leafnodes[node] = Leafnode(node, value)
 
-Lots = {}
 
+#%%
 lpmodel = grb.Model("1BM130 prescriptive analytics")
 for leafnode in Leafnodes:
     myvars = {}
     for lot in Lots:
         myvar = lpmodel.addVar(vtype = grb.GRB.binary, name = f"z_{leafnode},{lot}")
         myvars[lot] = myvar
-    Leafnodes[leafnode].set_z_vars = myvars
+    Leafnodes[leafnode].set_z_vars(myvars)
+
+for lot in Lots:
+    myvar = lpmodel.addVar(vtype = grb.GRB.continuous, name = f"p_{lot}")
+    Lots[lot].set_p_var(myvar)
+
