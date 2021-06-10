@@ -69,7 +69,7 @@ df_lots = df_lots[df_lots["auction_id"] != "3667-"].astype({"auction_id": "int64
 df_lots.rename(columns=constants.COLNAMES_LOTS, inplace=True)
 
 # Drop date-only 'lot.closingdate' as 'Fact_bids1.csv.gz' has 'lot.closingdate' with date+time
-df_lots.drop("lot.closingdate", axis=1, inplace=True)
+# df_lots.drop("lot.closingdate", axis=1, inplace=True)
 # %%
 df = pd.merge(df_auctions, df_lots)
 # %%
@@ -99,6 +99,7 @@ df_bids.drop(["seller_id", "channel_id"], axis=1, inplace=True)
 df_bids.drop(["auction_closingdate", "opportunity_id"], axis=1, inplace=True)
 df_bids.rename(columns=constants.COLNAMES_BIDS, inplace=True)
 
+
 # %%
 df = pd.merge(df, df_bids, how="outer")
 
@@ -117,11 +118,11 @@ df = pd.merge(df, df_fact_lots)
 # %% Drop column 'lot.type' and 'auction.main_category' (mixed dtypes, many missing)
 df.drop(["lot.type", "auction.main_category"], axis=1, inplace=True)
 
-# %% Drop column auction.is_closed: This has value 1 for each row
-df.drop(["auction.is_closed"], axis=1, inplace=True)
-# Drop column lot.is_open: This has value 0 for each row
-df.drop(["lot.is_open"], axis=1, inplace=True)
-# Drop column lot.has_bid: This has value 1 for each row
-df.drop(["lot.has_bid"], axis=1, inplace=True)
-#%%
+# %% Drop 'auction.is_closed' ,'lot.is_open', 'lot.has_bid', only 1 value for entire dataset
+df.drop(["auction.is_closed", "lot.is_open", "lot.has_bid"], axis=1, inplace=True)
+
+# %%
 df.to_csv("data/data_merged.csv.gz", index=False)
+
+# %%
+# %%
