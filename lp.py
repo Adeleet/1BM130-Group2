@@ -50,7 +50,7 @@ class Lot:
     def get_s_var(self):
         return self.s_var
 
-class Node_price:
+class Node:
     def __init__(self, id, children_left, children_right, feature, threshold):
         self.id = id
         self.feature = feature[self.id]
@@ -86,43 +86,9 @@ class Node_price:
     def get_right_subtree_leaves(self):
         return self.leaves_right_subtree
 
-class Node_sold:
-    def __init__(self, id, children_left, children_right, feature, threshold):
-        self.id = id
-        self.feature = feature[self.id]
-        self.leftchild = children_left[self.id]
-        self.rightchild = children_right[self.id]
-        self.threshold = threshold[self.id]
-        #create the list of leaf nodes that are part of the left and right subtree
-        leftsubtreenodes = [Nodes_sold[self.leftchild]]
-        leftsubtreeleaves = []
-        for i in leftsubtreenodes:
-            if i.leftchild == i.rightchild:
-                leftsubtreeleaves.append(Leafnodes_sold[i])
-            else:
-                leftsubtreenodes.append(Nodes_sold[i.leftchild])
-                leftsubtreenodes.append(Nodes_sold[i.rightchild])
-        self.leaves_left_subtree = leftsubtreeleaves
-        rightsubtreenodes = [Nodes_sold[self.right_child]]
-        rightsubtreeleaves = []
-        for i in rightsubtreenodes:
-            if i.leftchild == i.rightchild:
-                rightsubtreeleaves.append(Leafnodes_sold[i])
-            else:
-                rightsubtreenodes.append(Nodes_sold[i.leftchild])
-                rightsubtreenodes.append(Nodes_sold[i.rightchild])
-        self.leaves_right_subtree = rightsubtreeleaves
 
-    def get_threshold(self):
-        return self.threshold
 
-    def get_left_subtree_leaves(self):
-        return self.leaves_left_subtree
-
-    def get_right_subtree_leaves(self):
-        return self.leaves_right_subtree
-
-class Leafnode_price:
+class Leafnode:
     def __init__(self, id, value):
         self.id = id
         self.leaf_value = value[self.id]
@@ -137,36 +103,22 @@ class Leafnode_price:
     def get_leaf_value(self):
         return self.leaf_value
 
-class Leafnode_sold:
-    def __init__(self, id, value):
-        self.id = id
-        self.leaf_value = value[self.id]
-        self.z_vars = {}
-    
-    def set_z_vars(self, lot_id, z_vars):
-        self.z_vars[lot_id] = z_vars
-
-    def get_z_vars(self):
-        return self.z_vars
-
-    def get_leaf_value(self):
-        return self.leaf_value
 
 Nodes_price = {}
 Leafnodes_price = {}
 for node in range(len(value_price)):
     if children_left_price[node] != children_right_price[node]:
-        Nodes_price[node] = Node_price(node, children_left_price, children_right_price, feature_price, threshold_price)
+        Nodes_price[node] = Node(node, children_left_price, children_right_price, feature_price, threshold_price)
     else:
-        Leafnodes_price[node] = Leafnode_price(node, value_price)
+        Leafnodes_price[node] = Leafnode(node, value_price)
 
 Nodes_sold = {}
 Leafnodes_sold = {}
 for node in range(len(value_sold)):
     if children_left_sold[node] != children_right_sold[node]:
-        Nodes_sold[node] = Node_sold(node, children_left_sold, children_right_sold, feature_sold, threshold_sold)
+        Nodes_sold[node] = Node(node, children_left_sold, children_right_sold, feature_sold, threshold_sold)
     else:
-        Leafnodes_sold[node] = Leafnode_sold(node, value_sold)
+        Leafnodes_sold[node] = Leafnode(node, value_sold)
 
 
 #%%
