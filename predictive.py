@@ -102,6 +102,44 @@ df_lots_closingcount = (
     .rename(columns={"lot.id": "lot.closing_count"})
 )
 df = pd.merge(df_lots_closingcount, df)
+# %%
+# df.dropna(subset=['lot.closingdate'], inplace=True)
+df['lot.closing_timeslot'] = (
+    df['lot.closingdate'] -
+    df['lot.closingdate'].min()).apply(
+        lambda td: td.total_seconds() /
+    3600)
+
+# %% Add lot closing_day
+df['lot.closing_dayslot'] = lot_closing_day = (
+    df['lot.closingdate_day'] -
+    df['lot.closingdate_day'].min()).apply(
+        lambda td: td.total_seconds() /
+        (
+            3600 *
+            24)).astype('int')
+
+# %%
+
+# %%
+sampled_hourslots_idx = []
+sampled_hourslots = []
+
+for auction_id in df['auction.id'].unique():
+    df_auction = df[df['auction.id'] == auction_id]
+    for closing_dayslot in df_auction['lot.closing_dayslot'].unique():
+        df_auction_closing_dayslot = df_auction[df_auction['lot.closing_dayslot'] == closing_dayslot]
+        timeslot_probabilities = df_auction_closing_dayslot['lot.closing_timeslot'].value_counts(
+            normalize=True)
+        N = df_auction_closing_dayslot.shape[0]
+        if len(timeslot_probabilities.index) > 0:
+            sampled_timeslots = np.random.choice(
+                timeslot_probabilities.index, N, p=list(timeslot_probabilities))
+            sampled_hourslots_idx += list(df_auction_closing_dayslot.index)
+            sampled_hourslots += list(sampled_timeslots)
+
+# %%
+df.loc[sampled_hourslots_idx, "lot.closing_timeslot_interpolated"] = np.array(sampled_hourslots)
 
 # %% Classification for 'is_sold': train/test/validation split
 train_data = pd.get_dummies(df[TRAIN_COLS_IS_SOLD].dropna())
