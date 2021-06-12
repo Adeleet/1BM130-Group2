@@ -1,18 +1,13 @@
 # %%
-from locale import normalize
-from matplotlib import pyplot as plt
+from multiprocessing.sharedctypes import Value
 from sklearn.tree import DecisionTreeRegressor, DecisionTreeClassifier
-from sklearn.preprocessing import KBinsDiscretizer
-from sklearn import tree
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import (
     plot_roc_curve,
-    roc_auc_score,
+    r2_score,
     plot_confusion_matrix,
-    plot_precision_recall_curve,
-    mean_absolute_percentage_error as MAPE,
 )
 import hyperopt
 from helpers import run_hyperopt
@@ -36,44 +31,37 @@ df = pd.read_csv(
     ],
 )
 
-# %%
-df.shape
 # %% Add feature 'lot.rel_nr': lot position on website corrected for total #nr lots in auction
 df.sort_values(["auction.id", "lot.number"], inplace=True)
 auction_size = df.groupby("auction.id").size().reset_index(name="auction.num_lots")
 df = pd.merge(df, auction_size)
 df["lot.rel_nr"] = (df.groupby("auction.id").cumcount() + 1) / df["auction.num_lots"]
-df.shape
-# %%
 # %% Add feature 'lot.revenue': revenue per lot
 df["lot.revenue"] = df["bid.amount"] * df["bid.is_latest"] * df["bid.is_valid"]
 lot_revenue = df.groupby("lot.id")["lot.revenue"].max().reset_index()
 lot_revenue = lot_revenue.replace(0, np.nan)
-df = pd.merge(df, lot_revenue, how='outer')
+df = pd.merge(df, lot_revenue)
 # %%
 df.sort_values(by='lot.closingdate', inplace=True)
-# %%
-df.columns
 
-# %%
+
+# %% Add feature 'lot.closing_day_of_week': day of week that lot closes
+df['lot.closing_day_of_week'] = df['lot.closingdate_day'].dt.dayofweek.astype('str')
+
+
+# %% Drop duplicates with 'lot.id', 1 row per lot
 df.drop_duplicates("lot.id", inplace=True)
-
 # %% Add feature 'lot.closingdate_day': lot closing date without time
 # df["lot.closingdate_day"] = pd.to_datetime(df["lot.closingdate"].dt.date)
 # %% Sort first by auction, then by lot, then by bid date
 df = df.sort_values(by=["auction.id", "lot.id", "bid.date"]).reset_index(drop=True)
 # %% Add feature 'lot.days_open': number of days a lot is open
 df["lot.days_open"] = (df["lot.closingdate_day"] - df["lot.startingdate"]).dt.days
-
-
 # %% Remove outlier with 384 days (mean=7.04, median=7)
 df = df[df['lot.days_open'] < 50]
 
-# %%
-df[['lot.id', 'lot.startingdate', 'lot.closingdate']]
-# pd.read_csv("data/raw_data/fact_lots.csv.gz").drop_duplicates("lot_id")["closingdate"].isna().value_counts()
-# %%
-df[['lot.closingdate', 'lot.closingdate_day']]
+# %% Convert float accountmanager ID to string (categorical)
+df['project.accountmanager'] = df['project.accountmanager'].astype('int').astype('str')
 # %% Add feature 'lot.category_count_in_auction': number of lots of same category in auction
 auction_cat_counts = df.groupby(["auction.id", "lot.category"]).size().reset_index()
 auction_cat_counts.rename(columns={0: "lot.category_count_in_auction"}, inplace=True)
@@ -82,8 +70,9 @@ df = pd.merge(df, auction_cat_counts)
 df_lots_scarcity = (df.groupby(["lot.category", "lot.closingdate_day"])["lot.id"].nunique()).reset_index(
     name="lot.category_closing_count"
 )
-df = pd.merge(df_lots_scarcity, df, how="outer")
-df[["lot.category", "lot.closingdate_day", "lot.id", "lot.category_closing_count"]]
+df = pd.merge(df_lots_scarcity, df)
+
+
 # %% Add feature 'lot.subcategory_count_in_auction': number of lots of same subcategory in auction
 auction_cat_counts = df.groupby(["auction.id", "lot.subcategory"]).size().reset_index()
 auction_cat_counts.rename(columns={0: "lot.subcategory_count_in_auction"}, inplace=True)
@@ -140,6 +129,50 @@ for auction_id in df['auction.id'].unique():
 
 # %%
 df.loc[sampled_hourslots_idx, "lot.closing_timeslot_interpolated"] = np.array(sampled_hourslots)
+# for i, idx in enumerate(sampled_hourslots_idx):
+#     df.loc[idx] = sampled_hourslots[i]
+# %%
+df_lot_closing_hourslots = pd.DataFrame(
+    sampled_hourslots,
+    index=sampled_hourslots_idx,
+    columns=['lot.closing_hourslot'])
+df = pd.merge(df, df_lot_closing_hourslots, left_index=True, right_index=True)
+df['lot.closing_hourslot'] = df['lot.closing_hourslot'].astype('int')
+# %% Add feature 'lot.timeslot_category_closing_count': number of lots of same category closing on same day
+df_lots_scarcity = (df.groupby(["lot.category", "lot.closing_timeslot"])["lot.id"].nunique()).reset_index(
+    name="lot.timeslot_category_closing_count"
+)
+df = pd.merge(df_lots_scarcity, df)
+# %% Add feature 'lot.timeslot_subcategory_closing_count': number of lots of same subcategory closing on same day
+df_lots_scarcity = (df.groupby(["lot.subcategory", "lot.closing_timeslot"])["lot.id"].nunique()).reset_index(
+    name="lot.timeslot_subcategory_closing_count"
+)
+df = pd.merge(df_lots_scarcity, df)
+
+
+# %% Add feature 'lot.closing_count': number of lots closing on same day
+df_lots_closingcount = (
+    df.groupby(["lot.closing_timeslot"])["lot.id"]
+    .nunique()
+    .reset_index()
+    .rename(columns={"lot.id": "lot.timeslot_closing_count"})
+)
+df = pd.merge(df_lots_closingcount, df)
+# %%
+data = df[list(set(TRAIN_COLS_IS_SOLD).union(TRAIN_COLS_REVENUE))]
+# %%
+nunique_per_var = data.select_dtypes(exclude="O").nunique()
+num_vars = nunique_per_var[nunique_per_var > 3].index
+df[num_vars].skew()[df[num_vars].skew().abs() > 2].index
+# %%
+skewed_vars = df[num_vars].skew()[df[num_vars].skew().abs() > 1.5].index
+df[skewed_vars].describe().round(1).T
+
+
+# TODO check multivariate by lot.subcategory
+
+# %%
+
 
 # %% Classification for 'is_sold': train/test/validation split
 train_data = pd.get_dummies(df[TRAIN_COLS_IS_SOLD].dropna())
@@ -147,28 +180,30 @@ y = train_data["lot.is_sold"]
 X = train_data.drop("lot.is_sold", axis=1)
 X_train, X_test, y_train, y_test = train_test_split(X, y)
 
+
+# %%
+train_test_split_undersampling(df, 'lot.is_sold')['lot.is_sold'].value_counts()
+
+# %%
 # %%
 space = {
     "criterion": hyperopt.hp.choice("criterion", ["gini", "entropy"]),
     "splitter": hyperopt.hp.choice("splitter", ["best", "random"]),
-    "max_depth": hyperopt.hp.uniformint("max_depth", 1, 50),
+    "max_depth": hyperopt.hp.uniformint("max_depth", 25, 50),
     "min_samples_split": hyperopt.hp.uniformint("min_samples_split", 20, 100),
-    "max_features": hyperopt.hp.uniform("max_features", 0.5, 0.99),
+    "max_features": hyperopt.hp.uniform("max_features", 0.6, 0.99),
 }
-run_hyperopt(DecisionTreeClassifier, X_train, y_train, space, mode="clf")
+run_hyperopt(DecisionTreeClassifier, X_train, y_train, space, mode="clf", max_evals=100)
+
 # %% Train/score optimal Decision Tree
 clf = DecisionTreeClassifier(
-    criterion="gini", max_depth=45, max_features=0.92, min_samples_split=65, splitter="random"
+    criterion="entropy", max_depth=43, max_features=0.85, min_samples_split=36, splitter="random"
 )
 clf.fit(X_train, y_train)
 plot_confusion_matrix(clf, X_test, y_test)
 plot_roc_curve(clf, X_test, y_test)
 clf.score(X_test, y_test)
 
-# %% Save linear constraints from optimal decision tree
-# with open("predictive_dec_tree_constraints.txt", "w") as f:
-#     constraints = tree.export_text(clf, feature_names=list(X.columns), show_weights=True)
-#     f.write(constraints)
 
 # %% Regression for 'lot.revenue': train/test/validation split
 space = {
@@ -178,49 +213,29 @@ space = {
     "min_samples_leaf": hyperopt.hp.uniformint("min_samples_leaf", 1, 1000),
     "max_features": hyperopt.hp.uniform("max_features", 0.3, 0.99),
 }
+
 train_data_reg = pd.get_dummies(df[TRAIN_COLS_REVENUE].dropna())
-y = train_data_reg["lot.revenue"]
+y = np.log1p(train_data_reg["lot.revenue"])
 X = train_data_reg.drop("lot.revenue", axis=1)
 X_train, X_test, y_train, y_test = train_test_split(X, y)
-run_hyperopt(DecisionTreeRegressor, X_train, y_train, space, mode="reg", max_evals=250)
-# %%
-scores = []
-x_vals = list(range(2, 30))
-for num_leaves in x_vals:
-    reg = DecisionTreeRegressor(max_leaf_nodes=num_leaves, criterion='friedman_mse')
-    reg.fit(X_train, y_train)
-    df_ada = pd.DataFrame({"pred": reg.predict(X_train)})
-    df_ada['y'] = y_train.values
-
-    probs = df_ada['pred'].value_counts(normalize=True).reset_index()
-    probs.columns = ["pred", "class_pr"]
-
-    df_ada = df_ada.merge(probs)
-    df_ada['err'] = (df_ada['y'] - df_ada['pred'])**2
-    mse = df_ada['err'].mean()**(1 / 2)
-    df_ada['class_prK'] = df_ada['class_pr'] * (1 - df_ada['class_pr'])
-    df_ada['pred'].value_counts()
-    s1 = (df_ada['err'] * df_ada['class_prK']).mean()
-    # print(s1 * num_leaves, mse)
-    scores.append(mse / (s1 * num_leaves))
-
-# %%
-plt.plot(x_vals, scores)
-# %%
-df_ada['pred'].value_counts()
+run_hyperopt(DecisionTreeRegressor, X_train, y_train, space, mode="reg", max_evals=500)
 # %%
 reg = DecisionTreeRegressor(
-    criterion="mse", splitter="best", max_depth=16, max_features=0.92, min_samples_split=4
+    criterion="friedman_mse", splitter="best", max_depth=15, max_features=0.91, min_samples_leaf=3
 )
 reg.fit(X_train, y_train)
 reg.score(X_test, y_test)
-
+r2_score(np.expm1(y_test), np.expm1(reg.predict(X_test)))
 # %%
-with open("predictive_reg_tree_constraints.txt", "w") as f:
-    constraints = tree.export_text(reg, feature_names=list(X_reg.columns), show_weights=True)
-    f.write(constraints)
+train_data[['lot.revenue']]
+# %%
 
 
 # %%
 pd.Series(reg.predict(X_reg)).nunique()
 # %%
+
+# TODO pickle DecisionTreeClassifier & DecisionTreeRegressor
+# TODO decision variables:
+#  - lot closing timeslot (hourly)
+#  - lot.starting_price
