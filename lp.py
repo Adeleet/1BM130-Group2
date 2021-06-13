@@ -333,40 +333,67 @@ for lot in Lots:
                          name = f"Constraint (6) for lot {lot}")
 
 #Set constraint (7)
-for i in range(1,N+1):
-    lpmodel.addConstr(sum(lot.get_y_vars()[i] for lot in Lots.values()) == 1,
-                         name = f"Constraint (7) for location {i}")
+for lot in Lots:
+    lpmodel.addConstr(Lots[lot].get_o_var() <= M * Lots[lot].get_x_var(),
+                        name = f"Constraint (7) for lot {lot}")
 
 #Set constraint (8)
 for lot in Lots:
-    lpmodel.addConstr(sum(Lots[lot].get_y_vars()[i] for i in range(1, N+1)) == 1,
-                         name = f"Constraint (8) for lot {lot}")
+    lpmodel.addConstr(Lots[lot].get_o_var() <= Lots[lot].get_p_var(),
+                        name = f"Constraint (8) for lot {lot}")
 
 #Set constraint (9)
 for lot in Lots:
-    lpmodel.addConstr(sum(i*Lots[lot].get_y_vars()[i] for i in range(1, N+1))/N == Lots[lot].get_LotNrRel_var(),
-                         name = f"Constraint (9) for lot {lot}")
+    lpmodel.addConstr(Lots[lot].get_o_var() >= Lots[lot].get_p_var()
+                        - M * (1- Lots[lot].get_x_var()),
+                        name = f"Constraint (9) for lot {lot}")
 
 #Set constraint (10)
-for lot in Lots:
-    lpmodel.addConstr(sum(thetadict[tau]*Lots[lot].get_q_vars()[tau] + 
-                            Lots[lot].get_q_vars()[tau]*sum(r.get_q_vars()[tau] for r in Lots.values()) for tau in range(tau_min,tau_max+1)
-                            == Lots[lot].get_ClosingCount()),
-                          name = f"Constraint (10) for lot {lot}")
+for i in range(1,N+1):
+    lpmodel.addConstr(sum(lot.get_y_vars()[i] for lot in Lots.values()) == 1,
+                         name = f"Constraint (10) for location {i}")
 
 #Set constraint (11)
 for lot in Lots:
-    lpmodel.addConstr(sum(sum(bigthetadict[tau][c] * Lots[lot].kappas[c] * Lots[lot].get_q_vars()[tau] +
-                                 Lots[lot].kappas[c] * Lots[lot].get_q_vars()[tau] * sum(r.get_q_vars()[tau]*r.kappas[c] for r in Lots.values())
-                                 for c in C) for tau in range(tau_min, tau_max+1)) == Lots[lot].get_ClosingCountCat_var(),
-                                 name = f"Constraint (11) for lot {lot}")
+    lpmodel.addConstr(sum(Lots[lot].get_y_vars()[i] for i in range(1, N+1)) == 1,
+                         name = f"Constraint (11) for lot {lot}")
 
 #Set constraint (12)
 for lot in Lots:
-    lpmodel.addConstr(sum(sum(bigthetadict[tau][sigma] * Lots[lot].ks[sigma] * Lots[lot].get_q_vars()[tau] +
-                                 Lots[lot].ks[sigma] * Lots[lot].get_q_vars()[tau] * sum(r.get_q_vars()[tau]*r.ks[sigma] for r in Lots.values())
-                                 for sigma in S) for tau in range(tau_min, tau_max+1)) == Lots[lot].get_ClosingCountSub_var(),
-                                 name = f"Constraint (12) for lot {lot}")
+    lpmodel.addConstr(sum(i*Lots[lot].get_y_vars()[i] for i in range(1, N+1))/N == Lots[lot].get_LotNrRel_var(),
+                         name = f"Constraint (12) for lot {lot}")
+
+#Set constraints (13), (14) and (15)
+for lot in Lots:
+    for lot2 in Lots:
+        for tau in range(tau_min, tau_max+1):
+            lpmodel.addConstr(Lots[lot].get_a_vars()[lot2][tau] <= Lots[lot].get_q_vars()[tau],
+                                name = f"Constraint (13) for lots {lot}, {lot2}, and time slot {tau}")
+            lpmodel.addConstr(Lots[lot].get_a_vars()[lot2][tau] <= Lots[lot2].get_q_vars()[tau],
+                                name = f"Constraint (14) for lots {lot}, {lot2}, and time slot {tau}")
+            lpmodel.addConstr(Lots[lot].get_a_vars()[lot2][tau] >= Lots[lot].get_q_vars()[tau] 
+                                + Lots[lot2].get_q_vars()[tau] - 1,
+                                name = f"Constraint (15) for lots {lot}, {lot2}, and time slot {tau}")
+
+#Set constraint (16)
+for lot in Lots:
+    lpmodel.addConstr(sum(thetadict[tau]*Lots[lot].get_q_vars()[tau] + sum(Lots[lot].get_a_vars()[lot2][tau] 
+                        for lot2 in Lots) for tau in range(tau_min, tau_max+1)),
+                        name = f"Constraint (16) for lot {lot}")
+
+#Set constraint (17)
+for lot in Lots:
+    lpmodel.addConstr(sum(sum(bigthetadict[tau][c] * Lots[lot].kappas[c] * Lots[lot].get_q_vars()[tau] +
+                        Lots[lot].kappas[c] * sum(Lots[lot].get_a_vars()[lot2][tau] * Lots[lot2].kappas[c] for lot2 in Lots) 
+                        for c in C) for tau in range(tau_min, tau_max+1)),
+                        name = f"Constraint (17) for lot {lot}")
+
+#Set constraint (18)
+for lot in Lots:
+    lpmodel.addConstr(sum(sum(bigthetadict[tau][sigma] * Lots[lot].kappas[sigma] * Lots[lot].get_q_vars()[tau] +
+                        Lots[lot].kappas[sigma] * sum(Lots[lot].get_a_vars()[lot2][tau] * Lots[lot2].kappas[sigma] for lot2 in Lots) 
+                        for sigma in S) for tau in range(tau_min, tau_max+1)),
+                        name = f"Constraint (18) for lot {lot}")
 
 lpmodel.update()
 lpmodel.write("1BM130.lp")
