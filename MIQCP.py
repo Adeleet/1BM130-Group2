@@ -18,11 +18,29 @@ children_right_sold = clf_sold.tree_.children_right
 feature_sold = clf_sold.tree_.feature
 threshold_sold = clf_sold.tree_.threshold
 value_sold = clf_sold.tree_.value
+
+#Auction parameters
+tau_min = 1
+tau_max = 10
+N = 120
+thetadict = {}
+bigthetadict = {}
+Odict = {}
+for tau in range(tau_min, tau_max + 1):
+    thetadict[tau] = theta
+    bigthetadict[tau] = {}
+    for c in C:
+        bigthetadict[tau][c] = Theta
+    Odict[tau] = {}
+    for sigma in S:
+        Odict[tau][sigma] = O
 #%%
 class Lot:
     def __init__(self, lot_id, features:dict):
         self.id = lot_id
         self.features = features
+        kappas = {}
+        ks = {}
         
     def set_end_time(self, end_time):
         self.end_time = end_time
@@ -71,9 +89,11 @@ class Lot:
 
     def set_LotNrRel_var(self, LotNrRel_var):
         self.LotNrRel_var = LotNrRel_var
+        #self.features[featurenumber of LotNrRel] = LotNrRel_var
 
     def get_LotNrRel_var(self):
         return self.LotNrRel_var
+        #return self.features[featurenumber of LotNrRel]
 
     def set_ClosingCount_var(self, ClosingCount_var):
         self.ClosingCount_var = ClosingCount_var
@@ -226,7 +246,7 @@ for lot in Lots:
 #Create y variables
 for lot in Lots:
     my_y_vars = {}
-    for i in range(1,lot.auctionsize+1):
+    for i in range(1,N+1):
         my_y_var = miqcpmodel.addVar(vtype = grb.GRB.binary, name = f"y_{i},{lot}")
         my_y_vars[1] = my_y_var
     Lots[lot].set_y_vars(my_y_vars)
@@ -234,7 +254,7 @@ for lot in Lots:
 #Create q variables
 for lot in Lot:
     my_q_vars = {}
-    for tau in range(lot.tau_min, lot.tau_max +1):
+    for tau in range(tau_min, tau_max +1):
         my_q_var = miqcpmodel.addVar(vtype = grb.GRB.binary, name = f"y_{tau},{lot}")
         my_q_vars[tau] = my_q_var
     Lots[lot].set_q_vars(my_q_vars)
@@ -243,15 +263,39 @@ for lot in Lot:
 miqcpmodel.setObjective(sum(lot.get_p_var * lot.get_s_var for lot in Lots))
 
 #Set constraint (2)
+for lot in Lots:
+    for node in Nodes_sold:
+        miqcpmodel.addConstr(Lots[lot].features[Nodes_sold[node].feature] + (max(l.features[Nodes_sold[node].feature] for l in Lots.values())
+                             - Nodes_sold[node].threshold) * sum(l.get_z_vars()[lot] for l in Nodes_sold[node].leaves_left_subtree) <= 
+                             max(l.features[Nodes_sold[node].feature] for l in Lots.values()), 
+                             name = f"Constraint (2) for lot {lot} and node {node} in the classification model")
+for lot in Lots:
+    for node in Nodes_price:
+        miqcpmodel.addConstr(Lots[lot].features[Nodes_price[node].feature] + (max(l.features[Nodes_price[node].feature] for l in Lots.values())
+                             - Nodes_price[node].threshold) * sum(l.get_z_vars()[lot] for l in Nodes_price[node].leaves_left_subtree) <= 
+                             max(l.features[Nodes_price[node].feature] for l in Lots.values()), 
+                             name = f"Constraint (2) for lot {lot} and node {node} in the regression model")                             
 
 #Set constraint (3)
+for lot in Lots:
+    for node in Nodes_sold:
+        miqcpmodel.addConstr(Lots[lot].features[Nodes_sold[node].feature] + (min(l.features[Nodes_sold[node].feature] for l in Lots.values())
+                             - Nodes_sold[node].threshold) * sum(l.get_z_vars()[lot] for l in Nodes_sold[node].leaves_right_subtree) >= 
+                             min(l.features[Nodes_sold[node].feature] for l in Lots.values()), 
+                             name = f"Constraint (3) for lot {lot} and node {node} in the classification model")
+for lot in Lots:
+    for node in Nodes_price:
+        miqcpmodel.addConstr(Lots[lot].features[Nodes_price[node].feature] + (min(l.features[Nodes_price[node].feature] for l in Lots.values())
+                             - Nodes_price[node].threshold) * sum(l.get_z_vars()[lot] for l in Nodes_price[node].leaves_right_subtree) >= 
+                             min(l.features[Nodes_price[node].feature] for l in Lots.values()), 
+                             name = f"Constraint (3) for lot {lot} and node {node} in the regression model")
 
 #Set constraint (4)
 for lot in Lots:
     miqcpmodel.addConstr(sum(l.get_z_vars()[lot] for l in Leafnodes_sold.values()) == 1,
-                         name = f"Constraint (4) for lot {lot} and model x")
+                         name = f"Constraint (4) for lot {lot} and the classification model")
     miqcpmodel.addConstr(sum(l.get_z_vars()[lot] for l in Leafnodes_price.values()) == 1,
-                         name = f"Constraint (4) for lot {lot} and model p")
+                         name = f"Constraint (4) for lot {lot} and the regression model")
 
 #Set constraint (5)
 for lot in Lots:
@@ -263,7 +307,46 @@ for lot in Lots:
     miqcpmodel.addConstr(Lots[lot].get_x_var() == sum(l.leaf_value * l.get_z_vars()[lot] for l in Leafnodes_sold.values()),
                          name = f"Constraint (6) for lot {lot}")
 
-#Set constraint(7)
+#Set constraint (7)
+for i in range(1,N+1):
+    miqcpmodel.addConstr(sum(lot.get_y_vars()[i] for lot in Lots.values()) == 1,
+                         name = f"Constraint (7) for location {i}")
+
+#Set constraint (8)
+for lot in Lots:
+    miqcpmodel.addConstr(sum(Lots[lot].get_y_vars()[i] for i in range(1, N+1)) == 1,
+                         name = f"Constraint (8) for lot {lot}")
+
+#Set constraint (9)
+for lot in Lots:
+    miqcpmodel.addConstr(sum(i*Lots[lot].get_y_vars()[i] for i in range(1, N+1))/N == Lots[lot].get_LotNrRel_var(),
+                         name = f"Constraint (9) for lot {lot}")
+
+#Set constraint (10)
+for lot in Lots:
+    miqcpmodel.addConstr(sum(thetadict[tau]*Lots[lot].get_q_vars()[tau] + 
+                            Lots[lot].get_q_vars()[tau]*sum(r.get_q_vars()[tau] for r in Lots.values()) for tau in range(tau_min,tau_max+1)
+                            == Lots[lot].get_ClosingCount()),
+                          name = f"Constraint (10) for lot {lot}")
+
+#Set constraint (11)
+for lot in Lots:
+    miqcpmodel.addConstr(sum(sum(bigthetadict[tau][c] * Lots[lot].kappas[c] * Lots[lot].get_q_vars()[tau] +
+                                 Lots[lot].kappas[c] * Lots[lot].get_q_vars()[tau] * sum(r.get_q_vars()[tau]*r.kappas[c] for r in Lots.values())
+                                 for c in C) for tau in range(tau_min, tau_max+1)) == Lots[lot].get_ClosingCountCat_var(),
+                                 name = f"Constraint (11) for lot {lot}")
+
+#Set constraint (12)
+for lot in Lots:
+    miqcpmodel.addConstr(sum(sum(bigthetadict[tau][sigma] * Lots[lot].ks[sigma] * Lots[lot].get_q_vars()[tau] +
+                                 Lots[lot].ks[sigma] * Lots[lot].get_q_vars()[tau] * sum(r.get_q_vars()[tau]*r.ks[sigma] for r in Lots.values())
+                                 for sigma in S) for tau in range(tau_min, tau_max+1)) == Lots[lot].get_ClosingCountSub_var(),
+                                 name = f"Constraint (12) for lot {lot}")
+
+#Set constraint (13)
+for lot in Lots:
+    miqcpmodel.addConstr(Lots[lot].get_s_var() >= 0)
+
 
 miqcpmodel.update()
 miqcpmodel.write("1BM130.lp")
