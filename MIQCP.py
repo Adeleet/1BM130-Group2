@@ -219,14 +219,14 @@ for node in Nodes_sold:
     Nodes_sold[node].find_subtree_leaves(Nodes_sold, Leafnodes_sold)
 
 #%%
-miqcpmodel = grb.Model("1BM130 prescriptive analytics")
-miqcpmodel.modelSense = grb.GRB.MAXIMIZE
+lpmodel = grb.Model("1BM130 prescriptive analytics")
+lpmodel.modelSense = grb.GRB.MAXIMIZE
 
 #create the z^p_l_r variables
 for leafnode in Leafnodes_price:
     myvars = {}
     for lot in Lots:
-        myvar = miqcpmodel.addVar(vtype = grb.GRB.binary, name = f"z^p_{leafnode},{lot}")
+        myvar = lpmodel.addVar(vtype = grb.GRB.binary, name = f"z^p_{leafnode},{lot}")
         myvars[lot] = myvar
     Leafnodes_price[leafnode].set_z_vars(myvars)
 
@@ -234,20 +234,20 @@ for leafnode in Leafnodes_price:
 for leafnode in Leafnodes_sold:
     myvars = {}
     for lot in Lots:
-        myvar = miqcpmodel.addVar(vtype = grb.GRB.binary, name = f"z^x_{leafnode},{lot}")
+        myvar = lpmodel.addVar(vtype = grb.GRB.binary, name = f"z^x_{leafnode},{lot}")
         myvars[lot] = myvar
     Leafnodes_sold[leafnode].set_z_vars(myvars)
 
 #create the p, x, s, o, LotNrRel an ClosingCount variables
 for lot in Lots:
-    my_p_var = miqcpmodel.addVar(vtype = grb.GRB.continuous, name = f"p_{lot}")
-    my_x_var = miqcpmodel.addVar(vtype = grb.GRB.binary, name = f"x_{lot}")
-    my_s_var = miqcpmodel.addVar(vtype = grb.GRB.continuous, lb=0, name = f"s_{lot}")
-    my_o_var = miqcpmodel.addVar(vtype = grb.GRB.continuous, name = f"o_{lot}")
-    my_LotNrRel_var = miqcpmodel.addVar(vtype = grb.GRB.continuous, name = f"LotNrRel_{lot}")
-    my_ClosingCount_var = miqcpmodel.addVar(vtype = grb.GRB.continuous, name = f"ClosingCount_{lot}")
-    my_ClosingCountCat_var = miqcpmodel.addVar(vtype = grb.GRB.continuous, name = f"ClosingCountCat_{lot}")
-    my_ClosingCountRel_var = miqcpmodel.addVar(vtype = grb.GRB.continuous, name = f"ClosingCountRel_{lot}")
+    my_p_var = lpmodel.addVar(vtype = grb.GRB.continuous, name = f"p_{lot}")
+    my_x_var = lpmodel.addVar(vtype = grb.GRB.binary, name = f"x_{lot}")
+    my_s_var = lpmodel.addVar(vtype = grb.GRB.continuous, lb=0, name = f"s_{lot}")
+    my_o_var = lpmodel.addVar(vtype = grb.GRB.continuous, name = f"o_{lot}")
+    my_LotNrRel_var = lpmodel.addVar(vtype = grb.GRB.continuous, name = f"LotNrRel_{lot}")
+    my_ClosingCount_var = lpmodel.addVar(vtype = grb.GRB.continuous, name = f"ClosingCount_{lot}")
+    my_ClosingCountCat_var = lpmodel.addVar(vtype = grb.GRB.continuous, name = f"ClosingCountCat_{lot}")
+    my_ClosingCountRel_var = lpmodel.addVar(vtype = grb.GRB.continuous, name = f"ClosingCountRel_{lot}")
     Lots[lot].set_p_var(my_p_var)
     Lots[lot].set_x_var(my_x_var)
     Lots[lot].set_s_var(my_s_var)
@@ -261,7 +261,7 @@ for lot in Lots:
 for lot in Lots:
     my_y_vars = {}
     for i in range(1,N+1):
-        my_y_var = miqcpmodel.addVar(vtype = grb.GRB.binary, name = f"y_{i},{lot}")
+        my_y_var = lpmodel.addVar(vtype = grb.GRB.binary, name = f"y_{i},{lot}")
         my_y_vars[1] = my_y_var
     Lots[lot].set_y_vars(my_y_vars)
 
@@ -269,7 +269,7 @@ for lot in Lots:
 for lot in Lots:
     my_q_vars = {}
     for tau in range(tau_min, tau_max +1):
-        my_q_var = miqcpmodel.addVar(vtype = grb.GRB.binary, name = f"y_{tau},{lot}")
+        my_q_var = lpmodel.addVar(vtype = grb.GRB.binary, name = f"y_{tau},{lot}")
         my_q_vars[tau] = my_q_var
     Lots[lot].set_q_vars(my_q_vars)
 
@@ -279,24 +279,24 @@ for lot in Lots:
     for lot2 in Lots:
         my_a_vars = {}
         for tau in range(tau_min, tau_max+1):
-            my_a_var = miqcpmodel.addVar(vtype= grb.GRB.binary, name = f"a_{lot},{lot2},{tau}")
+            my_a_var = lpmodel.addVar(vtype= grb.GRB.binary, name = f"a_{lot},{lot2},{tau}")
             my_a_vars[tau] = my_a_var
         my_a_varss[lot2] = my_a_vars
     lot.set_a_vars(my_a_varss)
 
 #Set the objective function (1)
-miqcpmodel.setObjective(sum(lot.get_p_var * lot.get_s_var for lot in Lots))
+lpmodel.setObjective(sum(lot.get_o_var for lot in Lots))
 
 #Set constraint (2)
 for lot in Lots:
     for node in Nodes_sold:
-        miqcpmodel.addConstr(Lots[lot].features[Nodes_sold[node].feature] + (max(l.features[Nodes_sold[node].feature] for l in Lots.values())
+        lpmodel.addConstr(Lots[lot].features[Nodes_sold[node].feature] + (max(l.features[Nodes_sold[node].feature] for l in Lots.values())
                              - Nodes_sold[node].threshold) * sum(l.get_z_vars()[lot] for l in Nodes_sold[node].leaves_left_subtree) <= 
                              max(l.features[Nodes_sold[node].feature] for l in Lots.values()), 
                              name = f"Constraint (2) for lot {lot} and node {node} in the classification model")
 for lot in Lots:
     for node in Nodes_price:
-        miqcpmodel.addConstr(Lots[lot].features[Nodes_price[node].feature] + (max(l.features[Nodes_price[node].feature] for l in Lots.values())
+        lpmodel.addConstr(Lots[lot].features[Nodes_price[node].feature] + (max(l.features[Nodes_price[node].feature] for l in Lots.values())
                              - Nodes_price[node].threshold) * sum(l.get_z_vars()[lot] for l in Nodes_price[node].leaves_left_subtree) <= 
                              max(l.features[Nodes_price[node].feature] for l in Lots.values()), 
                              name = f"Constraint (2) for lot {lot} and node {node} in the regression model")                             
@@ -304,70 +304,70 @@ for lot in Lots:
 #Set constraint (3)
 for lot in Lots:
     for node in Nodes_sold:
-        miqcpmodel.addConstr(Lots[lot].features[Nodes_sold[node].feature] + (min(l.features[Nodes_sold[node].feature] for l in Lots.values())
+        lpmodel.addConstr(Lots[lot].features[Nodes_sold[node].feature] + (min(l.features[Nodes_sold[node].feature] for l in Lots.values())
                              - Nodes_sold[node].threshold) * sum(l.get_z_vars()[lot] for l in Nodes_sold[node].leaves_right_subtree) >= 
                              min(l.features[Nodes_sold[node].feature] for l in Lots.values()), 
                              name = f"Constraint (3) for lot {lot} and node {node} in the classification model")
 for lot in Lots:
     for node in Nodes_price:
-        miqcpmodel.addConstr(Lots[lot].features[Nodes_price[node].feature] + (min(l.features[Nodes_price[node].feature] for l in Lots.values())
+        lpmodel.addConstr(Lots[lot].features[Nodes_price[node].feature] + (min(l.features[Nodes_price[node].feature] for l in Lots.values())
                              - Nodes_price[node].threshold) * sum(l.get_z_vars()[lot] for l in Nodes_price[node].leaves_right_subtree) >= 
                              min(l.features[Nodes_price[node].feature] for l in Lots.values()), 
                              name = f"Constraint (3) for lot {lot} and node {node} in the regression model")
 
 #Set constraint (4)
 for lot in Lots:
-    miqcpmodel.addConstr(sum(l.get_z_vars()[lot] for l in Leafnodes_sold.values()) == 1,
+    lpmodel.addConstr(sum(l.get_z_vars()[lot] for l in Leafnodes_sold.values()) == 1,
                          name = f"Constraint (4) for lot {lot} and the classification model")
-    miqcpmodel.addConstr(sum(l.get_z_vars()[lot] for l in Leafnodes_price.values()) == 1,
+    lpmodel.addConstr(sum(l.get_z_vars()[lot] for l in Leafnodes_price.values()) == 1,
                          name = f"Constraint (4) for lot {lot} and the regression model")
 
 #Set constraint (5)
 for lot in Lots:
-    miqcpmodel.addConstr(Lots[lot].get_p_var() == sum(l.leaf_value * l.get_z_vars()[lot] for l in Leafnodes_price.values()),
+    lpmodel.addConstr(Lots[lot].get_p_var() == sum(l.leaf_value * l.get_z_vars()[lot] for l in Leafnodes_price.values()),
                          name = f"Constraint (5) for lot {lot}")
 
 #Set contraint (6)
 for lot in Lots:
-    miqcpmodel.addConstr(Lots[lot].get_x_var() == sum(l.leaf_value * l.get_z_vars()[lot] for l in Leafnodes_sold.values()),
+    lpmodel.addConstr(Lots[lot].get_x_var() == sum(l.leaf_value * l.get_z_vars()[lot] for l in Leafnodes_sold.values()),
                          name = f"Constraint (6) for lot {lot}")
 
 #Set constraint (7)
 for i in range(1,N+1):
-    miqcpmodel.addConstr(sum(lot.get_y_vars()[i] for lot in Lots.values()) == 1,
+    lpmodel.addConstr(sum(lot.get_y_vars()[i] for lot in Lots.values()) == 1,
                          name = f"Constraint (7) for location {i}")
 
 #Set constraint (8)
 for lot in Lots:
-    miqcpmodel.addConstr(sum(Lots[lot].get_y_vars()[i] for i in range(1, N+1)) == 1,
+    lpmodel.addConstr(sum(Lots[lot].get_y_vars()[i] for i in range(1, N+1)) == 1,
                          name = f"Constraint (8) for lot {lot}")
 
 #Set constraint (9)
 for lot in Lots:
-    miqcpmodel.addConstr(sum(i*Lots[lot].get_y_vars()[i] for i in range(1, N+1))/N == Lots[lot].get_LotNrRel_var(),
+    lpmodel.addConstr(sum(i*Lots[lot].get_y_vars()[i] for i in range(1, N+1))/N == Lots[lot].get_LotNrRel_var(),
                          name = f"Constraint (9) for lot {lot}")
 
 #Set constraint (10)
 for lot in Lots:
-    miqcpmodel.addConstr(sum(thetadict[tau]*Lots[lot].get_q_vars()[tau] + 
+    lpmodel.addConstr(sum(thetadict[tau]*Lots[lot].get_q_vars()[tau] + 
                             Lots[lot].get_q_vars()[tau]*sum(r.get_q_vars()[tau] for r in Lots.values()) for tau in range(tau_min,tau_max+1)
                             == Lots[lot].get_ClosingCount()),
                           name = f"Constraint (10) for lot {lot}")
 
 #Set constraint (11)
 for lot in Lots:
-    miqcpmodel.addConstr(sum(sum(bigthetadict[tau][c] * Lots[lot].kappas[c] * Lots[lot].get_q_vars()[tau] +
+    lpmodel.addConstr(sum(sum(bigthetadict[tau][c] * Lots[lot].kappas[c] * Lots[lot].get_q_vars()[tau] +
                                  Lots[lot].kappas[c] * Lots[lot].get_q_vars()[tau] * sum(r.get_q_vars()[tau]*r.kappas[c] for r in Lots.values())
                                  for c in C) for tau in range(tau_min, tau_max+1)) == Lots[lot].get_ClosingCountCat_var(),
                                  name = f"Constraint (11) for lot {lot}")
 
 #Set constraint (12)
 for lot in Lots:
-    miqcpmodel.addConstr(sum(sum(bigthetadict[tau][sigma] * Lots[lot].ks[sigma] * Lots[lot].get_q_vars()[tau] +
+    lpmodel.addConstr(sum(sum(bigthetadict[tau][sigma] * Lots[lot].ks[sigma] * Lots[lot].get_q_vars()[tau] +
                                  Lots[lot].ks[sigma] * Lots[lot].get_q_vars()[tau] * sum(r.get_q_vars()[tau]*r.ks[sigma] for r in Lots.values())
                                  for sigma in S) for tau in range(tau_min, tau_max+1)) == Lots[lot].get_ClosingCountSub_var(),
                                  name = f"Constraint (12) for lot {lot}")
 
-miqcpmodel.update()
-miqcpmodel.write("1BM130.lp")
-miqcpmodel.optimize()
+lpmodel.update()
+lpmodel.write("1BM130.lp")
+lpmodel.optimize()
