@@ -20,7 +20,7 @@ threshold_sold = clf_sold.tree_.threshold
 value_sold = clf_sold.tree_.value
 #%%
 class Lot:
-    def __init__(self, lot_id, *features):
+    def __init__(self, lot_id, features:dict):
         self.id = lot_id
         self.features = features
         
@@ -167,7 +167,7 @@ class Leafnode:
     def get_leaf_value(self):
         return self.leaf_value
 
-
+# #Create classes for the nodes and load in the leaves in the subtrees of each node
 # Nodes_price = {}
 # Leafnodes_price = {}
 # for node in range(len(value_price)):
@@ -239,7 +239,32 @@ for lot in Lot:
         my_q_vars[tau] = my_q_var
     Lots[lot].set_q_vars(my_q_vars)
 
+#Set the objective function (1)
 miqcpmodel.setObjective(sum(lot.get_p_var * lot.get_s_var for lot in Lots))
+
+#Set constraint (2)
+
+#Set constraint (3)
+
+#Set constraint (4)
+for lot in Lots:
+    miqcpmodel.addConstr(sum(l.get_z_vars()[lot] for l in Leafnodes_sold.values()) == 1,
+                         name = f"Constraint (4) for lot {lot} and model x")
+    miqcpmodel.addConstr(sum(l.get_z_vars()[lot] for l in Leafnodes_price.values()) == 1,
+                         name = f"Constraint (4) for lot {lot} and model p")
+
+#Set constraint (5)
+for lot in Lots:
+    miqcpmodel.addConstr(Lots[lot].get_p_var() == sum(l.leaf_value * l.get_z_vars()[lot] for l in Leafnodes_price.values()),
+                         name = f"Constraint (5) for lot {lot}")
+
+#Set contraint (6)
+for lot in Lots:
+    miqcpmodel.addConstr(Lots[lot].get_x_var() == sum(l.leaf_value * l.get_z_vars()[lot] for l in Leafnodes_sold.values()),
+                         name = f"Constraint (6) for lot {lot}")
+
+#Set constraint(7)
 
 miqcpmodel.update()
 miqcpmodel.write("1BM130.lp")
+miqcpmodel.optimize()
