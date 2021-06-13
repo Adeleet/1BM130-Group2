@@ -230,7 +230,7 @@ for leafnode in Leafnodes_sold:
 for lot in Lots:
     my_p_var = miqcpmodel.addVar(vtype = grb.GRB.continuous, name = f"p_{lot}")
     my_x_var = miqcpmodel.addVar(vtype = grb.GRB.binary, name = f"x_{lot}")
-    my_s_var = miqcpmodel.addVar(vtype = grb.GRB.continuous, name = f"s_{lot}")
+    my_s_var = miqcpmodel.addVar(vtype = grb.GRB.continuous, lb=0, name = f"s_{lot}")
     my_LotNrRel_var = miqcpmodel.addVar(vtype = grb.GRB.continuous, name = f"LotNrRel_{lot}")
     my_ClosingCount_var = miqcpmodel.addVar(vtype = grb.GRB.continuous, name = f"ClosingCount_{lot}")
     my_ClosingCountCat_var = miqcpmodel.addVar(vtype = grb.GRB.continuous, name = f"ClosingCountCat_{lot}")
@@ -343,9 +343,6 @@ for lot in Lots:
                                  for sigma in S) for tau in range(tau_min, tau_max+1)) == Lots[lot].get_ClosingCountSub_var(),
                                  name = f"Constraint (12) for lot {lot}")
 
-#Set constraint (13)
-for lot in Lots:
-    miqcpmodel.addConstr(Lots[lot].get_s_var() >= 0)
 
 
 miqcpmodel.update()
