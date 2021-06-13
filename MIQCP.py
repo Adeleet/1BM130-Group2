@@ -19,21 +19,21 @@ feature_sold = clf_sold.tree_.feature
 threshold_sold = clf_sold.tree_.threshold
 value_sold = clf_sold.tree_.value
 
-#Auction parameters
-tau_min = 1
-tau_max = 10
-N = 120
-thetadict = {}
-bigthetadict = {}
-Odict = {}
-for tau in range(tau_min, tau_max + 1):
-    thetadict[tau] = theta
-    bigthetadict[tau] = {}
-    for c in C:
-        bigthetadict[tau][c] = Theta
-    Odict[tau] = {}
-    for sigma in S:
-        Odict[tau][sigma] = O
+# #Auction parameters
+# tau_min = 1
+# tau_max = 10
+# N = 120
+# thetadict = {}
+# bigthetadict = {}
+# Odict = {}
+# for tau in range(tau_min, tau_max + 1):
+#     thetadict[tau] = theta
+#     bigthetadict[tau] = {}
+#     for c in C:
+#         bigthetadict[tau][c] = Theta
+#     Odict[tau] = {}
+#     for sigma in S:
+#         Odict[tau][sigma] = O
 #%%
 class Lot:
     def __init__(self, lot_id, features:dict):
@@ -112,6 +112,18 @@ class Lot:
 
     def get_ClosingCountSub_var(self):
         return self.ClosingCountSub_var
+
+    def set_a_vars(self, a_vars):
+        self.a_vars = a_vars
+
+    def get_a_vars(self):
+        return self.a_vars
+
+    def set_o_var(self, o_var):
+        self.o_var = o_var
+
+    def get_o_var(self):
+        return self.o_var
 
 class Node:
     def __init__(self, id, children_left, children_right, feature, threshold):
@@ -226,11 +238,12 @@ for leafnode in Leafnodes_sold:
         myvars[lot] = myvar
     Leafnodes_sold[leafnode].set_z_vars(myvars)
 
-#create the p, x, s, LotNrRel an ClosingCount variables
+#create the p, x, s, o, LotNrRel an ClosingCount variables
 for lot in Lots:
     my_p_var = miqcpmodel.addVar(vtype = grb.GRB.continuous, name = f"p_{lot}")
     my_x_var = miqcpmodel.addVar(vtype = grb.GRB.binary, name = f"x_{lot}")
     my_s_var = miqcpmodel.addVar(vtype = grb.GRB.continuous, lb=0, name = f"s_{lot}")
+    my_o_var = miqcpmodel.addVar(vtype = grb.GRB.continuous, name = f"o_{lot}")
     my_LotNrRel_var = miqcpmodel.addVar(vtype = grb.GRB.continuous, name = f"LotNrRel_{lot}")
     my_ClosingCount_var = miqcpmodel.addVar(vtype = grb.GRB.continuous, name = f"ClosingCount_{lot}")
     my_ClosingCountCat_var = miqcpmodel.addVar(vtype = grb.GRB.continuous, name = f"ClosingCountCat_{lot}")
@@ -238,6 +251,7 @@ for lot in Lots:
     Lots[lot].set_p_var(my_p_var)
     Lots[lot].set_x_var(my_x_var)
     Lots[lot].set_s_var(my_s_var)
+    Lots[lot].set_o_var(my_o_var)
     Lots[lot].set_LotNrRel_var(my_LotNrRel_var)
     Lots[lot].set_ClosingCount_var(my_ClosingCount_var)
     Lots[lot].set_ClosingCountCat_var(my_ClosingCountCat_var)
@@ -252,12 +266,23 @@ for lot in Lots:
     Lots[lot].set_y_vars(my_y_vars)
 
 #Create q variables
-for lot in Lot:
+for lot in Lots:
     my_q_vars = {}
     for tau in range(tau_min, tau_max +1):
         my_q_var = miqcpmodel.addVar(vtype = grb.GRB.binary, name = f"y_{tau},{lot}")
         my_q_vars[tau] = my_q_var
     Lots[lot].set_q_vars(my_q_vars)
+
+#Create a variables
+for lot in Lots:
+    my_a_varss = {}
+    for lot2 in Lots:
+        my_a_vars = {}
+        for tau in range(tau_min, tau_max+1):
+            my_a_var = miqcpmodel.addVar(vtype= grb.GRB.binary, name = f"a_{lot},{lot2},{tau}")
+            my_a_vars[tau] = my_a_var
+        my_a_varss[lot2] = my_a_vars
+    lot.set_a_vars(my_a_varss)
 
 #Set the objective function (1)
 miqcpmodel.setObjective(sum(lot.get_p_var * lot.get_s_var for lot in Lots))
@@ -342,8 +367,6 @@ for lot in Lots:
                                  Lots[lot].ks[sigma] * Lots[lot].get_q_vars()[tau] * sum(r.get_q_vars()[tau]*r.ks[sigma] for r in Lots.values())
                                  for sigma in S) for tau in range(tau_min, tau_max+1)) == Lots[lot].get_ClosingCountSub_var(),
                                  name = f"Constraint (12) for lot {lot}")
-
-
 
 miqcpmodel.update()
 miqcpmodel.write("1BM130.lp")
