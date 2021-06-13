@@ -1,16 +1,17 @@
 #%%
 import gurobipy as grb
-from sklearn.tree  import DecisionTreeClassifier, DecisionTreeRegressor
+from sklearn.tree  import DecisionTreeClassifier, DecisionTreeRegressor, plot_tree
+import pickle
 #%%
-clf_price = DecisionTreeRegressor()
+# clf_price = DecisionTreeRegressor()
 
-children_left_price = clf_price.tree_.children_left
-children_right_price = clf_price.tree_.children_right
-feature_price = clf_price.tree_.feature
-threshold_price = clf_price.tree_.threshold
-value_price = clf_price.tree_.value
+# children_left_price = clf_price.tree_.children_left
+# children_right_price = clf_price.tree_.children_right
+# feature_price = clf_price.tree_.feature
+# threshold_price = clf_price.tree_.threshold
+# value_price = clf_price.tree_.value
 
-clf_sold = DecisionTreeClassifier()
+clf_sold = pickle.load(open("models\dec_tree_clf.pkl", 'rb'))
 
 children_left_sold = clf_sold.tree_.children_left
 children_right_sold = clf_sold.tree_.children_right
@@ -74,6 +75,30 @@ class Lot:
     def get_q_vars(self):
         return self.q_vars   
 
+    def set_LotNrRel_var(self, LotNrRel_var):
+        self.LotNrRel_var = LotNrRel_var
+
+    def get_LotNrRel_var(self):
+        return self.LotNrRel_var
+
+    def set_ClosingCount_var(self, ClosingCount_var):
+        self.ClosingCount_var = ClosingCount_var
+
+    def get_ClosingCount_var(self):
+        return self.ClosingCount_var
+
+    def set_ClosingCountCat_var(self, ClosingCountCat_var):
+        self.ClosingCountCat_var = ClosingCountCat_var
+
+    def get_ClosingCountCat_var(self):
+        return self.ClosingCountCat_var
+
+    def set_ClosingCountSub_var(self, ClosingCountSub_var):
+        self.ClosingCountSub_var = ClosingCountSub_var
+
+    def get_ClosingCountSub_var(self):
+        return self.ClosingCountSub_var
+
 class Node:
     def __init__(self, id, children_left, children_right, feature, threshold):
         self.id = id
@@ -81,24 +106,47 @@ class Node:
         self.leftchild = children_left[self.id]
         self.rightchild = children_right[self.id]
         self.threshold = threshold[self.id]
-        #create the list of leaf nodes that are part of the left and right subtree
-        leftsubtreenodes = [Nodes_price[self.leftchild]]
-        leftsubtreeleaves = []
+        
+    def find_subtree_leaves(self, nodes:dict, leafnodes:dict):
+        '''
+        create the list of leaf nodes that are part of the left and right subtree
+        '''
+        #Start by initializing the nodes in the left subtree by taking the left child of the node
+        try:
+            leftsubtreenodes = [nodes[self.leftchild]]
+            leftsubtreeleaves = []
+        except KeyError:
+            leftsubtreenodes = []
+            leftsubtreeleaves = [leafnodes[self.leftchild]]
+        #Iterate over all split nodes in the left subtree
         for i in leftsubtreenodes:
-            if i.leftchild == i.rightchild:
-                leftsubtreeleaves.append(Leafnodes_price[i])
-            else:
-                leftsubtreenodes.append(Nodes_price[i.leftchild])
-                leftsubtreenodes.append(Nodes_price[i.rightchild])
+            #Try to add the children of the split node as nodes to the queue, if this is not possible, it are leaves, so add them to the list of leaves
+            try:
+                leftsubtreenodes.append(nodes[i.leftchild])
+            except KeyError:
+                leftsubtreeleaves.append(leafnodes[i.leftchild])
+            try:
+                leftsubtreenodes.append(nodes[i.rightchild])
+            except KeyError:
+                leftsubtreeleaves.append(leafnodes[i.rightchild])
         self.leaves_left_subtree = leftsubtreeleaves
-        rightsubtreenodes = [Nodes_price[self.right_child]]
-        rightsubtreeleaves = []
+
+        #Repeat for the right subtree
+        try:
+            rightsubtreenodes = [nodes[self.rightchild]]
+            rightsubtreeleaves = []
+        except KeyError:
+            rightsubtreenodes = []
+            rightsubtreeleaves = [leafnodes[self.rightchild]]
         for i in rightsubtreenodes:
-            if i.leftchild == i.rightchild:
-                rightsubtreeleaves.append(Leafnodes_price[i])
-            else:
-                rightsubtreenodes.append(Nodes_price[i.leftchild])
-                rightsubtreenodes.append(Nodes_price[i.rightchild])
+            try:
+                rightsubtreenodes.append(nodes[i.leftchild])
+            except KeyError:
+                rightsubtreeleaves.append(leafnodes[i.leftchild])
+            try:
+                rightsubtreenodes.append(nodes[i.rightchild])
+            except KeyError:
+                rightsubtreeleaves.append(leafnodes[i.rightchild])
         self.leaves_right_subtree = rightsubtreeleaves
 
     def get_threshold(self):
@@ -109,8 +157,6 @@ class Node:
 
     def get_right_subtree_leaves(self):
         return self.leaves_right_subtree
-
-
 
 class Leafnode:
     def __init__(self, id, value):
@@ -128,13 +174,13 @@ class Leafnode:
         return self.leaf_value
 
 
-Nodes_price = {}
-Leafnodes_price = {}
-for node in range(len(value_price)):
-    if children_left_price[node] != children_right_price[node]:
-        Nodes_price[node] = Node(node, children_left_price, children_right_price, feature_price, threshold_price)
-    else:
-        Leafnodes_price[node] = Leafnode(node, value_price)
+# Nodes_price = {}
+# Leafnodes_price = {}
+# for node in range(len(value_price)):
+#     if children_left_price[node] != children_right_price[node]:
+#         Nodes_price[node] = Node(node, children_left_price, children_right_price, feature_price, threshold_price)
+#     else:
+#         Leafnodes_price[node] = Leafnode(node, value_price)
 
 Nodes_sold = {}
 Leafnodes_sold = {}
@@ -143,7 +189,8 @@ for node in range(len(value_sold)):
         Nodes_sold[node] = Node(node, children_left_sold, children_right_sold, feature_sold, threshold_sold)
     else:
         Leafnodes_sold[node] = Leafnode(node, value_sold)
-
+for node in Nodes_sold:
+    Nodes_sold[node].find_subtree_leaves(Nodes_sold, Leafnodes_sold)
 
 #%%
 miqcpmodel = grb.Model("1BM130 prescriptive analytics")
