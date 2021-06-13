@@ -57,12 +57,6 @@ class Lot:
     def get_s_var(self):
         return self.s_var
 
-    def set_c_var(self, c_var):
-        self.c_var = c_var 
-
-    def get_c_var(self):
-        return self.c_var
-
     def set_y_vars(self, y_vars):
         self.y_vars = y_vars
 
@@ -212,12 +206,38 @@ for leafnode in Leafnodes_sold:
         myvars[lot] = myvar
     Leafnodes_sold[leafnode].set_z_vars(myvars)
 
-#create the p and x variables
+#create the p, x, s, LotNrRel an ClosingCount variables
 for lot in Lots:
     my_p_var = miqcpmodel.addVar(vtype = grb.GRB.continuous, name = f"p_{lot}")
-    my_s_var = miqcpmodel.addVar(vtype = grb.GRB.binary, name = f"x_{lot}")
+    my_x_var = miqcpmodel.addVar(vtype = grb.GRB.binary, name = f"x_{lot}")
+    my_s_var = miqcpmodel.addVar(vtype = grb.GRB.continuous, name = f"s_{lot}")
+    my_LotNrRel_var = miqcpmodel.addVar(vtype = grb.GRB.continuous, name = f"LotNrRel_{lot}")
+    my_ClosingCount_var = miqcpmodel.addVar(vtype = grb.GRB.continuous, name = f"ClosingCount_{lot}")
+    my_ClosingCountCat_var = miqcpmodel.addVar(vtype = grb.GRB.continuous, name = f"ClosingCountCat_{lot}")
+    my_ClosingCountRel_var = miqcpmodel.addVar(vtype = grb.GRB.continuous, name = f"ClosingCountRel_{lot}")
     Lots[lot].set_p_var(my_p_var)
-    Lots[lot].set_x_var(my_s_var)
+    Lots[lot].set_x_var(my_x_var)
+    Lots[lot].set_s_var(my_s_var)
+    Lots[lot].set_LotNrRel_var(my_LotNrRel_var)
+    Lots[lot].set_ClosingCount_var(my_ClosingCount_var)
+    Lots[lot].set_ClosingCountCat_var(my_ClosingCountCat_var)
+    Lots[lot].set_ClosingCountRel_var(my_ClosingCountRel_var)
+
+#Create y variables
+for lot in Lots:
+    my_y_vars = {}
+    for i in range(1,lot.auctionsize+1):
+        my_y_var = miqcpmodel.addVar(vtype = grb.GRB.binary, name = f"y_{i},{lot}")
+        my_y_vars[1] = my_y_var
+    Lots[lot].set_y_vars(my_y_vars)
+
+#Create q variables
+for lot in Lot:
+    my_q_vars = {}
+    for tau in range(lot.tau_min, lot.tau_max +1):
+        my_q_var = miqcpmodel.addVar(vtype = grb.GRB.binary, name = f"y_{tau},{lot}")
+        my_q_vars[tau] = my_q_var
+    Lots[lot].set_q_vars(my_q_vars)
 
 miqcpmodel.setObjective(sum(lot.get_p_var * lot.get_s_var for lot in Lots))
 
