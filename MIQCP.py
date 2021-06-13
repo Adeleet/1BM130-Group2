@@ -122,14 +122,14 @@ for node in range(len(value_sold)):
 
 
 #%%
-lpmodel = grb.Model("1BM130 prescriptive analytics")
-lpmodel.modelSense = grb.GRB.MAXIMIZE
+miqcpmodel = grb.Model("1BM130 prescriptive analytics")
+miqcpmodel.modelSense = grb.GRB.MAXIMIZE
 
 #create the z^p_l_r variables
 for leafnode in Leafnodes_price:
     myvars = {}
     for lot in Lots:
-        myvar = lpmodel.addVar(vtype = grb.GRB.binary, name = f"z^p_{leafnode},{lot}")
+        myvar = miqcpmodel.addVar(vtype = grb.GRB.binary, name = f"z^p_{leafnode},{lot}")
         myvars[lot] = myvar
     Leafnodes_price[leafnode].set_z_vars(myvars)
 
@@ -137,18 +137,18 @@ for leafnode in Leafnodes_price:
 for leafnode in Leafnodes_sold:
     myvars = {}
     for lot in Lots:
-        myvar = lpmodel.addVar(vtype = grb.GRB.binary, name = f"z^s_{leafnode},{lot}")
+        myvar = miqcpmodel.addVar(vtype = grb.GRB.binary, name = f"z^s_{leafnode},{lot}")
         myvars[lot] = myvar
     Leafnodes_sold[leafnode].set_z_vars(myvars)
 
 #create the p and s variables
 for lot in Lots:
-    my_p_var = lpmodel.addVar(vtype = grb.GRB.continuous, name = f"p_{lot}")
-    my_s_var = lpmodel.addVar(vtype = grb.GRB.binary, name = f"s_{lot}")
+    my_p_var = miqcpmodel.addVar(vtype = grb.GRB.continuous, name = f"p_{lot}")
+    my_s_var = miqcpmodel.addVar(vtype = grb.GRB.binary, name = f"s_{lot}")
     Lots[lot].set_p_var(my_p_var)
     Lots[lot].set_s_var(my_s_var)
 
-lpmodel.setObjective(sum(lot.get_p_var * lot.get_s_var for lot in Lots))
+miqcpmodel.setObjective(sum(lot.get_p_var * lot.get_s_var for lot in Lots))
 
-lpmodel.update()
-lpmodel.write("1BM130.lp")
+miqcpmodel.update()
+miqcpmodel.write("1BM130.lp")
