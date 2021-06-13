@@ -44,11 +44,35 @@ class Lot:
     def get_p_var(self):
         return self.p_var
 
+    def set_x_var(self, x_var):
+        self.x_var = x_var
+
+    def get_x_var(self):
+        return self.x_var
+
     def set_s_var(self, s_var):
         self.s_var = s_var
 
     def get_s_var(self):
         return self.s_var
+
+    def set_c_var(self, c_var):
+        self.c_var = c_var 
+
+    def get_c_var(self):
+        return self.c_var
+
+    def set_y_vars(self, y_vars):
+        self.y_vars = y_vars
+
+    def get_y_vars(self):
+        return self.y_vars
+
+    def set_q_vars(self, q_vars):
+        self.q_vars = q_vars
+
+    def get_q_vars(self):
+        return self.q_vars   
 
 class Node:
     def __init__(self, id, children_left, children_right, feature, threshold):
@@ -133,20 +157,20 @@ for leafnode in Leafnodes_price:
         myvars[lot] = myvar
     Leafnodes_price[leafnode].set_z_vars(myvars)
 
-#create the z^s_l_r variables
+#create the z^x_l_r variables
 for leafnode in Leafnodes_sold:
     myvars = {}
     for lot in Lots:
-        myvar = miqcpmodel.addVar(vtype = grb.GRB.binary, name = f"z^s_{leafnode},{lot}")
+        myvar = miqcpmodel.addVar(vtype = grb.GRB.binary, name = f"z^x_{leafnode},{lot}")
         myvars[lot] = myvar
     Leafnodes_sold[leafnode].set_z_vars(myvars)
 
-#create the p and s variables
+#create the p and x variables
 for lot in Lots:
     my_p_var = miqcpmodel.addVar(vtype = grb.GRB.continuous, name = f"p_{lot}")
-    my_s_var = miqcpmodel.addVar(vtype = grb.GRB.binary, name = f"s_{lot}")
+    my_s_var = miqcpmodel.addVar(vtype = grb.GRB.binary, name = f"x_{lot}")
     Lots[lot].set_p_var(my_p_var)
-    Lots[lot].set_s_var(my_s_var)
+    Lots[lot].set_x_var(my_s_var)
 
 miqcpmodel.setObjective(sum(lot.get_p_var * lot.get_s_var for lot in Lots))
 
