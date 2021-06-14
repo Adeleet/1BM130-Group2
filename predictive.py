@@ -194,6 +194,39 @@ df["lot.num_closing_timeslot_category_other_auctions"] = (
 df["lot.num_closing_timeslot_subcategory_other_auctions"] = (
     df["lot.num_closing_timeslot_subcategory"] - df["lot.num_closing_timeslot_subcategory_within_auction"]
 )
+#%%
+auction_closing_available_timeslots = []
+for id, min_end_date, max_end_date in auction_min_end_dates:
+    min_end_date = datetime(min_end_date.year, min_end_date.month, min_end_date.day, min_end_date.hour)
+    auction_closing_range = pd.date_range(min_end_date, max_end_date, freq="h")
+
+    df = pd.DataFrame({"auction.closing_timeslot": auction_closing_range})
+    df["auction.id"] = id
+    df["lot.num_closing_timeslot_other_auctions"] = np.nan
+    df["lot.num_closing_timeslot_category_other_auctions"] = np.nan
+    df["lot.num_closing_timeslot_subcategory_other_auctions"] = np.nan
+    auction_closing_available_timeslots.append(df)
+df_auction_closing_available_timeslots = pd.concat(auction_closing_available_timeslots)
+df_auction_closing_available_timeslots
+
+for i, row in tqdm.tqdm(
+    df_auction_closing_available_timeslots.iterrows(), total=df_auction_closing_available_timeslots.shape[0]
+):
+    id = row["auction.id"]
+    print(row)
+    raise ValueError("TEST")
+    closing_timeslot = row["auction.closing_timeslot"]
+    matching_df = df[(df["auction.id"] == id) & (df["auction.closing_timeslot"] == closing_timeslot)]
+    if matching_df.shape[0] > 0:
+        df.iloc[0] = [
+            closing_timeslot,
+            id,
+            matching_df[
+                "lot.num_closing_timeslot_other_auctions",
+                "lot.num_closing_timeslot_category_other_auctions",
+                "lot.num_closing_timeslot_subcategory_other_auctions",
+            ],
+        ]
 
 # # %% Add feature: number of lots of same (sub) category closing on same day
 # df_category_scarcity = (df.groupby(["lot.category", "lot.closing_timeslot"])["lot.id"].nunique()).reset_index(
@@ -244,7 +277,7 @@ space = {
     "min_samples_split": hyperopt.hp.uniformint("min_samples_split", 20, 100),
     "max_features": hyperopt.hp.uniform("max_features", 0.6, 0.99),
 }
-run_hyperopt(DecisionTreeClassifier, X_train, y_train, space, mode="clf", max_evals=100)
+run_hyperopt(DecisionTreeClassifier, X_train, y_train, space, mode="clf", max_evals=500)
 
 # %% Train/score optimal Decision Tree
 clf = DecisionTreeClassifier(
@@ -262,15 +295,20 @@ with open("./models/dec_tree_clf.pkl", "wb") as f:
 
 #%% Classifier: gradient boosting
 space = {
-    "n_estimators": hyperopt.hp.uniformint("n_estimators", 5, 100),
-    "max_samples": hyperopt.hp.uniform("max_samples", 0, 1),
-    "max_features": hyperopt.hp.uniform("max_features", 0, 1),
-    "bootstrap": hyperopt.hp.choice("bootstrap", [False, True]),
-    "bootstrap_features": hyperopt.hp.choice("bootstrap_features", [False, True]),
-    "oob_score": hyperopt.hp.choice("oob_score", [False, True]),
+    "loss": hyperopt.hp.choice("loss", ["deviance", "exponential"]),
+    "learning_rate": hyperopt.hp.uniform("learning_rate", 0.0001, 0.5),
+    "n_estimators": hyperopt.hp.uniformint("n_estimators", 5, 200),
+    "subsample": hyperopt.hp.uniform("subsample", 0, 1),
+    "criterion": hyperopt.hp.choice("criterion", ["friedman_mse", "mse"]),
+    "min_samples_split": hyperopt.hp.uniform("min_samples_split", 0, 1),
+    "min_samples_leaf": hyperopt.hp.uniform("min_samples_leaf", 0, 0.5),
+    "max_depth": hyperopt.hp.uniformint("max_depth", 1, 50),
+    "max_features": hyperopt.hp.uniform("max_features", 0, 0.9999),
     "warm_start": hyperopt.hp.choice("warm_start", [False, True]),
+    "validation_fraction": 0.2,
+    "n_iter_no_change": 10,
 }
-run_hyperopt(GradientBoostingClassifier, X_train, y_train, space, mode="clf", max_evals=100)
+run_hyperopt(GradientBoostingClassifier, X_train, y_train, space, mode="clf", max_evals=100, sample=0.05)
 
 #%% Classifier: random forest
 space = {
@@ -278,10 +316,11 @@ space = {
     "criterion": hyperopt.hp.choice("criterion", ["gini", "entropy"]),
     "max_depth": hyperopt.hp.uniformint("max_depth", 1, 50),
     "min_samples_split": hyperopt.hp.uniform("min_samples_split", 0, 0.9999),
-    "min_weight_fraction_leaf": hyperopt.hp.uniform("min_weight_fraction_leaf", 0, 0.9999),
+    "min_weight_fraction_leaf": hyperopt.hp.uniform("min_weight_fraction_leaf", 0, 0.5),
     "max_features": hyperopt.hp.uniform("max_features", 0, 0.9999),
     "bootstrap": hyperopt.hp.choice("bootstrap", [False, True]),
     "oob_score": hyperopt.hp.choice("oob_score", [False, True]),
+    "n_jobs": -1,
 }
 run_hyperopt(RandomForestClassifier, X_train, y_train, space, mode="clf", max_evals=100)
 # %% Regression for 'lot.revenue': train/test/validation split
