@@ -237,14 +237,10 @@ X_train, X_test, y_train, y_test = train_test_split(X, y)
 
 
 # %%
-train_test_split_undersampling(df, 'lot.is_sold')['lot.is_sold'].value_counts()
-
-# %%
-# %%
 space = {
     "criterion": hyperopt.hp.choice("criterion", ["gini", "entropy"]),
     "splitter": hyperopt.hp.choice("splitter", ["best", "random"]),
-    "max_depth": hyperopt.hp.uniformint("max_depth", 25, 50),
+    "max_depth": hyperopt.hp.uniformint("max_depth", 1, 50),
     "min_samples_split": hyperopt.hp.uniformint("min_samples_split", 20, 100),
     "max_features": hyperopt.hp.uniform("max_features", 0.6, 0.99),
 }
@@ -252,7 +248,7 @@ run_hyperopt(DecisionTreeClassifier, X_train, y_train, space, mode="clf", max_ev
 
 # %% Train/score optimal Decision Tree
 clf = DecisionTreeClassifier(
-    criterion="entropy", max_depth=43, max_features=0.85, min_samples_split=36, splitter="random"
+    criterion="gini", max_depth=28, max_features=0.79, min_samples_split=28, splitter="random"
 )
 clf.fit(X_train, y_train)
 plot_confusion_matrix(clf, X_test, y_test)
@@ -310,7 +306,7 @@ reg.fit(X_train, y_train)
 reg.score(X_test, y_test)
 r2_score(np.expm1(y_test), np.expm1(reg.predict(X_test)))
 # %%
-train_data[['lot.revenue']]
+train_data[["lot.revenue"]]
 # %%
 
 
