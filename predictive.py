@@ -3,6 +3,7 @@ import tqdm
 from datetime import datetime
 import pickle
 from sklearn.tree import DecisionTreeRegressor, DecisionTreeClassifier
+from sklearn.ensemble import GradientBoostingClassifier, RandomForestClassifier
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -259,6 +260,34 @@ plot_roc_curve(clf, X_test, y_test)
 clf.score(X_test, y_test)
 
 
+# %%
+with open("./models/dec_tree_clf.pkl", "wb") as f:
+    pickle.dump(clf, f)
+
+#%% Classifier: gradient boosting
+space = {
+    "n_estimators": hyperopt.hp.uniformint("n_estimators", 5, 100),
+    "max_samples": hyperopt.hp.uniform("max_samples", 0, 1),
+    "max_features": hyperopt.hp.uniform("max_features", 0, 1),
+    "bootstrap": hyperopt.hp.choice("bootstrap", [False, True]),
+    "bootstrap_features": hyperopt.hp.choice("bootstrap_features", [False, True]),
+    "oob_score": hyperopt.hp.choice("oob_score", [False, True]),
+    "warm_start": hyperopt.hp.choice("warm_start", [False, True]),
+}
+run_hyperopt(GradientBoostingClassifier, X_train, y_train, space, mode="clf", max_evals=100)
+
+#%% Classifier: random forest
+space = {
+    "n_estimators": hyperopt.hp.uniformint("n_estimators", 5, 200),
+    "criterion": hyperopt.hp.choice("criterion", ["gini", "entropy"]),
+    "max_depth": hyperopt.hp.uniformint("max_depth", 1, 50),
+    "min_samples_split": hyperopt.hp.uniform("min_samples_split", 0, 0.9999),
+    "min_weight_fraction_leaf": hyperopt.hp.uniform("min_weight_fraction_leaf", 0, 0.9999),
+    "max_features": hyperopt.hp.uniform("max_features", 0, 0.9999),
+    "bootstrap": hyperopt.hp.choice("bootstrap", [False, True]),
+    "oob_score": hyperopt.hp.choice("oob_score", [False, True]),
+}
+run_hyperopt(RandomForestClassifier, X_train, y_train, space, mode="clf", max_evals=100)
 # %% Regression for 'lot.revenue': train/test/validation split
 space = {
     "criterion": "friedman_mse",
