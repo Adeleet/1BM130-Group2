@@ -1,7 +1,20 @@
 #%%
-import gurobipy as grb
-from sklearn.tree  import DecisionTreeClassifier, DecisionTreeRegressor, plot_tree
 import pickle
+from ast import literal_eval
+
+import gurobipy as grb
+import pandas as pd
+from sklearn.tree import (DecisionTreeClassifier, DecisionTreeRegressor,
+                          plot_tree)
+
+# %% Load auction timeslot info
+auction_time_df = pd.read_csv("Data/auction_timeslot_info.csv")
+auction_time_df['auction.num_closing_timeslot_category_other_auctions'] = (
+    auction_time_df['auction.num_closing_timeslot_category_other_auctions'].apply(
+        lambda x: literal_eval(str(x))))
+auction_time_df['auction.num_closing_timeslot_subcategory_other_auctions'] = (
+    auction_time_df['auction.num_closing_timeslot_subcategory_other_auctions'].apply(
+        lambda x: literal_eval(str(x))))
 #%%
 # clf_price = DecisionTreeRegressor()
 

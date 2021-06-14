@@ -9,7 +9,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import (
     plot_roc_curve,
-    r2_score,
+    r2_score,   
     plot_confusion_matrix,
 )
 import hyperopt
@@ -148,86 +148,104 @@ auction_min_end_dates = (
 #         & (df["lot.subcategory"] == lot_subcat)
 #     ).sum()
 #     lot_scarcity_other_auctions.append([row["lot.id"], scarcity_other_auction])
-# %%
-df_closing_timeslot_within_auction = (
-    df.groupby(["lot.closing_timeslot", "auction.id"])
-    .size()
-    .reset_index(name="lot.num_closing_timeslot_within_auction")
-)
+# # %%
+# df_closing_timeslot_within_auction = (
+#     df.groupby(["lot.closing_timeslot", "auction.id"])
+#     .size()
+#     .reset_index(name="lot.num_closing_timeslot_within_auction")
+# )
 df_closing_timeslot_total = (
-    df.groupby(["lot.closing_timeslot"]).size().reset_index(name="lot.num_closing_timeslot")
+    df.groupby(["lot.closing_timeslot"]).size().reset_index(
+        name="lot.num_closing_timeslot")
 )
 
-df_closing_timeslot_category_within_auction = (
-    df.groupby(["lot.closing_timeslot", "lot.category", "auction.id"])
-    .size()
-    .reset_index(name="lot.num_closing_timeslot_category_within_auction")
-)
+# df_closing_timeslot_category_within_auction = (
+#     df.groupby(["lot.closing_timeslot", "lot.category", "auction.id"])
+#     .size()
+#     .reset_index(name="lot.num_closing_timeslot_category_within_auction")
+# )
 df_closing_timeslot_category_total = (
-    df.groupby(["lot.closing_timeslot"]).size().reset_index(name="lot.num_closing_timeslot_category")
+    df.groupby(["lot.closing_timeslot", "lot.category"]).size().reset_index(
+        name="lot.num_closing_timeslot_category")
 )
 
-df_closing_timeslot_subcategory_within_auction = (
-    df.groupby(["lot.closing_timeslot", "lot.subcategory", "auction.id"])
-    .size()
-    .reset_index(name="lot.num_closing_timeslot_subcategory_within_auction")
-)
+# df_closing_timeslot_subcategory_within_auction = (
+#     df.groupby(["lot.closing_timeslot", "lot.subcategory", "auction.id"])
+#     .size()
+#     .reset_index(name="lot.num_closing_timeslot_subcategory_within_auction")
+# )
 df_closing_timeslot_subcategory_total = (
-    df.groupby(["lot.closing_timeslot"]).size().reset_index(name="lot.num_closing_timeslot_subcategory")
+    df.groupby(["lot.closing_timeslot", "lot.subcategory"]).size().reset_index(
+        name="lot.num_closing_timeslot_subcategory")
 )
 
 df = (
-    df.merge(df_closing_timeslot_within_auction)
-    .merge(df_closing_timeslot_total)
-    .merge(df_closing_timeslot_category_within_auction)
+    df.merge(df_closing_timeslot_total)
     .merge(df_closing_timeslot_category_total)
-    .merge(df_closing_timeslot_subcategory_within_auction)
     .merge(df_closing_timeslot_subcategory_total)
 )
-#%%
-df["lot.num_closing_timeslot_other_auctions"] = (
-    df["lot.num_closing_timeslot"] - df["lot.num_closing_timeslot_within_auction"]
-)
-df["lot.num_closing_timeslot_category_other_auctions"] = (
-    df["lot.num_closing_timeslot_category"] - df["lot.num_closing_timeslot_category_within_auction"]
-)
-df["lot.num_closing_timeslot_subcategory_other_auctions"] = (
-    df["lot.num_closing_timeslot_subcategory"] - df["lot.num_closing_timeslot_subcategory_within_auction"]
-)
+# #%%
+# df["lot.num_closing_timeslot_other_auctions"] = (
+#     df["lot.num_closing_timeslot"] - df["lot.num_closing_timeslot_within_auction"]
+# )
+# df["lot.num_closing_timeslot_category_other_auctions"] = (
+#     df["lot.num_closing_timeslot_category"] - df["lot.num_closing_timeslot_category_within_auction"]
+# )
+# df["lot.num_closing_timeslot_subcategory_other_auctions"] = (
+#     df["lot.num_closing_timeslot_subcategory"] - df["lot.num_closing_timeslot_subcategory_within_auction"]
+# )
+
 #%%
 auction_closing_available_timeslots = []
 for id, min_end_date, max_end_date in auction_min_end_dates:
     min_end_date = datetime(min_end_date.year, min_end_date.month, min_end_date.day, min_end_date.hour)
     auction_closing_range = pd.date_range(min_end_date, max_end_date, freq="h")
 
-    df = pd.DataFrame({"auction.closing_timeslot": auction_closing_range})
-    df["auction.id"] = id
-    df["lot.num_closing_timeslot_other_auctions"] = np.nan
-    df["lot.num_closing_timeslot_category_other_auctions"] = np.nan
-    df["lot.num_closing_timeslot_subcategory_other_auctions"] = np.nan
-    auction_closing_available_timeslots.append(df)
+    aux_df = pd.DataFrame({"auction.closing_timeslot": auction_closing_range})
+    aux_df["auction.id"] = id
+    aux_df["auction.num_closing_timeslot_other_auctions"] = np.nan
+    aux_df["auction.num_closing_timeslot_category_other_auctions"] = np.nan
+    aux_df["auction.num_closing_timeslot_subcategory_other_auctions"] = np.nan
+    auction_closing_available_timeslots.append(aux_df)
 df_auction_closing_available_timeslots = pd.concat(auction_closing_available_timeslots)
+# Change the timeslot from datetime to timeslot number
+df_auction_closing_available_timeslots["auction.closing_timeslot"] = np.ceil(
+    (df_auction_closing_available_timeslots["auction.closing_timeslot"] -
+     TIMESTAMP_MIN).dt.total_seconds() / 3600
+)
+df_auction_closing_available_timeslots.reset_index(drop=True, inplace=True)
 df_auction_closing_available_timeslots
-
+# %%
 for i, row in tqdm.tqdm(
     df_auction_closing_available_timeslots.iterrows(), total=df_auction_closing_available_timeslots.shape[0]
 ):
     id = row["auction.id"]
-    print(row)
-    raise ValueError("TEST")
+    # print(row)
+    # raise ValueError("TEST")
     closing_timeslot = row["auction.closing_timeslot"]
-    matching_df = df[(df["auction.id"] == id) & (df["auction.closing_timeslot"] == closing_timeslot)]
-    if matching_df.shape[0] > 0:
-        df.iloc[0] = [
-            closing_timeslot,
-            id,
-            matching_df[
-                "lot.num_closing_timeslot_other_auctions",
-                "lot.num_closing_timeslot_category_other_auctions",
-                "lot.num_closing_timeslot_subcategory_other_auctions",
-            ],
+    df_same_timeslot = df[df["lot.closing_timeslot"] == closing_timeslot]
+    df_same_time_auction = df_same_timeslot[df_same_timeslot["auction.id"] == id]
+    # if df_same_time_auction.shape[0] > 0:
+    df_auction_closing_available_timeslots.iloc[i] = [
+        closing_timeslot,
+        id,
+        (df_same_timeslot.shape[0] - df_same_time_auction.shape[0]),
+        {category: (df_same_timeslot[df_same_timeslot["lot.category"]
+                                        == category].shape[0]
+                    - df_same_time_auction[df_same_time_auction["lot.category"]
+                                            == category].shape[0])
+            for category in df_same_time_auction["lot.category"].unique()},
+        {sub_category: (df_same_timeslot[df_same_timeslot["lot.subcategory"]
+                                        == sub_category].shape[0]
+                    - df_same_time_auction[df_same_time_auction["lot.subcategory"]
+                                            == sub_category].shape[0])
+            for sub_category in df_same_time_auction["lot.subcategory"].unique()}
+        # matching_df["lot.num_closing_timeslot_other_auctions"],
+        # matching_df["lot.num_closing_timeslot_category_other_auctions"],
+        # matching_df["lot.num_closing_timeslot_subcategory_other_auctions"],
         ]
-
+# %%
+df_auction_closing_available_timeslots.to_csv("Data/auction_timeslot_info.csv", index=False)
 # # %% Add feature: number of lots of same (sub) category closing on same day
 # df_category_scarcity = (df.groupby(["lot.category", "lot.closing_timeslot"])["lot.id"].nunique()).reset_index(
 #     name="lot.category_scarcity"
@@ -262,11 +280,12 @@ sample_data = data[data["auction.id"].isin(sample_auctions)]
 
 pd.get_dummies(sample_data).to_csv("./data/sample_auctions_25.csv.gz", index=False)
 
+#TODO Drop the samples that we use for the prescriptive section
 # %% Classification for 'is_sold': train/test/validation split
 train_data = pd.get_dummies(df[TRAIN_COLS_IS_SOLD].dropna())
 y = train_data["lot.is_sold"]
 X = train_data.drop("lot.is_sold", axis=1)
-X_train, X_test, y_train, y_test = train_test_split(X, y)
+X_train, X_test, y_train, y_test = train_test_split(X, y, stratify=y)
 
 
 # %%
@@ -292,6 +311,8 @@ clf.score(X_test, y_test)
 # %%
 with open("./models/dec_tree_clf.pkl", "wb") as f:
     pickle.dump(clf, f)
+with open("./models/clf_X_columns.pkl", "wb") as f:
+    pickle.dump(list(X.columns), f)
 
 #%% Classifier: gradient boosting
 space = {
@@ -327,15 +348,16 @@ run_hyperopt(RandomForestClassifier, X_train, y_train, space, mode="clf", max_ev
 space = {
     "criterion": "friedman_mse",
     "splitter": hyperopt.hp.choice("splitter", ["best", "random"]),
-    "max_depth": hyperopt.hp.uniformint("max_depth", 1, 30),
+    "max_depth": hyperopt.hp.uniformint("max_depth", 1, 50),
     "min_samples_leaf": hyperopt.hp.uniformint("min_samples_leaf", 1, 1000),
     "max_features": hyperopt.hp.uniform("max_features", 0.3, 0.99),
 }
 
 train_data_reg = pd.get_dummies(df[TRAIN_COLS_REVENUE].dropna())
-y = np.log1p(train_data_reg["lot.revenue"])
+y = train_data_reg["lot.revenue"]
 X = train_data_reg.drop("lot.revenue", axis=1)
-X_train, X_test, y_train, y_test = train_test_split(X, y)
+X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=30)
+# %%
 run_hyperopt(DecisionTreeRegressor, X_train, y_train, space, mode="reg", max_evals=500)
 # %%
 reg = DecisionTreeRegressor(
@@ -343,7 +365,14 @@ reg = DecisionTreeRegressor(
 )
 reg.fit(X_train, y_train)
 reg.score(X_test, y_test)
-r2_score(np.expm1(y_test), np.expm1(reg.predict(X_test)))
+r2_score(y_test, reg.predict(X_test))
+
+# %%
+with open("./models/dec_tree_reg.pkl", "wb") as f:
+    pickle.dump(reg, f)
+with open("./models/reg_X_columns.pkl", "wb") as f:
+    pickle.dump(list(X.columns), f)
+
 # %%
 train_data[["lot.revenue"]]
 # %%
@@ -353,7 +382,7 @@ train_data[["lot.revenue"]]
 pd.Series(reg.predict(X_reg)).nunique()
 # %%
 
-# TODO pickle DecisionTreeClassifier & DecisionTreeRegressor
-# TODO decision variables:
-#  - lot closing timeslot (hourly)
-#  - lot.starting_price
+# TODO pickle DecisionTreeClassifier & DecisionTreeRegressor -- DONE
+# TODO decision variables: 
+#  - lot closing timeslot (hourly)  -- DONE
+#  - lot.starting_price -- DONE

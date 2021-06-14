@@ -107,14 +107,14 @@ TRAIN_COLS_IS_SOLD = [
     "auction.num_lots",
     "auction.sourcing_company",
     "lot.category",
-    "lot.category_code",
+    # "lot.category_code", #double with category
     "lot.category_count_in_auction",
     "lot.closing_day_of_week",
-    "lot.closing_dayslot",
-    "lot.closing_timeslot",
+    # "lot.closing_dayslot", Specific day is not relevant for future predictions
+    # "lot.closing_timeslot", Specific timeslot is not relevant for future predictions
     "lot.condition",
     "lot.days_open",
-    "lot.is_credited",
+    # "lot.is_credited", You don't know this in advance
     "lot.is_sold",
     "lot.rel_nr",
     "lot.seller_category",
@@ -122,19 +122,19 @@ TRAIN_COLS_IS_SOLD = [
     "lot.subcategory",
     "lot.subcategory_count_in_auction",
     "lot.taxrate",
-    "project.accountmanager",
-    "project.business_line",
+    "project.accountmanager", # I doubt that this is relevant
+    "project.business_line", 
     "project.business_unit",
-    "project.is_automatic_credit",
-    "lot.num_closing_timeslot_within_auction",
+    # "project.is_automatic_credit", You don't know this in advance
+    # "lot.num_closing_timeslot_within_auction", DO NOT INCLUDE
     "lot.num_closing_timeslot",
-    "lot.num_closing_timeslot_category_within_auction",
+    # "lot.num_closing_timeslot_category_within_auction", DO NOT INCLUDE
     "lot.num_closing_timeslot_category",
-    "lot.num_closing_timeslot_subcategory_within_auction",
+    # "lot.num_closing_timeslot_subcategory_within_auction", DO NOT INCLUDE
     "lot.num_closing_timeslot_subcategory",
-    "lot.num_closing_timeslot_other_auctions",
-    "lot.num_closing_timeslot_category_other_auctions",
-    "lot.num_closing_timeslot_subcategory_other_auctions",
+    # "lot.num_closing_timeslot_other_auctions", DO NOT INCLUDE
+    # "lot.num_closing_timeslot_category_other_auctions", DO NOT INCLUDE
+    # "lot.num_closing_timeslot_subcategory_other_auctions", DO NOT INCLUDE
 ]
 TRAIN_COLS_REVENUE = [
     "auction.bidrange_name",
@@ -143,14 +143,14 @@ TRAIN_COLS_REVENUE = [
     "auction.num_lots",
     "auction.sourcing_company",
     "lot.category",
-    "lot.category_code",
+    # "lot.category_code", #double with category
     "lot.category_count_in_auction",
     "lot.closing_day_of_week",
-    "lot.closing_dayslot",
-    "lot.closing_timeslot",
+    # "lot.closing_dayslot", Specific day is not relevant for future predictions
+    # "lot.closing_timeslot", Specific timeslot is not relevant for future predictions
     "lot.condition",
     "lot.days_open",
-    "lot.is_credited",
+    # "lot.is_credited", You don't know this in advance
     "lot.revenue",
     "lot.rel_nr",
     "lot.seller_category",
@@ -158,17 +158,17 @@ TRAIN_COLS_REVENUE = [
     "lot.subcategory",
     "lot.subcategory_count_in_auction",
     "lot.taxrate",
-    "project.accountmanager",
-    "project.business_line",
+    "project.accountmanager", # I doubt that this is relevant
+    "project.business_line", 
     "project.business_unit",
-    "project.is_automatic_credit",
-    "lot.num_closing_timeslot_within_auction",
+    # "project.is_automatic_credit", You don't know this in advance
+    # "lot.num_closing_timeslot_within_auction", DO NOT INCLUDE
     "lot.num_closing_timeslot",
-    "lot.num_closing_timeslot_category_within_auction",
+    # "lot.num_closing_timeslot_category_within_auction", DO NOT INCLUDE
     "lot.num_closing_timeslot_category",
-    "lot.num_closing_timeslot_subcategory_within_auction",
+    # "lot.num_closing_timeslot_subcategory_within_auction", DO NOT INCLUDE
     "lot.num_closing_timeslot_subcategory",
-    "lot.num_closing_timeslot_other_auctions",
-    "lot.num_closing_timeslot_category_other_auctions",
-    "lot.num_closing_timeslot_subcategory_other_auctions",
+    # "lot.num_closing_timeslot_other_auctions", DO NOT INCLUDE
+    # "lot.num_closing_timeslot_category_other_auctions", DO NOT INCLUDE
+    # "lot.num_closing_timeslot_subcategory_other_auctions", DO NOT INCLUDE
 ]
