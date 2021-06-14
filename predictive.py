@@ -1,5 +1,7 @@
-# %%
-from multiprocessing.sharedctypes import Value
+# %% Import packages
+import tqdm
+from datetime import datetime
+import pickle
 from sklearn.tree import DecisionTreeRegressor, DecisionTreeClassifier
 import pandas as pd
 import numpy as np
@@ -13,7 +15,7 @@ import hyperopt
 from helpers import run_hyperopt
 from constants import TRAIN_COLS_IS_SOLD, TRAIN_COLS_REVENUE
 
-# %%
+# %% Read dataset
 df = pd.read_csv(
     "data/data_merged.csv.gz",
     parse_dates=[
@@ -41,138 +43,190 @@ df["lot.revenue"] = df["bid.amount"] * df["bid.is_latest"] * df["bid.is_valid"]
 lot_revenue = df.groupby("lot.id")["lot.revenue"].max().reset_index()
 lot_revenue = lot_revenue.replace(0, np.nan)
 df = pd.merge(df, lot_revenue)
-# %%
-df.sort_values(by='lot.closingdate', inplace=True)
-
-
 # %% Add feature 'lot.closing_day_of_week': day of week that lot closes
-df['lot.closing_day_of_week'] = df['lot.closingdate_day'].dt.dayofweek.astype('str')
-
-
+df["lot.closing_day_of_week"] = df["lot.closingdate_day"].dt.dayofweek.astype("str")
 # %% Drop duplicates with 'lot.id', 1 row per lot
 df.drop_duplicates("lot.id", inplace=True)
-# %% Add feature 'lot.closingdate_day': lot closing date without time
-# df["lot.closingdate_day"] = pd.to_datetime(df["lot.closingdate"].dt.date)
 # %% Sort first by auction, then by lot, then by bid date
 df = df.sort_values(by=["auction.id", "lot.id", "bid.date"]).reset_index(drop=True)
 # %% Add feature 'lot.days_open': number of days a lot is open
 df["lot.days_open"] = (df["lot.closingdate_day"] - df["lot.startingdate"]).dt.days
 # %% Remove outlier with 384 days (mean=7.04, median=7)
-df = df[df['lot.days_open'] < 50]
-
+df = df[df["lot.days_open"] < 50]
 # %% Convert float accountmanager ID to string (categorical)
-df['project.accountmanager'] = df['project.accountmanager'].astype('int').astype('str')
-# %% Add feature 'lot.category_count_in_auction': number of lots of same category in auction
+df["project.accountmanager"] = df["project.accountmanager"].astype("int").astype("str")
+# %% Add feature 'lot.category_count_in_auction' and 'lot.subcategory_count_in_auction' number of lots of same (sub) category in auction
 auction_cat_counts = df.groupby(["auction.id", "lot.category"]).size().reset_index()
 auction_cat_counts.rename(columns={0: "lot.category_count_in_auction"}, inplace=True)
 df = pd.merge(df, auction_cat_counts)
-# %% Add feature 'lot.category_closing_count': number of lots of same category closing on same day
-df_lots_scarcity = (df.groupby(["lot.category", "lot.closingdate_day"])["lot.id"].nunique()).reset_index(
-    name="lot.category_closing_count"
-)
-df = pd.merge(df_lots_scarcity, df)
+
+auction_subcat_counts = df.groupby(["auction.id", "lot.subcategory"]).size().reset_index()
+auction_subcat_counts.rename(columns={0: "lot.subcategory_count_in_auction"}, inplace=True)
+df = pd.merge(df, auction_subcat_counts)
 
 
-# %% Add feature 'lot.subcategory_count_in_auction': number of lots of same subcategory in auction
-auction_cat_counts = df.groupby(["auction.id", "lot.subcategory"]).size().reset_index()
-auction_cat_counts.rename(columns={0: "lot.subcategory_count_in_auction"}, inplace=True)
-df = pd.merge(df, auction_cat_counts)
-# %% Add feature 'lot.subcategory_closing_count': number of lots of same subcategory closing on same day
-df_lots_scarcity = (df.groupby(["lot.subcategory", "lot.closingdate_day"])["lot.id"].nunique()).reset_index(
-    name="lot.subcategory_closing_count"
-)
-df = pd.merge(df_lots_scarcity, df)
-
-# %% Add feature 'lot.closing_count': number of lots closing on same day
-df_lots_closingcount = (
-    df.groupby(["lot.closingdate_day"])["lot.id"]
-    .nunique()
-    .reset_index()
-    .rename(columns={"lot.id": "lot.closing_count"})
-)
-df = pd.merge(df_lots_closingcount, df)
-# %%
-# df.dropna(subset=['lot.closingdate'], inplace=True)
-df['lot.closing_timeslot'] = (
-    df['lot.closingdate'] -
-    df['lot.closingdate'].min()).apply(
-        lambda td: td.total_seconds() /
-    3600)
-
-# %% Add lot closing_day
-df['lot.closing_dayslot'] = lot_closing_day = (
-    df['lot.closingdate_day'] -
-    df['lot.closingdate_day'].min()).apply(
-        lambda td: td.total_seconds() /
-        (
-            3600 *
-            24)).astype('int')
+# %% Take closing dayslot (day) and timeslot (hour) for scarcity
+TIMESTAMP_MIN = pd.Timestamp("2019-12-09 00:00:00")
 
 # %%
+df["lot.closing_dayslot"] = (df["lot.closingdate_day"] - TIMESTAMP_MIN).dt.days
+df["lot.closing_timeslot"] = (df["lot.closingdate"] - TIMESTAMP_MIN).dt.total_seconds() / 3600
 
-# %%
+# Initialize array for indices to be interpolated and interpolated values
 sampled_hourslots_idx = []
 sampled_hourslots = []
 
-for auction_id in df['auction.id'].unique():
-    df_auction = df[df['auction.id'] == auction_id]
-    for closing_dayslot in df_auction['lot.closing_dayslot'].unique():
-        df_auction_closing_dayslot = df_auction[df_auction['lot.closing_dayslot'] == closing_dayslot]
-        timeslot_probabilities = df_auction_closing_dayslot['lot.closing_timeslot'].value_counts(
-            normalize=True)
+# for each auction
+for auction_id in df["auction.id"].unique():
+    df_auction = df[df["auction.id"] == auction_id]
+    # for each closing day within this auction
+    for closing_dayslot in df_auction["lot.closing_dayslot"].unique():
+        df_auction_closing_dayslot = df_auction[df_auction["lot.closing_dayslot"] == closing_dayslot]
+        # compute closing timeslot (hour) probabilities
+        timeslot_probabilities = df_auction_closing_dayslot["lot.closing_timeslot"].value_counts(
+            normalize=True
+        )
+
+        timeslots_pop = timeslot_probabilities.index
         N = df_auction_closing_dayslot.shape[0]
-        if len(timeslot_probabilities.index) > 0:
-            sampled_timeslots = np.random.choice(
-                timeslot_probabilities.index, N, p=list(timeslot_probabilities))
+        if len(timeslots_pop) > 0:
+            sampled_timeslots = np.random.choice(timeslots_pop, N, p=list(timeslot_probabilities))
             sampled_hourslots_idx += list(df_auction_closing_dayslot.index)
             sampled_hourslots += list(sampled_timeslots)
-
-# %%
 df.loc[sampled_hourslots_idx, "lot.closing_timeslot_interpolated"] = np.array(sampled_hourslots)
-# for i, idx in enumerate(sampled_hourslots_idx):
-#     df.loc[idx] = sampled_hourslots[i]
+df["lot.closing_timeslot"].fillna(df["lot.closing_timeslot_interpolated"], inplace=True)
+
 # %%
-df_lot_closing_hourslots = pd.DataFrame(
-    sampled_hourslots,
-    index=sampled_hourslots_idx,
-    columns=['lot.closing_hourslot'])
-df = pd.merge(df, df_lot_closing_hourslots, left_index=True, right_index=True)
-df['lot.closing_hourslot'] = df['lot.closing_hourslot'].astype('int')
-# %% Add feature 'lot.timeslot_category_closing_count': number of lots of same category closing on same day
-df_lots_scarcity = (df.groupby(["lot.category", "lot.closing_timeslot"])["lot.id"].nunique()).reset_index(
-    name="lot.timeslot_category_closing_count"
+df["auction.end_timeslot"] = np.ceil((df["auction.end_date"] - TIMESTAMP_MIN).dt.total_seconds() / 3600)
+df["auction.lot_min_end_timeslot"] = np.ceil(
+    (df["auction.lot_min_end_date"] - TIMESTAMP_MIN).dt.total_seconds() / 3600
 )
-df = pd.merge(df_lots_scarcity, df)
-# %% Add feature 'lot.timeslot_subcategory_closing_count': number of lots of same subcategory closing on same day
-df_lots_scarcity = (df.groupby(["lot.subcategory", "lot.closing_timeslot"])["lot.id"].nunique()).reset_index(
-    name="lot.timeslot_subcategory_closing_count"
+df["auction.lot_max_end_timeslot"] = np.ceil(
+    (df["auction.lot_max_end_date"] - TIMESTAMP_MIN).dt.total_seconds() / 3600
 )
-df = pd.merge(df_lots_scarcity, df)
+
+# %%
+auction_ids = df["auction.id"].unique()
 
 
-# %% Add feature 'lot.closing_count': number of lots closing on same day
-df_lots_closingcount = (
-    df.groupby(["lot.closing_timeslot"])["lot.id"]
-    .nunique()
-    .reset_index()
-    .rename(columns={"lot.id": "lot.timeslot_closing_count"})
+def datetime_to_nearest(dt):
+    return datetime(dt.year, dt.month, dt.day, 23, 59)
+
+
+df["auction.lot_max_end_date_adjusted"] = df["auction.lot_max_end_date"].apply(datetime_to_nearest)
+auction_min_end_dates = (
+    df[["auction.id", "auction.lot_min_end_date", "auction.lot_max_end_date_adjusted"]]
+    .drop_duplicates()
+    .values
 )
-df = pd.merge(df_lots_closingcount, df)
-# %%
-data = df[list(set(TRAIN_COLS_IS_SOLD).union(TRAIN_COLS_REVENUE))]
-# %%
-nunique_per_var = data.select_dtypes(exclude="O").nunique()
-num_vars = nunique_per_var[nunique_per_var > 3].index
-df[num_vars].skew()[df[num_vars].skew().abs() > 2].index
-# %%
-skewed_vars = df[num_vars].skew()[df[num_vars].skew().abs() > 1.5].index
-df[skewed_vars].describe().round(1).T
-
-
-# TODO check multivariate by lot.subcategory
 
 # %%
+# auction_timeslot_scarcity = []
+# for id, min_end_date, max_end_date in auction_min_end_dates:
+#     auction_closing_range = pd.date_range(min_end_date, max_end_date, freq='h')
+#     for dt in auction_closing_range:
+#         df[(df['auction.id'] != id) & (df['lot.closing_time'])]
+#         auction_timeslot_scarcity.append([id, dt])
+# lot_scarcity_other_auctions = []
+# for index, row in tqdm.tqdm(df.iterrows(), total=df.shape[0]):
+#     lot_auction = row["auction.id"]
+#     lot_closing_timeslot = row["lot.closing_timeslot"]
+#     lot_cat = row["lot.category"]
+#     lot_subcat = row["lot.subcategory"]
+#     scarcity_other_auction = (
+#         (df["auction.id"] != lot_auction) & (df["lot.closing_timeslot"] == lot_closing_timeslot)
+#     ).sum()
+#     scarcity_cat_other_auction = (
+#         (df["auction.id"] != lot_auction)
+#         & (df["lot.closing_timeslot"] == lot_closing_timeslot)
+#         & (df["lot.category"] == lot_cat)
+#     ).sum()
+#     scarcity_subcat_other_auction = (
+#         (df["auction.id"] != lot_auction)
+#         & (df["lot.closing_timeslot"] == lot_closing_timeslot)
+#         & (df["lot.subcategory"] == lot_subcat)
+#     ).sum()
+#     lot_scarcity_other_auctions.append([row["lot.id"], scarcity_other_auction])
+# %%
+df_closing_timeslot_within_auction = (
+    df.groupby(["lot.closing_timeslot", "auction.id"])
+    .size()
+    .reset_index(name="lot.num_closing_timeslot_within_auction")
+)
+df_closing_timeslot_total = (
+    df.groupby(["lot.closing_timeslot"]).size().reset_index(name="lot.num_closing_timeslot")
+)
 
+df_closing_timeslot_category_within_auction = (
+    df.groupby(["lot.closing_timeslot", "lot.category", "auction.id"])
+    .size()
+    .reset_index(name="lot.num_closing_timeslot_category_within_auction")
+)
+df_closing_timeslot_category_total = (
+    df.groupby(["lot.closing_timeslot"]).size().reset_index(name="lot.num_closing_timeslot_category")
+)
+
+df_closing_timeslot_subcategory_within_auction = (
+    df.groupby(["lot.closing_timeslot", "lot.subcategory", "auction.id"])
+    .size()
+    .reset_index(name="lot.num_closing_timeslot_subcategory_within_auction")
+)
+df_closing_timeslot_subcategory_total = (
+    df.groupby(["lot.closing_timeslot"]).size().reset_index(name="lot.num_closing_timeslot_subcategory")
+)
+
+df = (
+    df.merge(df_closing_timeslot_within_auction)
+    .merge(df_closing_timeslot_total)
+    .merge(df_closing_timeslot_category_within_auction)
+    .merge(df_closing_timeslot_category_total)
+    .merge(df_closing_timeslot_subcategory_within_auction)
+    .merge(df_closing_timeslot_subcategory_total)
+)
+#%%
+df["lot.num_closing_timeslot_other_auctions"] = (
+    df["lot.num_closing_timeslot"] - df["lot.num_closing_timeslot_within_auction"]
+)
+df["lot.num_closing_timeslot_category_other_auctions"] = (
+    df["lot.num_closing_timeslot_category"] - df["lot.num_closing_timeslot_category_within_auction"]
+)
+df["lot.num_closing_timeslot_subcategory_other_auctions"] = (
+    df["lot.num_closing_timeslot_subcategory"] - df["lot.num_closing_timeslot_subcategory_within_auction"]
+)
+
+# # %% Add feature: number of lots of same (sub) category closing on same day
+# df_category_scarcity = (df.groupby(["lot.category", "lot.closing_timeslot"])["lot.id"].nunique()).reset_index(
+#     name="lot.category_scarcity"
+# )
+# df = pd.merge(df, df_category_scarcity)
+
+# df_subcategory_scarcity = (
+#     df.groupby(["lot.subcategory", "lot.closing_timeslot"])["lot.id"].nunique()
+# ).reset_index(name="lot.subcategory_scarcity")
+# df = pd.merge(df, df_subcategory_scarcity)
+
+# # add feature 'lot.closing_count': number of lots closing on same day
+# df_lots_closingcount = (
+#     df.groupby(["lot.closing_timeslot"])["lot.id"]
+#     .nunique()
+#     .reset_index()
+#     .rename(columns={"lot.id": "lot.scarcity"})
+# )
+# df = pd.merge(df_lots_closingcount, df)
+#%%
+df["lot.condition"] = df["lot.condition"].fillna("None")
+
+# %%
+USED_COLS = list(set(TRAIN_COLS_IS_SOLD).union(TRAIN_COLS_REVENUE))
+# %%
+missing_revenue_per_auction = df.isna().groupby(df["auction.id"], sort=False).sum()["lot.revenue"]
+data = df[USED_COLS + ["lot.id", "auction.id", "auction.lot_min_end_date", "auction.lot_max_end_date"]]
+sample_auctions = (
+    missing_revenue_per_auction[missing_revenue_per_auction == 0].sample(25, random_state=42).index
+)
+sample_data = data[data["auction.id"].isin(sample_auctions)]
+
+pd.get_dummies(sample_data).to_csv("./data/sample_auctions_25.csv.gz", index=False)
 
 # %% Classification for 'is_sold': train/test/validation split
 train_data = pd.get_dummies(df[TRAIN_COLS_IS_SOLD].dropna())
