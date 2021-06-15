@@ -283,14 +283,11 @@ np.random.seed(42)
 sample_auctions = np.random.choice(possible_samples, 25, replace=False) 
 data = df[USED_COLS + ["lot.id", "auction.id", "auction.lot_min_end_date", "auction.lot_max_end_date"]]
 
-# sample_auctions = (
-#     # missing_revenue_per_auction[missing_revenue_per_auction == 0].sample(25, random_state=42).index
-#     missing_revenue_per_auction.sample(25, random_state=42).index
-# )
 sample_data = data[data["auction.id"].isin(sample_auctions)]
 
 pd.get_dummies(sample_data).to_csv("./data/sample_auctions_25.csv.gz", index=False)
-
+# %% Drop the samples that we use for the prescriptive section
+df = df[~df["auction.id"].isin(sample_auctions)].reset_index(drop=True)
 #TODO Drop the samples that we use for the prescriptive section
 # %% Classification for 'is_sold': train/test/validation split
 train_data = pd.get_dummies(df[TRAIN_COLS_IS_SOLD].dropna())
