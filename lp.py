@@ -9,7 +9,7 @@ from tqdm import tqdm
 from lpclasslibrary import Leafnode, Lot, Node
 
 # %% Define Auction id of sample that we want to run
-SAMPLE_ID = 45453
+SAMPLE_ID = 45045
 
 # %% Load the list with the column names of the X data for model training
 reg_train_columns = pickle.load(open("models/reg_X_columns.pkl", 'rb'))
@@ -450,7 +450,7 @@ for lot in Lots.values():
     for tau in lot.get_q_vars():
         if lot.get_q_vars()[tau].x == 1:
             if lot.get_x_var().x == 1:
-                print(f"Lot {lot.id} was listed for a starting pice of {lot.get_s_var().x}, ended in timeslot {tau}, and was sold for price {lot.get_p_var().x}")
+                print(f"Lot {lot.id} was listed for a starting pice of {lot.get_s_var().x}, ended in timeslot {tau}, and has excpected revenue of {lot.get_p_var().x}")
             else:
                 print(f"Lot {lot.id} was listed for a starting pice of {lot.get_s_var().x}, ended in timeslot {tau}, and was not sold")
 
