@@ -44,6 +44,9 @@ df["lot.revenue"] = df["bid.amount"] * df["bid.is_latest"] * df["bid.is_valid"]
 lot_revenue = df.groupby("lot.id")["lot.revenue"].max().reset_index()
 lot_revenue = lot_revenue.replace(0, np.nan)
 df = pd.merge(df, lot_revenue)
+# %% If lot is not sold, set revenue to 0 and convert to nan
+df["lot.revenue"] = ((df["lot.is_sold"]) * df['lot.revenue']).replace(0, np.nan)
+
 # %% Add feature 'lot.closing_day_of_week': day of week that lot closes
 df["lot.closing_day_of_week"] = df["lot.closingdate_day"].dt.dayofweek.astype("str")
 # %% Drop duplicates with 'lot.id', 1 row per lot
@@ -271,11 +274,19 @@ df["lot.condition"] = df["lot.condition"].fillna("None")
 # %%
 USED_COLS = list(set(TRAIN_COLS_IS_SOLD).union(TRAIN_COLS_REVENUE))
 # %%
-missing_revenue_per_auction = df.isna().groupby(df["auction.id"], sort=False).sum()["lot.revenue"]
+# missing_revenue_per_auction = df.isna().groupby(df["auction.id"], sort=False).sum()["lot.revenue"]
+incorrect_auctions_sold_revenue = df[(df["lot.revenue"].isna())
+                                      & (df["lot.is_sold"] == 1)]["auction.id"].unique()
+possible_samples = list(set(
+    df["auction.id"].unique()).intersection(set(incorrect_auctions_sold_revenue)))
+np.random.seed(42)
+sample_auctions = np.random.choice(possible_samples, 25, replace=False) 
 data = df[USED_COLS + ["lot.id", "auction.id", "auction.lot_min_end_date", "auction.lot_max_end_date"]]
-sample_auctions = (
-    missing_revenue_per_auction[missing_revenue_per_auction == 0].sample(25, random_state=42).index
-)
+
+# sample_auctions = (
+#     # missing_revenue_per_auction[missing_revenue_per_auction == 0].sample(25, random_state=42).index
+#     missing_revenue_per_auction.sample(25, random_state=42).index
+# )
 sample_data = data[data["auction.id"].isin(sample_auctions)]
 
 pd.get_dummies(sample_data).to_csv("./data/sample_auctions_25.csv.gz", index=False)
