@@ -394,14 +394,21 @@ for lot in Lots:
 #%%Set constraint (16)
 for lot in Lots:
     lpmodel.addConstr(
+        sum(Lots[lot].get_q_vars()[tau] for tau in range(tau_min, tau_max+1)) == 1,
+        name = f"Constraint (18) for lot {lot}"
+    )
+
+#%%Set constraint (17)
+for lot in Lots:
+    lpmodel.addConstr(
         sum(thetadict[tau]*Lots[lot].get_q_vars()[tau]
             + sum(Lots[lot].get_a_vars()[lot2][tau] for lot2 in Lots)
             for tau in range(tau_min, tau_max+1))
         == Lots[lot].get_ClosingCount_var(),
-        name=f"Constraint (16) for lot {lot}"
+        name=f"Constraint (17) for lot {lot}"
         )
 
-#%%Set constraint (17)
+#%%Set constraint (18)
 for lot in Lots:
     lpmodel.addConstr(
         sum(
@@ -414,10 +421,10 @@ for lot in Lots:
                 )
             for tau in range(tau_min, tau_max+1)
             ) == Lots[lot].get_ClosingCountCat_var(),
-        name=f"Constraint (17) for lot {lot}"
+        name=f"Constraint (18) for lot {lot}"
         )
 
-#%%Set constraint (18)
+#%%Set constraint (19)
 for lot in tqdm(Lots):
     lpmodel.addConstr(
         sum(
@@ -430,7 +437,7 @@ for lot in tqdm(Lots):
                 )
             for tau in range(tau_min, tau_max+1)
             ) == Lots[lot].get_ClosingCountSub_var(),
-        name = f"Constraint (18) for lot {lot}"
+        name = f"Constraint (19) for lot {lot}"
         )
 # %% Update the model
 lpmodel.update()
