@@ -4,6 +4,7 @@ from ast import literal_eval
 
 import gurobipy as grb
 import pandas as pd
+from tqdm import tqdm
 
 from lpclasslibrary import Leafnode, Lot, Node
 
@@ -14,6 +15,21 @@ SAMPLE_ID = 45453
 reg_train_columns = pickle.load(open("models/reg_X_columns.pkl", 'rb'))
 clf_train_columns = pickle.load(open("models/clf_X_columns.pkl", 'rb'))
 
+ALL_MODEL_CATEGORIES_CLF = set([feature for feature in clf_train_columns
+                                if ("lot.category_" in feature)
+                                and ("lot.category_count" not in feature)]) 
+ALL_MODEL_CATEGORIES_REG = set([feature for feature in reg_train_columns
+                                if ("lot.category_" in feature)
+                                and ("lot.category_count" not in feature)])
+ALL_MODEL_CATEGORIES = ALL_MODEL_CATEGORIES_CLF.union(ALL_MODEL_CATEGORIES_REG)
+
+ALL_MODEL_SUBCATEGORIES_CLF = set([feature for feature in clf_train_columns
+                                if ("lot.subcategory_" in feature)
+                                and ("lot.subcategory_count" not in feature)]) 
+ALL_MODEL_SUBCATEGORIES_REG = set([feature for feature in reg_train_columns
+                                if ("lot.subcategory_" in feature)
+                                and ("lot.subcategory_count" not in feature)])
+ALL_MODEL_SUBCATEGORIES = ALL_MODEL_SUBCATEGORIES_CLF.union(ALL_MODEL_SUBCATEGORIES_REG)
 
 # %% Load sample dataset
 samples = pd.read_csv("Data/sample_auctions_25.csv.gz")
@@ -76,11 +92,12 @@ sample_auction_time_df = auction_time_df[
     auction_time_df["auction.id"] == SAMPLE_ID]
 
 # %% Retrieve all categories that are in the sample
-ALL_CATEGORIES = [column for column in sample_data.columns if (
-    "lot.category_" in column) and ("lot.category_count" not in column)]
-ALL_SUBCATEGORIES = [column for column in sample_data.columns if (
-    "lot.subcategory" in column) and ("lot.subcategory_count" not in column)]
+# ALL_CATEGORIES = [column for column in sample_data.columns if (
+#     "lot.category_" in column) and ("lot.category_count" not in column)]
+# ALL_SUBCATEGORIES = [column for column in sample_data.columns if (
+#     "lot.subcategory" in column) and ("lot.subcategory_count" not in column)]
 # %% Create the auction parameters
+big_M = 100_000_000
 tau_min = int(min(sample_auction_time_df["auction.closing_timeslot"]))
 tau_max = int(max(sample_auction_time_df["auction.closing_timeslot"]))
 N = sample_data.shape[0]
@@ -109,7 +126,7 @@ for tau in range(tau_min, tau_max + 1):
         del bigthetadict[tau][to_delete[i]]
         
     categories_not_yet_in_dict = (
-        key for key in ALL_CATEGORIES if key not in bigthetadict[tau].keys())
+        key for key in ALL_MODEL_CATEGORIES if key not in bigthetadict[tau].keys())
     # Set the counts to 0 , for those that were not in the data
     for category in categories_not_yet_in_dict:
         bigthetadict[tau][category] = 0
@@ -128,7 +145,7 @@ for tau in range(tau_min, tau_max + 1):
         Odict[tau][new_keys[i]] = Odict[tau][to_delete[i]]
         del Odict[tau][to_delete[i]]
     subcategories_not_yet_in_dict = (
-        key for key in ALL_SUBCATEGORIES if key not in Odict[tau].keys())
+        key for key in ALL_MODEL_SUBCATEGORIES if key not in Odict[tau].keys())
     # Set the counts to 0 , for those that were not in the data
     for subcategory in subcategories_not_yet_in_dict:
         Odict[tau][subcategory] = 0
@@ -217,7 +234,7 @@ for lot in Lots:
     my_y_vars = {}
     for i in range(1,N+1):
         my_y_var = lpmodel.addVar(vtype = grb.GRB.BINARY, name = f"y_{i},{lot}")
-        my_y_vars[1] = my_y_var
+        my_y_vars[i] = my_y_var
     Lots[lot].set_y_vars(my_y_vars)
 
 #%%Create q variables
@@ -245,122 +262,181 @@ lpmodel.setObjective(sum(Lots[lot].get_o_var() for lot in Lots))
 #%%Set constraint (2)
 for lot in Lots:
     for node in Nodes_sold:
+        FV = Lots[lot].features[clf_train_columns[Nodes_sold[node].feature]]
+        M_f = feature_maxima[clf_train_columns[Nodes_sold[node].feature]]
+        sum_z_vars = sum(l.get_z_vars()[lot] 
+                         for l in Nodes_sold[node].leaves_left_subtree)
         lpmodel.addConstr(
-            Lots[lot].features[clf_train_columns[Nodes_sold[node].feature]]
-            + (feature_maxima[clf_train_columns[Nodes_sold[node].feature]] 
-               - Nodes_sold[node].threshold) * 
-            sum(l.get_z_vars()[lot] for l in Nodes_sold[node].leaves_left_subtree
-                ) <= (feature_maxima[clf_train_columns[Nodes_sold[node].feature]]),
-            name = f"Constraint (2) for lot {lot} and node {node} in the classification model")
+            FV + (M_f - Nodes_sold[node].threshold) * sum_z_vars <= M_f,
+            name=f"Constraint (2) for lot {lot} and node {node} in the classification model"
+            )
 for lot in Lots:
     for node in Nodes_price:
-        try:
-            lpmodel.addConstr(
-                Lots[lot].features[clf_train_columns[Nodes_price[node].feature]]
-                + (feature_maxima[clf_train_columns[Nodes_price[node].feature]]
-                - Nodes_price[node].threshold) * 
-                sum(l.get_z_vars()[lot] for l in Nodes_price[node].leaves_left_subtree
-                    ) <= feature_maxima[clf_train_columns[Nodes_price[node].feature]]
-                , name = f"Constraint (2) for lot {lot} and node {node} in the regression model")  
-        except KeyError:
-            print(node, lot)                           
+        FV = Lots[lot].features[clf_train_columns[Nodes_price[node].feature]]
+        M_f = feature_maxima[clf_train_columns[Nodes_price[node].feature]]
+        sum_z_vars = sum(l.get_z_vars()[lot]
+                         for l in Nodes_price[node].leaves_left_subtree)
+        lpmodel.addConstr(
+            FV + (M_f - Nodes_price[node].threshold) * sum_z_vars <= M_f,
+            name=f"Constraint (2) for lot {lot} and node {node} in the regression model"
+            )
 
 #%%Set constraint (3)
 for lot in Lots:
     for node in Nodes_sold:
-        lpmodel.addConstr(Lots[lot].features[clf_train_columns[Nodes_sold[node].feature]] + (min(l.features[clf_train_columns[Nodes_sold[node].feature]] for l in Lots.values())
-                             - Nodes_sold[node].threshold) * sum(l.get_z_vars()[lot] for l in Nodes_sold[node].leaves_right_subtree) >= 
-                             min(l.features[clf_train_columns[Nodes_sold[node].feature]] for l in Lots.values()), 
-                             name = f"Constraint (3) for lot {lot} and node {node} in the classification model")
+        FV = Lots[lot].features[clf_train_columns[Nodes_sold[node].feature]]
+        m_f = feature_minima[clf_train_columns[Nodes_sold[node].feature]]
+        sum_z_vars = sum(l.get_z_vars()[lot]
+                         for l in Nodes_sold[node].leaves_right_subtree)
+        lpmodel.addConstr(
+            FV + (m_f - Nodes_sold[node].threshold) * sum_z_vars >= m_f, 
+            name=f"Constraint (3) for lot {lot} and node {node} in the classification model"
+            )
 for lot in Lots:
     for node in Nodes_price:
-        lpmodel.addConstr(Lots[lot].features[Nodes_price[node].feature] + (min(l.features[Nodes_price[node].feature] for l in Lots.values())
-                             - Nodes_price[node].threshold) * sum(l.get_z_vars()[lot] for l in Nodes_price[node].leaves_right_subtree) >= 
-                             min(l.features[Nodes_price[node].feature] for l in Lots.values()), 
-                             name = f"Constraint (3) for lot {lot} and node {node} in the regression model")
+        FV = Lots[lot].features[clf_train_columns[Nodes_price[node].feature]]
+        m_f = m_f = feature_minima[clf_train_columns[Nodes_price[node].feature]]
+        sum_z_vars = sum(l.get_z_vars()[lot]
+                         for l in Nodes_price[node].leaves_right_subtree)
+        lpmodel.addConstr(
+            FV + (m_f - Nodes_price[node].threshold) * sum_z_vars >= m_f, 
+            name=f"Constraint (3) for lot {lot} and node {node} in the regression model"
+            )
 
 #%%Set constraint (4)
 for lot in Lots:
-    lpmodel.addConstr(sum(l.get_z_vars()[lot] for l in Leafnodes_sold.values()) == 1,
-                         name = f"Constraint (4) for lot {lot} and the classification model")
-    lpmodel.addConstr(sum(l.get_z_vars()[lot] for l in Leafnodes_price.values()) == 1,
-                         name = f"Constraint (4) for lot {lot} and the regression model")
+    lpmodel.addConstr(
+        sum(l.get_z_vars()[lot] for l in Leafnodes_sold.values()) == 1,
+        name=f"Constraint (4) for lot {lot} and the classification model"
+        )
+    lpmodel.addConstr(
+        sum(l.get_z_vars()[lot] for l in Leafnodes_price.values()) == 1,
+        name=f"Constraint (4) for lot {lot} and the regression model"
+        )
 
 #%%Set constraint (5)
 for lot in Lots:
-    lpmodel.addConstr(Lots[lot].get_p_var() == sum(l.leaf_value * l.get_z_vars()[lot] for l in Leafnodes_price.values()),
-                         name = f"Constraint (5) for lot {lot}")
+    lpmodel.addConstr(
+        Lots[lot].get_p_var() == sum(l.leaf_value * l.get_z_vars()[lot]
+                                     for l in Leafnodes_price.values()),
+        name=f"Constraint (5) for lot {lot}"
+        )
 
 #%%Set contraint (6)
 for lot in Lots:
-    lpmodel.addConstr(Lots[lot].get_x_var() == sum(l.leaf_value * l.get_z_vars()[lot] for l in Leafnodes_sold.values()),
-                         name = f"Constraint (6) for lot {lot}")
+    lpmodel.addConstr(
+        Lots[lot].get_x_var() == sum(l.leaf_value * l.get_z_vars()[lot]
+                                     for l in Leafnodes_sold.values()),
+        name=f"Constraint (6) for lot {lot}"
+        )
 
 #%%Set constraint (7)
 for lot in Lots:
-    lpmodel.addConstr(Lots[lot].get_o_var() <= M * Lots[lot].get_x_var(),
-                        name = f"Constraint (7) for lot {lot}")
+    lpmodel.addConstr(
+        Lots[lot].get_o_var() <= big_M * Lots[lot].get_x_var(),
+        name=f"Constraint (7) for lot {lot}"
+        )
 
 #%%Set constraint (8)
 for lot in Lots:
-    lpmodel.addConstr(Lots[lot].get_o_var() <= Lots[lot].get_p_var(),
-                        name = f"Constraint (8) for lot {lot}")
+    lpmodel.addConstr(
+        Lots[lot].get_o_var() <= Lots[lot].get_p_var(),
+        name=f"Constraint (8) for lot {lot}"
+        )
 
 #%%Set constraint (9)
 for lot in Lots:
-    lpmodel.addConstr(Lots[lot].get_o_var() >= Lots[lot].get_p_var()
-                        - M * (1- Lots[lot].get_x_var()),
-                        name = f"Constraint (9) for lot {lot}")
+    lpmodel.addConstr(
+        Lots[lot].get_o_var() >= (Lots[lot].get_p_var() 
+                                  - big_M * (1- Lots[lot].get_x_var())),
+        name=f"Constraint (9) for lot {lot}")
 
 #%%Set constraint (10)
 for i in range(1,N+1):
-    lpmodel.addConstr(sum(lot.get_y_vars()[i] for lot in Lots.values()) == 1,
-                         name = f"Constraint (10) for location {i}")
+    lpmodel.addConstr(
+        sum(lot.get_y_vars()[i] for lot in Lots.values()) == 1,
+        name=f"Constraint (10) for location {i}"
+        )
 
 #%%Set constraint (11)
 for lot in Lots:
-    lpmodel.addConstr(sum(Lots[lot].get_y_vars()[i] for i in range(1, N+1)) == 1,
-                         name = f"Constraint (11) for lot {lot}")
+    lpmodel.addConstr(
+        sum(Lots[lot].get_y_vars()[i] for i in range(1, N+1)) == 1,
+        name=f"Constraint (11) for lot {lot}"
+        )
 
 #%%Set constraint (12)
 for lot in Lots:
-    lpmodel.addConstr(sum(i*Lots[lot].get_y_vars()[i] for i in range(1, N+1))/N == Lots[lot].get_LotNrRel_var(),
-                         name = f"Constraint (12) for lot {lot}")
+    lpmodel.addConstr(
+        sum(i*Lots[lot].get_y_vars()[i]
+            for i in range(1, N+1)) / N == Lots[lot].get_LotNrRel_var(),
+        name=f"Constraint (12) for lot {lot}"
+        )
 
 #%%Set constraints (13), (14) and (15)
 for lot in Lots:
     for lot2 in Lots:
         for tau in range(tau_min, tau_max+1):
-            lpmodel.addConstr(Lots[lot].get_a_vars()[lot2][tau] <= Lots[lot].get_q_vars()[tau],
-                                name = f"Constraint (13) for lots {lot}, {lot2}, and time slot {tau}")
-            lpmodel.addConstr(Lots[lot].get_a_vars()[lot2][tau] <= Lots[lot2].get_q_vars()[tau],
-                                name = f"Constraint (14) for lots {lot}, {lot2}, and time slot {tau}")
-            lpmodel.addConstr(Lots[lot].get_a_vars()[lot2][tau] >= Lots[lot].get_q_vars()[tau] 
-                                + Lots[lot2].get_q_vars()[tau] - 1,
-                                name = f"Constraint (15) for lots {lot}, {lot2}, and time slot {tau}")
+            lpmodel.addConstr(
+                Lots[lot].get_a_vars()[lot2][tau] <= Lots[lot].get_q_vars()[tau],
+                name=f"Constraint (13) for lots {lot}, {lot2}, and time slot {tau}"
+                )
+            lpmodel.addConstr(
+                Lots[lot].get_a_vars()[lot2][tau] <= Lots[lot2].get_q_vars()[tau],
+                name=f"Constraint (14) for lots {lot}, {lot2}, and time slot {tau}"
+                )
+            lpmodel.addConstr(
+                (Lots[lot].get_a_vars()[lot2][tau] >=
+                 Lots[lot].get_q_vars()[tau] + Lots[lot2].get_q_vars()[tau] - 1),
+                name=f"Constraint (15) for lots {lot}, {lot2}, and time slot {tau}"
+                )
 
 #%%Set constraint (16)
 for lot in Lots:
-    lpmodel.addConstr(sum(thetadict[tau]*Lots[lot].get_q_vars()[tau] + sum(Lots[lot].get_a_vars()[lot2][tau] 
-                        for lot2 in Lots) for tau in range(tau_min, tau_max+1)),
-                        name = f"Constraint (16) for lot {lot}")
+    lpmodel.addConstr(
+        sum(thetadict[tau]*Lots[lot].get_q_vars()[tau]
+            + sum(Lots[lot].get_a_vars()[lot2][tau] for lot2 in Lots)
+            for tau in range(tau_min, tau_max+1))
+        == Lots[lot].get_ClosingCount_var(),
+        name=f"Constraint (16) for lot {lot}"
+        )
 
 #%%Set constraint (17)
 for lot in Lots:
-    lpmodel.addConstr(sum(sum(bigthetadict[tau][c] * Lots[lot].kappas[c] * Lots[lot].get_q_vars()[tau] +
-                        Lots[lot].kappas[c] * sum(Lots[lot].get_a_vars()[lot2][tau] * Lots[lot2].kappas[c] for lot2 in Lots) 
-                        for c in C) for tau in range(tau_min, tau_max+1)),
-                        name = f"Constraint (17) for lot {lot}")
+    lpmodel.addConstr(
+        sum(
+            sum(bigthetadict[tau][c] * Lots[lot].kappas[c] * Lots[lot].get_q_vars()[tau] 
+                + Lots[lot].kappas[c]
+                * sum(Lots[lot].get_a_vars()[lot2][tau] * Lots[lot2].kappas[c]
+                      for lot2 in Lots
+                      ) 
+                for c in ALL_MODEL_CATEGORIES
+                )
+            for tau in range(tau_min, tau_max+1)
+            ) == Lots[lot].get_ClosingCountCat_var(),
+        name=f"Constraint (17) for lot {lot}"
+        )
 
 #%%Set constraint (18)
-for lot in Lots:
-    lpmodel.addConstr(sum(sum(bigthetadict[tau][sigma] * Lots[lot].kappas[sigma] * Lots[lot].get_q_vars()[tau] +
-                        Lots[lot].kappas[sigma] * sum(Lots[lot].get_a_vars()[lot2][tau] * Lots[lot2].kappas[sigma] for lot2 in Lots) 
-                        for sigma in S) for tau in range(tau_min, tau_max+1)),
-                        name = f"Constraint (18) for lot {lot}")
-
+for lot in tqdm(Lots):
+    lpmodel.addConstr(
+        sum(
+            sum(Odict[tau][sigma] * Lots[lot].ks[sigma] * Lots[lot].get_q_vars()[tau]
+                + Lots[lot].ks[sigma]
+                * sum(Lots[lot].get_a_vars()[lot2][tau] * Lots[lot2].ks[sigma]
+                      for lot2 in Lots
+                      ) 
+                for sigma in ALL_MODEL_SUBCATEGORIES
+                )
+            for tau in range(tau_min, tau_max+1)
+            ) == Lots[lot].get_ClosingCountSub_var(),
+        name = f"Constraint (18) for lot {lot}"
+        )
+# %% Update the model
 lpmodel.update()
+# %% Write the model to .lp file
 lpmodel.write("1BM130.lp")
+# %% Optimize the model
 lpmodel.optimize()
 
 # %%

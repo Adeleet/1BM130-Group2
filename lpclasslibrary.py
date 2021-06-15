@@ -1,13 +1,18 @@
 """
 Module containing classes that are used in lp.py to create the linear program
 """
+from numpy import argmax
 class Lot:
     def __init__(self, lot_id, features:dict):
         self.id = lot_id
         self.features = features
-        kappas = {}
-        ks = {}
-    
+        self.kappas = {key: value for key, value in self.features.items()
+                       if ("lot.category_" in key)
+                       and ("lot.category_count" not in key)}
+        self.ks = {key: value for key, value in self.features.items()
+                   if ("lot.subcategory_" in key)
+                   and ("lot.subcategory_count" not in key)}
+        
     def set_feature(self, feature, value):
         self.features[feature] = value
     
@@ -163,7 +168,13 @@ class Node:
 class Leafnode:
     def __init__(self, id, value):
         self.id = id
-        self.leaf_value = value[self.id]
+        value_this_node = value[self.id]
+        # If value from price tree, value is the single value that is stored
+        if value_this_node.shape == (1, 1):
+            self.leaf_value = value_this_node[0,0]
+        # If value from is_sold tree, value is value with the most items in it
+        elif value_this_node.shape == (1,2):
+            self.leaf_value = argmax(value_this_node)
         self.z_vars = {}
     
     def set_z_vars(self, z_vars):
