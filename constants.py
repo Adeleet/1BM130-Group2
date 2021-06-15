@@ -122,7 +122,7 @@ TRAIN_COLS_IS_SOLD = [
     "lot.subcategory",
     "lot.subcategory_count_in_auction",
     "lot.taxrate",
-    "project.accountmanager", # I doubt that this is relevant
+    # "project.accountmanager", # I doubt that this is relevant
     "project.business_line", 
     "project.business_unit",
     # "project.is_automatic_credit", You don't know this in advance
@@ -158,7 +158,7 @@ TRAIN_COLS_REVENUE = [
     "lot.subcategory",
     "lot.subcategory_count_in_auction",
     "lot.taxrate",
-    "project.accountmanager", # I doubt that this is relevant
+    # "project.accountmanager", # I doubt that this is relevant
     "project.business_line", 
     "project.business_unit",
     # "project.is_automatic_credit", You don't know this in advance
