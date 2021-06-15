@@ -214,7 +214,7 @@ for leafnode in Leafnodes_sold:
 for lot in Lots:
     my_p_var = lpmodel.addVar(vtype = grb.GRB.CONTINUOUS, name = f"p_{lot}")
     my_x_var = lpmodel.addVar(vtype = grb.GRB.BINARY, name = f"x_{lot}")
-    my_s_var = lpmodel.addVar(vtype = grb.GRB.CONTINUOUS, lb=0, name = f"s_{lot}")
+    my_s_var = lpmodel.addVar(vtype = grb.GRB.CONTINUOUS, lb=1, name = f"s_{lot}")
     my_o_var = lpmodel.addVar(vtype = grb.GRB.CONTINUOUS, name = f"o_{lot}")
     my_LotNrRel_var = lpmodel.addVar(vtype = grb.GRB.CONTINUOUS, name = f"LotNrRel_{lot}")
     my_ClosingCount_var = lpmodel.addVar(vtype = grb.GRB.CONTINUOUS, name = f"ClosingCount_{lot}")
@@ -438,5 +438,14 @@ lpmodel.update()
 lpmodel.write("1BM130.lp")
 # %% Optimize the model
 lpmodel.optimize()
+# %% Display the optimal configuration and its results
+for lot in Lots.values():
+    for tau in lot.get_q_vars():
+        if lot.get_q_vars()[tau].x == 1:
+            if lot.get_x_var().x == 1:
+                print(f"Lot {lot.id} was listed for a starting pice of {lot.get_s_var().x}, ended in timeslot {tau}, and was sold for price {lot.get_p_var().x}")
+            else:
+                print(f"Lot {lot.id} was listed for a starting pice of {lot.get_s_var().x}, ended in timeslot {tau}, and was not sold")
 
+print(f"The total revenue of the auction is {lpmodel.objVal}")
 # %%
