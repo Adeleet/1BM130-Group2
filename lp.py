@@ -4,12 +4,13 @@ from ast import literal_eval
 
 import gurobipy as grb
 import pandas as pd
+from numpy import zeros
 from tqdm import tqdm
 
 from lpclasslibrary import Leafnode, Lot, Node
 
 # %% Define Auction id of sample that we want to run
-SAMPLE_ID = 45045
+SAMPLE_ID = 45160
 
 # %% Load the list with the column names of the X data for model training
 reg_train_columns = pickle.load(open("models/reg_X_columns.pkl", 'rb'))
@@ -61,13 +62,13 @@ for lot_nr, features in sample_data.iterrows():
     
 
 #%% Load decision tree regressor for price
-clf_price = pickle.load(open("models\dec_tree_reg.pkl", 'rb'))
+reg_price = pickle.load(open("models\dec_tree_reg.pkl", 'rb'))
 
-children_left_price = clf_price.tree_.children_left
-children_right_price = clf_price.tree_.children_right
-feature_price = clf_price.tree_.feature
-threshold_price = clf_price.tree_.threshold
-value_price = clf_price.tree_.value
+children_left_price = reg_price.tree_.children_left
+children_right_price = reg_price.tree_.children_right
+feature_price = reg_price.tree_.feature
+threshold_price = reg_price.tree_.threshold
+value_price = reg_price.tree_.value
 
 # %% Load decision tree classifier for is_sold
 clf_sold = pickle.load(open("models\dec_tree_clf.pkl", 'rb'))
@@ -456,3 +457,22 @@ for lot in Lots.values():
 
 print(f"The total revenue of the auction is {lpmodel.objVal}")
 # %%
+actual_facts = samples[samples['auction.id'] == SAMPLE_ID].reset_index(drop=True)
+actual_revenue = actual_facts["lot.revenue"].sum()
+print(f"The actual revenue that was achieved by BVA auctions was {actual_revenue}")
+# %%
+# actual_facts[reg_train_columns]
+reg_train_cols_not_in_facts = (column for column in reg_train_columns
+                               if column not in actual_facts.columns)
+for column in reg_train_cols_not_in_facts:
+    actual_facts[column] = zeros(actual_facts.shape[0])
+predicted_revenues = reg_price.predict(actual_facts[reg_train_columns])
+# %%
+clf_train_cols_not_in_facts = (column for column in clf_train_columns
+                               if column not in actual_facts.columns)
+for column in clf_train_cols_not_in_facts:
+    actual_facts[column] = zeros(actual_facts.shape[0])
+predicted_is_sold = clf_sold.predict(actual_facts[clf_train_columns])
+
+# %%
+print(f"The predicted auction revenue for the actual auction was {sum(predicted_is_sold * predicted_revenues)}")
