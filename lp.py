@@ -258,15 +258,15 @@ for lot in Lots:
     Lots[lot].set_a_vars(my_a_varss)
 
 #%%Set the objective function (1)
-lpmodel.setObjective(sum(Lots[lot].get_o_var() for lot in Lots))
+lpmodel.setObjective(grb.quicksum(Lots[lot].get_o_var() for lot in Lots))
 
 #%%Set constraint (2)
 for lot in Lots:
     for node in Nodes_sold:
         FV = Lots[lot].features[clf_train_columns[Nodes_sold[node].feature]]
         M_f = feature_maxima[clf_train_columns[Nodes_sold[node].feature]]
-        sum_z_vars = sum(l.get_z_vars()[lot] 
-                         for l in Nodes_sold[node].leaves_left_subtree)
+        sum_z_vars = grb.quicksum(
+            l.get_z_vars()[lot] for l in Nodes_sold[node].leaves_left_subtree)
         lpmodel.addConstr(
             FV + (M_f - Nodes_sold[node].threshold) * sum_z_vars <= M_f,
             name=f"Constraint (2) for lot {lot} and node {node} in the classification model"
@@ -275,8 +275,8 @@ for lot in Lots:
     for node in Nodes_price:
         FV = Lots[lot].features[clf_train_columns[Nodes_price[node].feature]]
         M_f = feature_maxima[clf_train_columns[Nodes_price[node].feature]]
-        sum_z_vars = sum(l.get_z_vars()[lot]
-                         for l in Nodes_price[node].leaves_left_subtree)
+        sum_z_vars = grb.quicksum(
+            l.get_z_vars()[lot] for l in Nodes_price[node].leaves_left_subtree)
         lpmodel.addConstr(
             FV + (M_f - Nodes_price[node].threshold) * sum_z_vars <= M_f,
             name=f"Constraint (2) for lot {lot} and node {node} in the regression model"
@@ -287,8 +287,8 @@ for lot in Lots:
     for node in Nodes_sold:
         FV = Lots[lot].features[clf_train_columns[Nodes_sold[node].feature]]
         m_f = feature_minima[clf_train_columns[Nodes_sold[node].feature]]
-        sum_z_vars = sum(l.get_z_vars()[lot]
-                         for l in Nodes_sold[node].leaves_right_subtree)
+        sum_z_vars = grb.quicksum(
+            l.get_z_vars()[lot] for l in Nodes_sold[node].leaves_right_subtree)
         lpmodel.addConstr(
             FV + (m_f - Nodes_sold[node].threshold) * sum_z_vars >= m_f, 
             name=f"Constraint (3) for lot {lot} and node {node} in the classification model"
@@ -297,8 +297,8 @@ for lot in Lots:
     for node in Nodes_price:
         FV = Lots[lot].features[clf_train_columns[Nodes_price[node].feature]]
         m_f = m_f = feature_minima[clf_train_columns[Nodes_price[node].feature]]
-        sum_z_vars = sum(l.get_z_vars()[lot]
-                         for l in Nodes_price[node].leaves_right_subtree)
+        sum_z_vars = grb.quicksum(
+            l.get_z_vars()[lot] for l in Nodes_price[node].leaves_right_subtree)
         lpmodel.addConstr(
             FV + (m_f - Nodes_price[node].threshold) * sum_z_vars >= m_f, 
             name=f"Constraint (3) for lot {lot} and node {node} in the regression model"
@@ -307,27 +307,29 @@ for lot in Lots:
 #%%Set constraint (4)
 for lot in Lots:
     lpmodel.addConstr(
-        sum(l.get_z_vars()[lot] for l in Leafnodes_sold.values()) == 1,
+        grb.quicksum(l.get_z_vars()[lot] for l in Leafnodes_sold.values()) == 1,
         name=f"Constraint (4) for lot {lot} and the classification model"
         )
     lpmodel.addConstr(
-        sum(l.get_z_vars()[lot] for l in Leafnodes_price.values()) == 1,
+        grb.quicksum(l.get_z_vars()[lot] for l in Leafnodes_price.values()) == 1,
         name=f"Constraint (4) for lot {lot} and the regression model"
         )
 
 #%%Set constraint (5)
 for lot in Lots:
     lpmodel.addConstr(
-        Lots[lot].get_p_var() == sum(l.leaf_value * l.get_z_vars()[lot]
-                                     for l in Leafnodes_price.values()),
+        Lots[lot].get_p_var() == grb.quicksum(
+            l.leaf_value * l.get_z_vars()[lot] for l in Leafnodes_price.values()
+            ),
         name=f"Constraint (5) for lot {lot}"
         )
 
 #%%Set contraint (6)
 for lot in Lots:
     lpmodel.addConstr(
-        Lots[lot].get_x_var() == sum(l.leaf_value * l.get_z_vars()[lot]
-                                     for l in Leafnodes_sold.values()),
+        Lots[lot].get_x_var() == grb.quicksum(
+            l.leaf_value * l.get_z_vars()[lot] for l in Leafnodes_sold.values()
+            ),
         name=f"Constraint (6) for lot {lot}"
         )
 
@@ -355,21 +357,21 @@ for lot in Lots:
 #%%Set constraint (10)
 for i in range(1,N+1):
     lpmodel.addConstr(
-        sum(lot.get_y_vars()[i] for lot in Lots.values()) == 1,
+        grb.quicksum(lot.get_y_vars()[i] for lot in Lots.values()) == 1,
         name=f"Constraint (10) for location {i}"
         )
 
 #%%Set constraint (11)
 for lot in Lots:
     lpmodel.addConstr(
-        sum(Lots[lot].get_y_vars()[i] for i in range(1, N+1)) == 1,
+        grb.quicksum(Lots[lot].get_y_vars()[i] for i in range(1, N+1)) == 1,
         name=f"Constraint (11) for lot {lot}"
         )
 
 #%%Set constraint (12)
 for lot in Lots:
     lpmodel.addConstr(
-        sum(i*Lots[lot].get_y_vars()[i]
+        grb.quicksum(i*Lots[lot].get_y_vars()[i]
             for i in range(1, N+1)) / N == Lots[lot].get_LotNrRel_var(),
         name=f"Constraint (12) for lot {lot}"
         )
@@ -395,15 +397,15 @@ for lot in Lots:
 #%%Set constraint (16)
 for lot in Lots:
     lpmodel.addConstr(
-        sum(Lots[lot].get_q_vars()[tau] for tau in range(tau_min, tau_max+1)) == 1,
+        grb.quicksum(Lots[lot].get_q_vars()[tau] for tau in range(tau_min, tau_max+1)) == 1,
         name = f"Constraint (18) for lot {lot}"
     )
 
 #%%Set constraint (17)
 for lot in Lots:
     lpmodel.addConstr(
-        sum(thetadict[tau]*Lots[lot].get_q_vars()[tau]
-            + sum(Lots[lot].get_a_vars()[lot2][tau] for lot2 in Lots)
+        grb.quicksum(thetadict[tau]*Lots[lot].get_q_vars()[tau]
+            + grb.quicksum(Lots[lot].get_a_vars()[lot2][tau] for lot2 in Lots)
             for tau in range(tau_min, tau_max+1))
         == Lots[lot].get_ClosingCount_var(),
         name=f"Constraint (17) for lot {lot}"
@@ -412,10 +414,10 @@ for lot in Lots:
 #%%Set constraint (18)
 for lot in Lots:
     lpmodel.addConstr(
-        sum(
-            sum(bigthetadict[tau][c] * Lots[lot].kappas[c] * Lots[lot].get_q_vars()[tau] 
+        grb.quicksum(
+            grb.quicksum(bigthetadict[tau][c] * Lots[lot].kappas[c] * Lots[lot].get_q_vars()[tau] 
                 + Lots[lot].kappas[c]
-                * sum(Lots[lot].get_a_vars()[lot2][tau] * Lots[lot2].kappas[c]
+                * grb.quicksum(Lots[lot].get_a_vars()[lot2][tau] * Lots[lot2].kappas[c]
                       for lot2 in Lots
                       ) 
                 for c in ALL_MODEL_CATEGORIES
@@ -428,10 +430,10 @@ for lot in Lots:
 #%%Set constraint (19)
 for lot in tqdm(Lots):
     lpmodel.addConstr(
-        sum(
-            sum(Odict[tau][sigma] * Lots[lot].ks[sigma] * Lots[lot].get_q_vars()[tau]
+        grb.quicksum(
+            grb.quicksum(Odict[tau][sigma] * Lots[lot].ks[sigma] * Lots[lot].get_q_vars()[tau]
                 + Lots[lot].ks[sigma]
-                * sum(Lots[lot].get_a_vars()[lot2][tau] * Lots[lot2].ks[sigma]
+                * grb.quicksum(Lots[lot].get_a_vars()[lot2][tau] * Lots[lot2].ks[sigma]
                       for lot2 in Lots
                       ) 
                 for sigma in ALL_MODEL_SUBCATEGORIES
