@@ -214,7 +214,7 @@ for leafnode in Leafnodes_sold:
 for lot in Lots:
     my_p_var = lpmodel.addVar(vtype = grb.GRB.CONTINUOUS, name = f"p_{lot}")
     my_x_var = lpmodel.addVar(vtype = grb.GRB.BINARY, name = f"x_{lot}")
-    my_s_var = lpmodel.addVar(vtype = grb.GRB.CONTINUOUS, lb=0, name = f"s_{lot}")
+    my_s_var = lpmodel.addVar(vtype = grb.GRB.CONTINUOUS, lb=1, name = f"s_{lot}")
     my_o_var = lpmodel.addVar(vtype = grb.GRB.CONTINUOUS, name = f"o_{lot}")
     my_LotNrRel_var = lpmodel.addVar(vtype = grb.GRB.CONTINUOUS, name = f"LotNrRel_{lot}")
     my_ClosingCount_var = lpmodel.addVar(vtype = grb.GRB.CONTINUOUS, name = f"ClosingCount_{lot}")
@@ -394,14 +394,21 @@ for lot in Lots:
 #%%Set constraint (16)
 for lot in Lots:
     lpmodel.addConstr(
+        sum(Lots[lot].get_q_vars()[tau] for tau in range(tau_min, tau_max+1)) == 1,
+        name = f"Constraint (18) for lot {lot}"
+    )
+
+#%%Set constraint (17)
+for lot in Lots:
+    lpmodel.addConstr(
         sum(thetadict[tau]*Lots[lot].get_q_vars()[tau]
             + sum(Lots[lot].get_a_vars()[lot2][tau] for lot2 in Lots)
             for tau in range(tau_min, tau_max+1))
         == Lots[lot].get_ClosingCount_var(),
-        name=f"Constraint (16) for lot {lot}"
+        name=f"Constraint (17) for lot {lot}"
         )
 
-#%%Set constraint (17)
+#%%Set constraint (18)
 for lot in Lots:
     lpmodel.addConstr(
         sum(
@@ -414,10 +421,10 @@ for lot in Lots:
                 )
             for tau in range(tau_min, tau_max+1)
             ) == Lots[lot].get_ClosingCountCat_var(),
-        name=f"Constraint (17) for lot {lot}"
+        name=f"Constraint (18) for lot {lot}"
         )
 
-#%%Set constraint (18)
+#%%Set constraint (19)
 for lot in tqdm(Lots):
     lpmodel.addConstr(
         sum(
@@ -430,7 +437,7 @@ for lot in tqdm(Lots):
                 )
             for tau in range(tau_min, tau_max+1)
             ) == Lots[lot].get_ClosingCountSub_var(),
-        name = f"Constraint (18) for lot {lot}"
+        name = f"Constraint (19) for lot {lot}"
         )
 # %% Update the model
 lpmodel.update()
@@ -438,5 +445,14 @@ lpmodel.update()
 lpmodel.write("1BM130.lp")
 # %% Optimize the model
 lpmodel.optimize()
+# %% Display the optimal configuration and its results
+for lot in Lots.values():
+    for tau in lot.get_q_vars():
+        if lot.get_q_vars()[tau].x == 1:
+            if lot.get_x_var().x == 1:
+                print(f"Lot {lot.id} was listed for a starting pice of {lot.get_s_var().x}, ended in timeslot {tau}, and was sold for price {lot.get_p_var().x}")
+            else:
+                print(f"Lot {lot.id} was listed for a starting pice of {lot.get_s_var().x}, ended in timeslot {tau}, and was not sold")
 
+print(f"The total revenue of the auction is {lpmodel.objVal}")
 # %%
