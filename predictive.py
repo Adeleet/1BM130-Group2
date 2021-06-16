@@ -1,16 +1,23 @@
 # %% Import packages
+from random import uniform
 from scipy.sparse.construct import rand
+from sympy import hyper
 import tqdm
 from datetime import datetime
 import pickle
 from sklearn.tree import DecisionTreeRegressor, DecisionTreeClassifier
-from sklearn.ensemble import GradientBoostingClassifier, RandomForestClassifier
+from sklearn.ensemble import (
+    GradientBoostingClassifier,
+    RandomForestClassifier,
+    GradientBoostingRegressor,
+    RandomForestRegressor,
+)
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import (
     plot_roc_curve,
-    r2_score,   
+    r2_score,
     plot_confusion_matrix,
 )
 import hyperopt
@@ -35,6 +42,10 @@ df = pd.read_csv(
     ],
 )
 
+
+#%%
+df.columns
+
 # %% Add feature 'lot.rel_nr': lot position on website corrected for total #nr lots in auction
 df.sort_values(["auction.id", "lot.number"], inplace=True)
 auction_size = df.groupby("auction.id").size().reset_index(name="auction.num_lots")
@@ -46,7 +57,7 @@ lot_revenue = df.groupby("lot.id")["lot.revenue"].max().reset_index()
 lot_revenue = lot_revenue.replace(0, np.nan)
 df = pd.merge(df, lot_revenue)
 # %% If lot is not sold, set revenue to 0 and convert to nan
-df["lot.revenue"] = ((df["lot.is_sold"]) * df['lot.revenue']).replace(0, np.nan)
+df["lot.revenue"] = ((df["lot.is_sold"]) * df["lot.revenue"]).replace(0, np.nan)
 
 # %% Add feature 'lot.closing_day_of_week': day of week that lot closes
 df["lot.closing_day_of_week"] = df["lot.closingdate_day"].dt.dayofweek.astype("str")
@@ -127,20 +138,21 @@ auction_min_end_dates = (
 
 # %%
 df_closing_timeslot_total = (
-    df.groupby(["lot.closing_timeslot"]).size().reset_index(
-        name="lot.num_closing_timeslot")
+    df.groupby(["lot.closing_timeslot"]).size().reset_index(name="lot.num_closing_timeslot")
 )
 
 
 df_closing_timeslot_category_total = (
-    df.groupby(["lot.closing_timeslot", "lot.category"]).size().reset_index(
-        name="lot.num_closing_timeslot_category")
+    df.groupby(["lot.closing_timeslot", "lot.category"])
+    .size()
+    .reset_index(name="lot.num_closing_timeslot_category")
 )
 
 
 df_closing_timeslot_subcategory_total = (
-    df.groupby(["lot.closing_timeslot", "lot.subcategory"]).size().reset_index(
-        name="lot.num_closing_timeslot_subcategory")
+    df.groupby(["lot.closing_timeslot", "lot.subcategory"])
+    .size()
+    .reset_index(name="lot.num_closing_timeslot_subcategory")
 )
 
 df = (
@@ -165,8 +177,8 @@ for id, min_end_date, max_end_date in auction_min_end_dates:
 df_auction_closing_available_timeslots = pd.concat(auction_closing_available_timeslots)
 # Change the timeslot from datetime to timeslot number
 df_auction_closing_available_timeslots["auction.closing_timeslot"] = np.ceil(
-    (df_auction_closing_available_timeslots["auction.closing_timeslot"] -
-     TIMESTAMP_MIN).dt.total_seconds() / 3600
+    (df_auction_closing_available_timeslots["auction.closing_timeslot"] - TIMESTAMP_MIN).dt.total_seconds()
+    / 3600
 )
 df_auction_closing_available_timeslots.reset_index(drop=True, inplace=True)
 df_auction_closing_available_timeslots
@@ -185,17 +197,21 @@ for i, row in tqdm.tqdm(
         closing_timeslot,
         id,
         (df_same_timeslot.shape[0] - df_same_time_auction.shape[0]),
-        {category: (df_same_timeslot[df_same_timeslot["lot.category"]
-                                        == category].shape[0]
-                    - df_same_time_auction[df_same_time_auction["lot.category"]
-                                            == category].shape[0])
-            for category in df_same_time_auction["lot.category"].unique()},
-        {sub_category: (df_same_timeslot[df_same_timeslot["lot.subcategory"]
-                                        == sub_category].shape[0]
-                    - df_same_time_auction[df_same_time_auction["lot.subcategory"]
-                                            == sub_category].shape[0])
-            for sub_category in df_same_time_auction["lot.subcategory"].unique()}
-        ]
+        {
+            category: (
+                df_same_timeslot[df_same_timeslot["lot.category"] == category].shape[0]
+                - df_same_time_auction[df_same_time_auction["lot.category"] == category].shape[0]
+            )
+            for category in df_same_time_auction["lot.category"].unique()
+        },
+        {
+            sub_category: (
+                df_same_timeslot[df_same_timeslot["lot.subcategory"] == sub_category].shape[0]
+                - df_same_time_auction[df_same_time_auction["lot.subcategory"] == sub_category].shape[0]
+            )
+            for sub_category in df_same_time_auction["lot.subcategory"].unique()
+        },
+    ]
 # %%
 df_auction_closing_available_timeslots.to_csv("Data/auction_timeslot_info.csv", index=False)
 # # %% Add feature: number of lots of same (sub) category closing on same day
@@ -224,12 +240,12 @@ df["lot.condition"] = df["lot.condition"].fillna("None")
 USED_COLS = list(set(TRAIN_COLS_IS_SOLD).union(TRAIN_COLS_REVENUE))
 # %%
 # missing_revenue_per_auction = df.isna().groupby(df["auction.id"], sort=False).sum()["lot.revenue"]
-incorrect_auctions_sold_revenue = df[(df["lot.revenue"].isna())
-                                      & (df["lot.is_sold"] == 1)]["auction.id"].unique()
-possible_samples = list(set(
-    df["auction.id"].unique()).intersection(set(incorrect_auctions_sold_revenue)))
+incorrect_auctions_sold_revenue = df[(df["lot.revenue"].isna()) & (df["lot.is_sold"] == 1)][
+    "auction.id"
+].unique()
+possible_samples = list(set(df["auction.id"].unique()).intersection(set(incorrect_auctions_sold_revenue)))
 np.random.seed(42)
-sample_auctions = np.random.choice(possible_samples, 25, replace=False) 
+sample_auctions = np.random.choice(possible_samples, 25, replace=False)
 data = df[USED_COLS + ["lot.id", "auction.id", "auction.lot_min_end_date", "auction.lot_max_end_date"]]
 
 sample_data = data[data["auction.id"].isin(sample_auctions)]
@@ -237,7 +253,7 @@ sample_data = data[data["auction.id"].isin(sample_auctions)]
 pd.get_dummies(sample_data).to_csv("./data/sample_auctions_25.csv.gz", index=False)
 # %% Drop the samples that we use for the prescriptive section
 df = df[~df["auction.id"].isin(sample_auctions)].reset_index(drop=True)
-#TODO Drop the samples that we use for the prescriptive section
+# TODO Drop the samples that we use for the prescriptive section
 # %% Classification for 'is_sold': train/test/validation split
 train_data = pd.get_dummies(df[TRAIN_COLS_IS_SOLD].dropna())
 y = train_data["lot.is_sold"]
@@ -252,7 +268,7 @@ space = {
     "max_depth": hyperopt.hp.uniformint("max_depth", 1, 50),
     "min_samples_split": hyperopt.hp.uniformint("min_samples_split", 20, 100),
     "max_features": hyperopt.hp.uniform("max_features", 0.6, 0.99),
-    "random_state": 0
+    "random_state": 0,
 }
 run_hyperopt(DecisionTreeClassifier, X_train, y_train, space, mode="clf", max_evals=500)
 
@@ -309,7 +325,7 @@ space = {
     "max_depth": hyperopt.hp.uniformint("max_depth", 1, 50),
     "min_samples_leaf": hyperopt.hp.uniformint("min_samples_leaf", 1, 1000),
     "max_features": hyperopt.hp.uniform("max_features", 0.3, 0.99),
-    "random_state": 0
+    "random_state": 0,
 }
 
 train_data_reg = pd.get_dummies(df[TRAIN_COLS_REVENUE].dropna())
@@ -320,7 +336,12 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=30)
 run_hyperopt(DecisionTreeRegressor, X_train, y_train, space, mode="reg", max_evals=500)
 # %%
 reg = DecisionTreeRegressor(
-    criterion="friedman_mse", splitter="best", max_depth=15, max_features=0.91, min_samples_leaf=3, random_state=0
+    criterion="friedman_mse",
+    splitter="best",
+    max_depth=15,
+    max_features=0.91,
+    min_samples_leaf=3,
+    random_state=0,
 )
 reg.fit(X_train, y_train)
 reg.score(X_test, y_test)
@@ -333,10 +354,22 @@ with open("./models/reg_X_columns.pkl", "wb") as f:
     pickle.dump(list(X.columns), f)
 
 # %%
-train_data[["lot.revenue"]]
+space = {
+    "loss": hyperopt.hp.choice("loss", ["ls", "lad", "huber", "quantile"]),
+    "learning_rate": hyperopt.hp.uniform("learning_rate", 0.001, 0.2),
+    "n_estimators": hyperopt.hp.uniformint("n_estimators", 50, 150),
+    "subsample": hyperopt.hp.uniform("subsample", 0.5, 1),
+    "criterion": hyperopt.hp.choice("criterion", ["friedman_mse", "mse"]),
+    "min_samples_split": hyperopt.hp.uniformint("min_samples_split", 2, 100),
+    "max_features": hyperopt.hp.uniform("max_features", 0.2, 1),
+}
+run_hyperopt(GradientBoostingRegressor, X_train, y_train, space, mode="reg", max_evals=500)
 # %%
-
-
-# %%
-pd.Series(reg.predict(X_reg)).nunique()
-# %%
+space = {
+    "bootstrap": hyperopt.hp.choice("bootstrap", [False, True]),
+    "max_depth": hyperopt.hp.uniformint("max_depth", 2, 50),
+    "min_samples_split": hyperopt.hp.uniformint("min_samples_split", 2, 100),
+    "min_samples_leaf": hyperopt.hp.uniformint("min_samples_leaf", 2, 100),
+    "max_features": hyperopt.hp.uniform("max_features", 0.2, 1),
+}
+run_hyperopt(RandomForestRegressor, X_train, y_train, space, mode="reg", max_evals=500)
