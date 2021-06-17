@@ -1,7 +1,7 @@
 # %% Import packages
+from ensurepip import bootstrap
 from random import uniform
 from scipy.sparse.construct import rand
-from sympy import hyper
 import tqdm
 from datetime import datetime
 import pickle
@@ -19,10 +19,12 @@ from sklearn.metrics import (
     plot_roc_curve,
     r2_score,
     plot_confusion_matrix,
+    mean_absolute_percentage_error as mape,
 )
 import hyperopt
 from helpers import run_hyperopt
 from constants import TRAIN_COLS_IS_SOLD, TRAIN_COLS_REVENUE
+import matplotlib.pyplot as plt
 
 # %% Read dataset
 df = pd.read_csv(
@@ -254,122 +256,7 @@ pd.get_dummies(sample_data).to_csv("./data/sample_auctions_25.csv.gz", index=Fal
 # %% Drop the samples that we use for the prescriptive section
 df = df[~df["auction.id"].isin(sample_auctions)].reset_index(drop=True)
 # TODO Drop the samples that we use for the prescriptive section
-# %% Classification for 'is_sold': train/test/validation split
-train_data = pd.get_dummies(df[TRAIN_COLS_IS_SOLD].dropna())
-y = train_data["lot.is_sold"]
-X = train_data.drop("lot.is_sold", axis=1)
-X_train, X_test, y_train, y_test = train_test_split(X, y, stratify=y)
 
-
-# %%
-space = {
-    "criterion": hyperopt.hp.choice("criterion", ["gini", "entropy"]),
-    "splitter": hyperopt.hp.choice("splitter", ["best", "random"]),
-    "max_depth": hyperopt.hp.uniformint("max_depth", 1, 50),
-    "min_samples_split": hyperopt.hp.uniformint("min_samples_split", 20, 100),
-    "max_features": hyperopt.hp.uniform("max_features", 0.6, 0.99),
-    "random_state": 0,
-}
-run_hyperopt(DecisionTreeClassifier, X_train, y_train, space, mode="clf", max_evals=500)
-
-# %% Train/score optimal Decision Tree
-clf = DecisionTreeClassifier(
-    criterion="gini", max_depth=28, max_features=0.79, min_samples_split=28, splitter="random", random_state=0
-)
-clf.fit(X_train, y_train)
-plot_confusion_matrix(clf, X_test, y_test)
-plot_roc_curve(clf, X_test, y_test)
-clf.score(X_test, y_test)
-
-
-# %%
-with open("./models/dec_tree_clf.pkl", "wb") as f:
-    pickle.dump(clf, f)
-with open("./models/clf_X_columns.pkl", "wb") as f:
-    pickle.dump(list(X.columns), f)
-
-#%% Classifier: gradient boosting
-space = {
-    "loss": hyperopt.hp.choice("loss", ["deviance", "exponential"]),
-    "learning_rate": hyperopt.hp.uniform("learning_rate", 0.0001, 0.5),
-    "n_estimators": hyperopt.hp.uniformint("n_estimators", 5, 200),
-    "subsample": hyperopt.hp.uniform("subsample", 0, 1),
-    "criterion": hyperopt.hp.choice("criterion", ["friedman_mse", "mse"]),
-    "min_samples_split": hyperopt.hp.uniform("min_samples_split", 0, 1),
-    "min_samples_leaf": hyperopt.hp.uniform("min_samples_leaf", 0, 0.5),
-    "max_depth": hyperopt.hp.uniformint("max_depth", 1, 50),
-    "max_features": hyperopt.hp.uniform("max_features", 0, 0.9999),
-    "warm_start": hyperopt.hp.choice("warm_start", [False, True]),
-    "validation_fraction": 0.2,
-    "n_iter_no_change": 10,
-}
-run_hyperopt(GradientBoostingClassifier, X_train, y_train, space, mode="clf", max_evals=100, sample=0.05)
-
-#%% Classifier: random forest
-space = {
-    "n_estimators": hyperopt.hp.uniformint("n_estimators", 5, 200),
-    "criterion": hyperopt.hp.choice("criterion", ["gini", "entropy"]),
-    "max_depth": hyperopt.hp.uniformint("max_depth", 1, 50),
-    "min_samples_split": hyperopt.hp.uniform("min_samples_split", 0, 0.9999),
-    "min_weight_fraction_leaf": hyperopt.hp.uniform("min_weight_fraction_leaf", 0, 0.5),
-    "max_features": hyperopt.hp.uniform("max_features", 0, 0.9999),
-    "bootstrap": hyperopt.hp.choice("bootstrap", [False, True]),
-    "oob_score": hyperopt.hp.choice("oob_score", [False, True]),
-    "n_jobs": -1,
-}
-run_hyperopt(RandomForestClassifier, X_train, y_train, space, mode="clf", max_evals=100)
-# %% Regression for 'lot.revenue': train/test/validation split
-space = {
-    "criterion": "friedman_mse",
-    "splitter": hyperopt.hp.choice("splitter", ["best", "random"]),
-    "max_depth": hyperopt.hp.uniformint("max_depth", 1, 50),
-    "min_samples_leaf": hyperopt.hp.uniformint("min_samples_leaf", 1, 1000),
-    "max_features": hyperopt.hp.uniform("max_features", 0.3, 0.99),
-    "random_state": 0,
-}
-
-train_data_reg = pd.get_dummies(df[TRAIN_COLS_REVENUE].dropna())
-y = train_data_reg["lot.revenue"]
-X = train_data_reg.drop("lot.revenue", axis=1)
-X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=30)
-# %%
-run_hyperopt(DecisionTreeRegressor, X_train, y_train, space, mode="reg", max_evals=500)
-# %%
-reg = DecisionTreeRegressor(
-    criterion="friedman_mse",
-    splitter="best",
-    max_depth=15,
-    max_features=0.91,
-    min_samples_leaf=3,
-    random_state=0,
-)
-reg.fit(X_train, y_train)
-reg.score(X_test, y_test)
-r2_score(y_test, reg.predict(X_test))
-
-# %%
-with open("./models/dec_tree_reg.pkl", "wb") as f:
-    pickle.dump(reg, f)
-with open("./models/reg_X_columns.pkl", "wb") as f:
-    pickle.dump(list(X.columns), f)
-
-# %%
-space = {
-    "loss": hyperopt.hp.choice("loss", ["ls", "lad", "huber", "quantile"]),
-    "learning_rate": hyperopt.hp.uniform("learning_rate", 0.001, 0.2),
-    "n_estimators": hyperopt.hp.uniformint("n_estimators", 50, 150),
-    "subsample": hyperopt.hp.uniform("subsample", 0.5, 1),
-    "criterion": hyperopt.hp.choice("criterion", ["friedman_mse", "mse"]),
-    "min_samples_split": hyperopt.hp.uniformint("min_samples_split", 2, 100),
-    "max_features": hyperopt.hp.uniform("max_features", 0.2, 1),
-}
-run_hyperopt(GradientBoostingRegressor, X_train, y_train, space, mode="reg", max_evals=500)
-# %%
-space = {
-    "bootstrap": hyperopt.hp.choice("bootstrap", [False, True]),
-    "max_depth": hyperopt.hp.uniformint("max_depth", 2, 50),
-    "min_samples_split": hyperopt.hp.uniformint("min_samples_split", 2, 100),
-    "min_samples_leaf": hyperopt.hp.uniformint("min_samples_leaf", 2, 100),
-    "max_features": hyperopt.hp.uniform("max_features", 0.2, 1),
-}
-run_hyperopt(RandomForestRegressor, X_train, y_train, space, mode="reg", max_evals=500)
+#%% Save intermediate dataframe with engineered features
+df[USED_COLS].to_csv("./data/data_cleaned.csv.gz", index=False)
+#%%
