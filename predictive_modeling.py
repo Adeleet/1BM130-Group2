@@ -217,6 +217,7 @@ space = {
     "n_jobs": -1,
 }
 run_hyperopt(RandomForestRegressor, X_train, y_train, space, mode="reg", max_evals=200)
+# %%
 reg = RandomForestRegressor(
     n_estimators=100,
     bootstrap=True,
