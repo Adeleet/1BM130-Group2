@@ -10,7 +10,7 @@ from tqdm import tqdm
 from lpclasslibrary import Leafnode, Lot, Node
 
 # %% Define Auction id of sample that we want to run
-SAMPLE_ID = 45160
+SAMPLE_ID = 
 
 # %% Load the list with the column names of the X data for model training
 reg_train_columns = pickle.load(open("models/reg_X_columns.pkl", 'rb'))
