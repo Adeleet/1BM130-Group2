@@ -52,10 +52,83 @@ df_auction_price_diff = (
     .sum()
     .reset_index(name="auction.price_diff")
 )
+
 # %%
 df_auc_perf = pd.merge(df_auc_perf, df_auctions_dates, how="outer")
 df_auc_perf = pd.merge(df_auc_perf, df_auc_num_bids, how="outer")
 df_auc_perf = pd.merge(df_auc_perf, df_auction_price_diff, how="outer")
+
+# %% Load scarcity measures
+df_new_scarcity = pd.read_csv("data/scarcity_measures.csv.gz")
+
+# center scarcity per category 
+lot_category_mean_closing_count = (
+    df_new_scarcity.groupby(["lot.category"])["lot.category_count_in_auction"].describe()[["mean", "std"]].reset_index()
+)
+lot_category_mean_closing_count.rename(
+    columns={"mean": "lot.category_scarcity_mean", "std": "lot.category_scarcity_std"},
+    inplace=True,
+)
+df_new_scarcity = pd.merge(df_new_scarcity, lot_category_mean_closing_count)
+df_new_scarcity["lot.scarcity_cat"] = (df_new_scarcity["lot.category_count_in_auction"] - df_new_scarcity["lot.category_scarcity_mean"]) / df_new_scarcity[
+    "lot.category_scarcity_std"
+]
+
+# center scarcity per subcategory
+lot_subcategory_mean_closing_count = (
+    df_new_scarcity.groupby(["lot.subcategory"])["lot.subcategory_count_in_auction"].describe()[["mean", "std"]].reset_index()
+)
+lot_subcategory_mean_closing_count.rename(
+    columns={"mean": "lot.subcategory_scarcity_mean", "std": "lot.subcategory_scarcity_std"},
+    inplace=True,
+)
+df_new_scarcity = pd.merge(df_new_scarcity, lot_subcategory_mean_closing_count)
+df_new_scarcity["lot.subscarcity_cat"] = (df_new_scarcity["lot.subcategory_count_in_auction"] - df_new_scarcity["lot.subcategory_scarcity_mean"]) / df_new_scarcity[
+    "lot.subcategory_scarcity_std"
+]
+
+
+# add price difference
+price_diff_only = df.drop_duplicates("lot.id")[["lot.price_diff", 'lot.id']]
+df_new_scarcity = df_new_scarcity.merge(price_diff_only)
+
+#plot centered scarcity per category 
+#%%is_sold
+sns.boxplot(data=df_new_scarcity, x="lot.is_sold", y="lot.scarcity_cat")
+plt.ylabel("Lot scarcity")
+plt.xlabel("Lot sold")
+plt.savefig("./figures/descriptive_scarcity_vs_is_sold.svg")
+
+# %% bid count
+sns.scatterplot(data=df_new_scarcity, y="lot.valid_bid_count", x="lot.scarcity_cat")
+plt.xlabel("Lot scarcity")
+plt.ylabel("Lot bid count")
+plt.savefig("./figures/descriptive_scarcity_vs_bid_count.svg")
+
+# %% price difference
+sns.scatterplot(data=df_new_scarcity, y="lot.price_diff", x="lot.scarcity_cat")
+plt.xlabel("Lot scarcity")
+plt.ylabel("Lot price difference")
+plt.savefig("./figures/descriptive_scarcity_vs_price_difference.svg")
+
+#plot center scarcity per SUBcategory
+# %%is_sold
+sns.boxplot(data=df_new_scarcity, x="lot.is_sold", y="lot.subscarcity_cat")
+plt.ylabel("Lot scarcity")
+plt.xlabel("Lot sold")
+plt.savefig("./figures/descriptive_subscarcity_vs_is_sold.svg")
+
+# %%bid count
+sns.scatterplot(data=df_new_scarcity, y="lot.valid_bid_count", x="lot.subscarcity_cat")
+plt.xlabel("Lot scarcity")
+plt.ylabel("Lot bid count")
+plt.savefig("./figures/descriptive_subscarcity_vs_bid_count.svg")
+
+# %%price difference
+sns.scatterplot(data=df_new_scarcity, y="lot.price_diff", x="lot.subscarcity_cat")
+plt.xlabel("Lot scarcity")
+plt.ylabel("Lot price difference")
+plt.savefig("./figures/descriptive_subscarcity_vs_price_difference.svg")
 
 # %% Performance: Percentage Sold (Histogram)
 sns.histplot(df_auc_perf["auction.pct_sold"])
