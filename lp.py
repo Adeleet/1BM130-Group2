@@ -10,7 +10,7 @@ from tqdm import tqdm
 from lpclasslibrary import Leafnode, Lot, Node
 
 # %% Define Auction id of sample that we want to run
-SAMPLE_ID = 45160
+SAMPLE_ID = 45161
 
 # %% Load the list with the column names of the X data for model training
 reg_train_columns = pickle.load(open("models/reg_X_columns.pkl", 'rb'))
@@ -445,7 +445,7 @@ for lot in tqdm(Lots):
 # %% Update the model
 lpmodel.update()
 # %% Write the model to .lp file
-lpmodel.write("1BM130.lp")
+# lpmodel.write("1BM130.lp")
 # %% Optimize the model
 lpmodel.optimize()
 # %% Display the optimal configuration and its results
@@ -458,6 +458,7 @@ for lot in Lots.values():
                 print(f"Lot {lot.id} was listed for a starting pice of {lot.get_s_var().x}, ended in timeslot {tau}, and was not sold")
 
 print(f"The total revenue of the auction is {lpmodel.objVal}")
+print(f"The total percetage of sold lots of the  auction is {sum(lot.get_x_var().x for lot in Lots.values())}")
 # %%
 actual_facts = samples[samples['auction.id'] == SAMPLE_ID].reset_index(drop=True)
 actual_revenue = actual_facts["lot.revenue"].sum()
@@ -478,3 +479,4 @@ predicted_is_sold = clf_sold.predict(actual_facts[clf_train_columns])
 
 # %%
 print(f"The predicted auction revenue for the actual auction was {sum(predicted_is_sold * predicted_revenues)}")
+print(f"The predicted percentage of sold lots for the actual auction was {sum(predicted_is_sold)}")
