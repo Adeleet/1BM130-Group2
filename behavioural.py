@@ -343,14 +343,3 @@ cluster_data_v2_labeled["label"] = model_list_v2[1].labels_
 #             end_list.append(end)
 
 # %%
-# fig, ax = plt.subplots()
-# ax.bar(np.unique(cluster_data_v2.nr_bids), np.bincount(cluster_data_v2.nr_bids)[1:], color = "black")
-# ax.set_xlabel("Number of bids")
-# ax.set_ylabel("Frequency")
-# plt.show()
-
-# fig, ax = plt.subplots()
-# ax.bar(np.unique(cluster_data_v2.autobid), [len(cluster_data_v2[cluster_data_v2.autobid == i]) for i in np.unique(cluster_data_v2.autobid)], color = "black")
-# ax.set_xlabel("Autobid")
-# ax.set_ylabel("Frequency")
-# plt.show()

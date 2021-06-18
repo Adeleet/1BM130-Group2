@@ -48,7 +48,6 @@ class Lot:
 
     def set_s_var(self, s_var):
         self.s_var = s_var
-        self.features["lot.start_amount"] = s_var
 
     def get_s_var(self):
         return self.s_var
