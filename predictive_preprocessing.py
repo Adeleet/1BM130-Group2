@@ -259,4 +259,8 @@ df = df[~df["auction.id"].isin(sample_auctions)].reset_index(drop=True)
 
 #%% Save intermediate dataframe with engineered features
 df[USED_COLS].to_csv("./data/data_cleaned.csv.gz", index=False)
-#%%
+#%% Toegevoegd
+columns_ = ['lot.id', 'lot.category_count_in_auction', 'lot.subcategory_count_in_auction', 'lot.valid_bid_count', 'lot.is_sold', 'lot.category']
+df[columns_].to_csv("./data/scarcity_measures.csv.gz", index=False)
+
+# %%
