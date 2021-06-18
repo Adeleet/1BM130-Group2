@@ -16,6 +16,7 @@ SAMPLE_ID = 45160
 reg_train_columns = pickle.load(open("models/reg_X_columns.pkl", 'rb'))
 clf_train_columns = pickle.load(open("models/clf_X_columns.pkl", 'rb'))
 
+# Retrieve all categories and subcategories that are used to train the models
 ALL_MODEL_CATEGORIES_CLF = set([feature for feature in clf_train_columns
                                 if ("lot.category_" in feature)
                                 and ("lot.category_count" not in feature)]) 
@@ -92,11 +93,7 @@ auction_time_df['auction.num_closing_timeslot_subcategory_other_auctions'] = (
 sample_auction_time_df = auction_time_df[
     auction_time_df["auction.id"] == SAMPLE_ID]
 
-# %% Retrieve all categories that are in the sample
-# ALL_CATEGORIES = [column for column in sample_data.columns if (
-#     "lot.category_" in column) and ("lot.category_count" not in column)]
-# ALL_SUBCATEGORIES = [column for column in sample_data.columns if (
-#     "lot.subcategory" in column) and ("lot.subcategory_count" not in column)]
+
 # %% Create the auction parameters
 big_M = 100_000_000
 tau_min = int(min(sample_auction_time_df["auction.closing_timeslot"]))
@@ -191,7 +188,7 @@ for node in range(len(value_sold)):
 for node in Nodes_sold:
     Nodes_sold[node].find_subtree_leaves(Nodes_sold, Leafnodes_sold)
 
-#%%
+#%% Define the Gurobi model
 lpmodel = grb.Model("1BM130 prescriptive analytics")
 lpmodel.modelSense = grb.GRB.MAXIMIZE
 
@@ -445,7 +442,7 @@ for lot in tqdm(Lots):
 # %% Update the model
 lpmodel.update()
 # %% Write the model to .lp file
-lpmodel.write("1BM130.lp")
+# lpmodel.write("1BM130.lp")
 # %% Optimize the model
 lpmodel.optimize()
 # %% Display the optimal configuration and its results
@@ -458,6 +455,7 @@ for lot in Lots.values():
                 print(f"Lot {lot.id} was listed for a starting pice of {lot.get_s_var().x}, ended in timeslot {tau}, and was not sold")
 
 print(f"The total revenue of the auction is {lpmodel.objVal}")
+print(f"The total number of sold lots of the auction is {sum(lot.get_x_var().x for lot in Lots.values())}")
 # %%
 actual_facts = samples[samples['auction.id'] == SAMPLE_ID].reset_index(drop=True)
 actual_revenue = actual_facts["lot.revenue"].sum()
@@ -478,3 +476,4 @@ predicted_is_sold = clf_sold.predict(actual_facts[clf_train_columns])
 
 # %%
 print(f"The predicted auction revenue for the actual auction was {sum(predicted_is_sold * predicted_revenues)}")
+print(f"The predicted number of sold lots for the actual auction was {sum(predicted_is_sold)}") 
