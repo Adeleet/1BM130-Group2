@@ -313,11 +313,6 @@ train_data = df.dropna(subset=["lot.scarcity", "lot.price_diff_relative"])
 pearsonr(train_data["lot.price_diff_relative"], train_data["lot.scarcity"])
 
 # %% plot starting price
-# sns.histplot(data=df, x="lot.start_amount")
-# plt.xlabel("Start amount")
-# # plt.ylabel("Lot price difference")
-# plt.savefig("./figures/descriptive_start_amount_hist.pdf")
-
 df["lot.start_amount"].plot.hist(bins=30000, xlim=(0, 100))
 
 # %% Impact of starting prices
