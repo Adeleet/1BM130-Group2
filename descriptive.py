@@ -97,38 +97,38 @@ df_new_scarcity = df_new_scarcity.merge(price_diff_only)
 sns.boxplot(data=df_new_scarcity, x="lot.is_sold", y="lot.scarcity_cat")
 plt.ylabel("Lot scarcity")
 plt.xlabel("Lot sold")
-plt.savefig("./figures/descriptive_scarcity_vs_is_sold.svg")
+plt.savefig("./figures/descriptive_scarcity_vs_is_sold.pdf")
 
 # %% bid count
 sns.scatterplot(data=df_new_scarcity, y="lot.valid_bid_count", x="lot.scarcity_cat")
 plt.xlabel("Lot scarcity")
 plt.ylabel("Lot bid count")
-plt.savefig("./figures/descriptive_scarcity_vs_bid_count.svg")
+plt.savefig("./figures/descriptive_scarcity_vs_bid_count.pdf")
 
 # %% price difference
 sns.scatterplot(data=df_new_scarcity, y="lot.price_diff", x="lot.scarcity_cat")
 plt.xlabel("Lot scarcity")
 plt.ylabel("Lot price difference")
-plt.savefig("./figures/descriptive_scarcity_vs_price_difference.svg")
+plt.savefig("./figures/descriptive_scarcity_vs_price_difference.pdf")
 
 #plot center scarcity per SUBcategory
 # %%is_sold
 sns.boxplot(data=df_new_scarcity, x="lot.is_sold", y="lot.subscarcity_cat")
 plt.ylabel("Lot scarcity")
 plt.xlabel("Lot sold")
-plt.savefig("./figures/descriptive_subscarcity_vs_is_sold.svg")
+plt.savefig("./figures/descriptive_subscarcity_vs_is_sold.pdf")
 
 # %%bid count
 sns.scatterplot(data=df_new_scarcity, y="lot.valid_bid_count", x="lot.subscarcity_cat")
 plt.xlabel("Lot scarcity")
 plt.ylabel("Lot bid count")
-plt.savefig("./figures/descriptive_subscarcity_vs_bid_count.svg")
+plt.savefig("./figures/descriptive_subscarcity_vs_bid_count.pdf")
 
 # %%price difference
 sns.scatterplot(data=df_new_scarcity, y="lot.price_diff", x="lot.subscarcity_cat")
 plt.xlabel("Lot scarcity")
 plt.ylabel("Lot price difference")
-plt.savefig("./figures/descriptive_subscarcity_vs_price_difference.svg")
+plt.savefig("./figures/descriptive_subscarcity_vs_price_difference.pdf")
 
 # %% Performance: Percentage Sold (Histogram)
 sns.histplot(df_auc_perf["auction.pct_sold"])
@@ -208,7 +208,7 @@ df = pd.merge(df_total_scarcity, df)
 df_total_scarcity.set_index("lot.closingdate").plot()
 # %%
 df.drop_duplicates(subset=["lot.id"]).sort_values(by="lot.number")
-df["lot.name"]
+# df["lot.name"]
 # %%
 df["lot.num_bids_log"] = np.log(df["lot.num_bids"])
 # %%
@@ -312,6 +312,14 @@ plt.savefig("./figures/descriptive_scarcity_price_diff.svg")
 train_data = df.dropna(subset=["lot.scarcity", "lot.price_diff_relative"])
 pearsonr(train_data["lot.price_diff_relative"], train_data["lot.scarcity"])
 
+# %% plot starting price
+# sns.histplot(data=df, x="lot.start_amount")
+# plt.xlabel("Start amount")
+# # plt.ylabel("Lot price difference")
+# plt.savefig("./figures/descriptive_start_amount_hist.pdf")
+
+df["lot.start_amount"].plot.hist(bins=30000, xlim=(0, 100))
+
 # %% Impact of starting prices
 df = pd.merge(df, df_auc_perf)
 df["lot.start_amount_log"] = np.log1p(df["lot.start_amount"])
@@ -381,5 +389,9 @@ plt.ylabel("log (Price Difference)")
 plt.savefig("./figures/descriptive_lotIsPublic_logPriceDiff_boxplot.svg")
 # %%
 df.groupby("auction.is_public")["lot.is_sold"].describe().round(2)
+
+# %%
+
+# %%
 
 # %%
