@@ -1,28 +1,8 @@
 # %% Import packages
-from ensurepip import bootstrap
-from random import uniform
-from scipy.sparse.construct import rand
 import tqdm
 from datetime import datetime
-import pickle
-from sklearn.tree import DecisionTreeRegressor, DecisionTreeClassifier
-from sklearn.ensemble import (
-    GradientBoostingClassifier,
-    RandomForestClassifier,
-    GradientBoostingRegressor,
-    RandomForestRegressor,
-)
 import pandas as pd
 import numpy as np
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import (
-    plot_roc_curve,
-    r2_score,
-    plot_confusion_matrix,
-    mean_absolute_percentage_error as mape,
-)
-import hyperopt
-from helpers import run_hyperopt
 from constants import TRAIN_COLS_IS_SOLD, TRAIN_COLS_REVENUE
 import matplotlib.pyplot as plt
 

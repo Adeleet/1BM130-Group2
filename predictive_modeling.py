@@ -17,6 +17,9 @@ from sklearn.metrics import (
     r2_score,
     plot_confusion_matrix,
     mean_absolute_percentage_error as mape,
+    mean_absolute_error as mae,
+    roc_auc_score,
+    f1_score
 )
 import hyperopt
 from helpers import run_hyperopt
@@ -26,10 +29,8 @@ import matplotlib.pyplot as plt
 # %% Read dataset
 df = pd.read_csv("data/data_cleaned.csv.gz")
 
-
 # %%
 USED_COLS = list(set(TRAIN_COLS_IS_SOLD).union(TRAIN_COLS_REVENUE))
-
 
 # %% Classification for 'is_sold': train/test/validation split
 train_data = pd.get_dummies(df[TRAIN_COLS_IS_SOLD].dropna())
@@ -37,8 +38,7 @@ y = train_data["lot.is_sold"]
 X = train_data.drop("lot.is_sold", axis=1)
 X_train, X_test, y_train, y_test = train_test_split(X, y, stratify=y)
 
-
-# %%
+# %% Run hyperopt for decision tree classifier 
 space = {
     "criterion": hyperopt.hp.choice("criterion", ["gini", "entropy"]),
     "splitter": hyperopt.hp.choice("splitter", ["best", "random"]),
@@ -47,13 +47,16 @@ space = {
     "max_features": hyperopt.hp.uniform("max_features", 0.6, 0.99),
     "random_state": 0,
 }
-run_hyperopt(DecisionTreeClassifier, X_train, y_train, space, mode="clf", max_evals=200)
+run_hyperopt(DecisionTreeClassifier, X_train, y_train, space, mode="clf", max_evals=100)
 
 # %% Train/score optimal Decision Tree
 clf = DecisionTreeClassifier(
     criterion="gini", max_depth=35, max_features=0.82, min_samples_split=56, splitter="random", random_state=0
 )
 clf.fit(X_train, y_train)
+print(
+    f'ACC: {clf.score(X_test, y_test)} \n ROC: {roc_auc_score(y_test, clf.predict_proba(X_test)[:, 1])} \n f1: {f1_score(y_test, clf.predict(X_test))} \n')
+
 
 #%%
 plot_confusion_matrix(clf, X_test, y_test, values_format="2d")
@@ -63,15 +66,11 @@ plt.savefig("./figures/predictive_dec_tree_confusion_matrix.svg")
 plot_roc_curve(clf, X_test, y_test)
 plt.savefig("./figures/predictive_dec_tree_roc_auc_curve.svg")
 
-clf.score(X_test, y_test)
-# 0.8262788099161033
-
-
-# %%
-with open("./models/dec_tree_clf.pkl", "wb") as f:
-    pickle.dump(clf, f)
-with open("./models/clf_X_columns.pkl", "wb") as f:
-    pickle.dump(list(X.columns), f)
+# %% Used to save the clf and columns in the prescriptive analytics later
+# with open("./models/dec_tree_clf.pkl", "wb") as f:
+#     pickle.dump(clf, f)
+# with open("./models/clf_X_columns.pkl", "wb") as f:
+#     pickle.dump(list(X.columns), f)
 
 #%% Classifier: gradient boosting
 space = {
@@ -88,7 +87,7 @@ space = {
     "validation_fraction": 0.2,
     "n_iter_no_change": 10,
 }
-run_hyperopt(GradientBoostingClassifier, X_train, y_train, space, mode="clf", max_evals=20)
+run_hyperopt(GradientBoostingClassifier, X_train, y_train, space, mode="clf", max_evals=100)
 #%%
 clf = GradientBoostingClassifier(
     criterion="friedman_mse",
@@ -103,6 +102,8 @@ clf = GradientBoostingClassifier(
     warm_start=False,
 )
 clf.fit(X_train, y_train)
+print(
+    f'ACC: {clf.score(X_test, y_test)} \n ROC: {roc_auc_score(y_test, clf.predict_proba(X_test)[:, 1])} \n f1: {f1_score(y_test, clf.predict(X_test))} \n')
 
 # %%
 plot_confusion_matrix(clf, X_test, y_test, values_format="2d")
@@ -111,8 +112,7 @@ plt.savefig("./figures/predictive_gbclassifier_confusion_matrix.svg")
 #%%
 plot_roc_curve(clf, X_test, y_test)
 plt.savefig("./figures/predictive_gbclassifier_roc_auc_curve.svg")
-#%%
-clf.score(X_test, y_test)
+
 #%% Classifier: random forest
 space = {
     "n_estimators": hyperopt.hp.uniformint("n_estimators", 5, 100),
@@ -125,7 +125,7 @@ space = {
     # "oob_score": hyperopt.hp.choice("oob_score", [False, True]),
     "n_jobs": -1,
 }
-run_hyperopt(RandomForestClassifier, X_train, y_train, space, mode="clf", max_evals=200)
+run_hyperopt(RandomForestClassifier, X_train, y_train, space, mode="clf", max_evals=100)
 
 #%%
 clf = RandomForestClassifier(
@@ -138,10 +138,10 @@ clf = RandomForestClassifier(
     n_estimators=100,
 )
 clf.fit(X_train, y_train)
-plot_confusion_matrix(clf, X_test, y_test)
-plot_roc_curve(clf, X_test, y_test)
-clf.score(X_test, y_test)
-# %% Regression for 'lot.revenue': train/test/validation split
+print(
+    f'ACC: {clf.score(X_test, y_test)} \n ROC: {roc_auc_score(y_test, clf.predict_proba(X_test)[:, 1])} \n f1: {f1_score(y_test, clf.predict(X_test))} \n')
+
+# %% Regression for 'lot.revenue': train/test split
 space = {
     "criterion": "friedman_mse",
     "splitter": hyperopt.hp.choice("splitter", ["best", "random"]),
@@ -158,7 +158,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=30)
 
 
 # %%
-run_hyperopt(DecisionTreeRegressor, X_train, y_train, space, mode="reg", max_evals=200)
+run_hyperopt(DecisionTreeRegressor, X_train, y_train, space, mode="reg", max_evals=100)
 # %%
 reg = DecisionTreeRegressor(
     criterion="friedman_mse",
@@ -169,16 +169,16 @@ reg = DecisionTreeRegressor(
     random_state=0,
 )
 reg.fit(X_train, y_train)
-reg.score(X_test, y_test)
-r2_score(y_test, reg.predict(X_test)), mape(y_test, reg.predict(X_test))
+print(
+    f'R2: {r2_score(y_test, reg.predict(X_test))} \n MAPE: {mape(y_test, reg.predict(X_test))} \n MAE: {mae(y_test, reg.predict(X_test))} \n')
 
 #%%
 pd.Series(reg.feature_importances_, index=X.columns).sort_values(ascending=False).head(10).plot.bar()
-# %%
-with open("./models/dec_tree_reg.pkl", "wb") as f:
-    pickle.dump(reg, f)
-with open("./models/reg_X_columns.pkl", "wb") as f:
-    pickle.dump(list(X.columns), f)
+# %% Again, used to load the model later in prescriptive analytics
+# with open("./models/dec_tree_reg.pkl", "wb") as f:
+#     pickle.dump(reg, f)
+# with open("./models/reg_X_columns.pkl", "wb") as f:
+#     pickle.dump(list(X.columns), f)
 
 # %%
 space = {
@@ -190,7 +190,7 @@ space = {
     "min_samples_split": hyperopt.hp.uniformint("min_samples_split", 2, 100),
     "max_features": hyperopt.hp.uniform("max_features", 0.2, 1),
 }
-run_hyperopt(GradientBoostingRegressor, X_train, y_train, space, mode="reg", max_evals=200)
+run_hyperopt(GradientBoostingRegressor, X_train, y_train, space, mode="reg", max_evals=100)
 
 reg = GradientBoostingRegressor(
     loss="ls",
@@ -202,8 +202,8 @@ reg = GradientBoostingRegressor(
     max_features=0.85,
 )
 reg.fit(X_train, y_train)
-reg.score(X_test, y_test)
-r2_score(y_test, reg.predict(X_test)), mape(y_test, reg.predict(X_test))
+print(
+    f'R2: {r2_score(y_test, reg.predict(X_test))} \n MAPE: {mape(y_test, reg.predict(X_test))} \n MAE: {mae(y_test, reg.predict(X_test))} \n')
 
 
 # %%
@@ -216,7 +216,7 @@ space = {
     "max_features": hyperopt.hp.uniform("max_features", 0.2, 1),
     "n_jobs": -1,
 }
-run_hyperopt(RandomForestRegressor, X_train, y_train, space, mode="reg", max_evals=200)
+run_hyperopt(RandomForestRegressor, X_train, y_train, space, mode="reg", max_evals=100)
 reg = RandomForestRegressor(
     n_estimators=100,
     bootstrap=True,
@@ -227,7 +227,7 @@ reg = RandomForestRegressor(
     n_jobs=-1,
 )
 reg.fit(X_train, y_train)
-reg.score(X_test, y_test)
-r2_score(y_test, reg.predict(X_test)), mape(y_test, reg.predict(X_test))
+print(
+    f'R2: {r2_score(y_test, reg.predict(X_test))} \n MAPE: {mape(y_test, reg.predict(X_test))} \n MAE: {mae(y_test, reg.predict(X_test))} \n')
 
 # %%
